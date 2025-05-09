@@ -42,32 +42,37 @@
 
         <!-- Input Fields -->
         <EditText
+            android:id="@+id/edtClassName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Class Name" />
 
         <EditText
+            android:id="@+id/edtGrade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Grade" />
 
         <EditText
+            android:id="@+id/edtHomeromTeacher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Homeroom Teacher" />
 
         <EditText
+            android:id="@+id/edtRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Room" />
 
         <Spinner
-            android:id="@+id/subjectSpinner"
+            android:id="@+id/spnSubjects"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:prompt="@string/select_subject" />
 
         <EditText
+            android:id="@+id/edtNotes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top"
@@ -76,7 +81,7 @@
             android:minLines="3" />
 
         <Button
-            android:id="@+id/addClassButton"
+            android:id="@+id/btnAddClass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
