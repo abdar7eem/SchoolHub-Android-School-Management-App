@@ -2,25 +2,49 @@ package com.example.schoolhub.Student;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
 
 import com.example.schoolhub.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class StudentDashbordeActivity extends AppCompatActivity {
+public class StudentMainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_student_dashborde);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        setContentView(R.layout.activity_student_main);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        // Load Home fragment by default
+        loadFragment(new StudentHomeFragment());
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.nav_home) {
+                selectedFragment = new StudentHomeFragment();
+            } else if (itemId == R.id.nav_notification) {
+                selectedFragment = new StudentNotificationFragment();
+            } else if (itemId == R.id.nav_marks) {
+                selectedFragment = new StudentMarksFragment();
+            }
+
+            return loadFragment(selectedFragment);
         });
+    }
+
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frame_layout, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
 }
