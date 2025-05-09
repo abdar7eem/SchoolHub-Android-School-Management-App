@@ -13,6 +13,15 @@
         android:theme="@style/Theme.SchoolHub"
         tools:targetApi="31">
         <activity
+            android:name=".Registrar.RegistrarMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Student.StudentMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher.TeacherMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".Registrar.RegistrarDashbordeActivity"
             android:exported="false" />
         <activity
