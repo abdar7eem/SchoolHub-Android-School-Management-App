@@ -10,7 +10,7 @@
     <item
         android:id="@+id/home"
         android:title="Home"
-        android:icon="@drawable/teacher_home"
+        android:icon="@drawable/home"
         />
 
     <item
