@@ -5,6 +5,36 @@ SchoolHub is an Android-based school management application designed for student
 ## 🚀 Features
 - SOON
 
+
+
+## 🛠️ Variable Naming Conventions
+
+| UI Component        | Prefix | Example             |
+|---------------------|--------|---------------------|
+| TextView            | `txt`  | `txtStudentName`    |
+| EditText            | `et`   | `etUsername`        |
+| Button              | `btn`  | `btnSubmit`         |
+| ImageView           | `img`  | `imgProfile`        |
+| ListView            | `lv`   | `lvStudents`        |
+| RecyclerView        | `rv`   | `rvCourses`         |
+| CheckBox            | `cb`   | `cbIsActive`        |
+| RadioButton         | `rb`   | `rbGenderMale`      |
+| RadioGroup          | `rg`   | `rgGender`          |
+| Spinner             | `spn`  | `spnClassLevel`     |
+| Switch              | `sw`   | `swNotifications`   |
+| SeekBar             | `sb`   | `sbVolume`          |
+| ProgressBar         | `pb`   | `pbLoading`         |
+| SearchView          | `sv`   | `svSearchStudent`   |
+| ConstraintLayout    | `cl`   | `clMainLayout`      |
+| LinearLayout        | `ll`   | `llButtons`         |
+| RelativeLayout      | `rl`   | `rlHeader`          |
+| FrameLayout         | `fl`   | `flContainer`       |
+| NavigationView      | `nv`   | `nvDrawer`          |
+
+
+
+
+
 ### 👨‍🎓 Student Module
 - View schedule
 - View and submit assignments
@@ -27,7 +57,6 @@ SchoolHub is an Android-based school management application designed for student
 - Post school events
 
 ## 🛠️ Tech Stack
-
 - Android (Java / Kotlin)
 - PHP + MySQL (Backend API)
 - Firebase (optional for push notifications)
