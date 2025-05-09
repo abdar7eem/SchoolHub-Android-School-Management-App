@@ -1,4 +1,4 @@
-package com.example.schoolhub.Registrar;
+package com.example.schoolhub.Student;
 
 import android.os.Bundle;
 
@@ -10,13 +10,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.schoolhub.R;
 
-public class RegistrarDashbordeActivity extends AppCompatActivity {
+public class StudentDashbordeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_registrar_dashborde);
+        setContentView(R.layout.activity_student_dashborde);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
