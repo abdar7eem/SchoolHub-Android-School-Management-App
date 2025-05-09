@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/notifications"
+        android:id="@+id/nav_notification"
         android:title="Notifications"
         android:icon="@drawable/notification"/>
 
     <item
-        android:id="@+id/Home"
+        android:id="@+id/nav_home"
         android:title="Home"
         android:icon="@drawable/home"
         />
@@ -16,7 +16,7 @@
 
 
     <item
-        android:id="@+id/Marks"
+        android:id="@+id/nav_marks"
         android:title="Marks"
         android:icon="@drawable/marks" />
     " />
