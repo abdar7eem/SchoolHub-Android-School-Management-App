@@ -16,25 +16,16 @@
             android:name=".Registrar.RegistrarMainActivity"
             android:exported="false" />
         <activity
-            android:name=".Student.StudentMainActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".Teacher.TeacherMainActivity"
             android:exported="false" />
+
+
+
         <activity
-            android:name=".Registrar.RegistrarDashbordeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Teacher.TeacherDashbordeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Student.StudentDashbordeActivity"
-            android:exported="false" />
-        <activity
-            android:name="studentPackage.TestActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".Student.StudentMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,6 +33,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
