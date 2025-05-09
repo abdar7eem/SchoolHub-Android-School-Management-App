@@ -10,7 +10,7 @@
 
     <!-- Title -->
     <TextView
-        android:id="@+id/sendAssignmentTitle"
+        android:id="@+id/tvsendAssignmentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send Assignment"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="12dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/sendAssignmentTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvsendAssignmentTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="16dp"
@@ -44,7 +44,7 @@
 
             <!-- Subject -->
             <TextView
-                android:id="@+id/subjectLabel"
+                android:id="@+id/tvsubjectLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inknut_antiqua_light"
@@ -54,46 +54,46 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
-                android:id="@+id/subjectSpinner"
+                android:id="@+id/spnSubject"
                 android:layout_width="225dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/inknut_antiqua_light"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/subjectLabel"
-                app:layout_constraintTop_toTopOf="@id/subjectLabel" />
+                app:layout_constraintStart_toEndOf="@id/tvsubjectLabel"
+                app:layout_constraintTop_toTopOf="@id/tvsubjectLabel" />
 
             <!-- Class -->
             <TextView
-                android:id="@+id/classLabel"
+                android:id="@+id/tvclassLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/inknut_antiqua_light"
                 android:text="Class:"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/subjectSpinner" />
+                app:layout_constraintTop_toBottomOf="@id/spnSubject" />
 
             <Spinner
-                android:id="@+id/classSpinner"
+                android:id="@+id/spnClass"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/inknut_antiqua_light"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/classLabel"
-                app:layout_constraintTop_toTopOf="@id/classLabel" />
+                app:layout_constraintStart_toEndOf="@id/tvclassLabel"
+                app:layout_constraintTop_toTopOf="@id/tvclassLabel" />
 
             <!-- Title -->
             <TextView
-                android:id="@+id/titleLabel"
+                android:id="@+id/tvtitleLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/inknut_antiqua_light"
                 android:text="Title:"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/classSpinner" />
+                app:layout_constraintTop_toBottomOf="@id/spnClass" />
 
             <EditText
                 android:id="@+id/titleInput"
@@ -103,12 +103,12 @@
                 android:background="@drawable/edittext_background"
                 android:hint="Algebra HW4"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/titleLabel"
-                app:layout_constraintTop_toTopOf="@id/titleLabel" />
+                app:layout_constraintStart_toEndOf="@id/tvtitleLabel"
+                app:layout_constraintTop_toTopOf="@id/tvtitleLabel" />
 
             <!-- Description -->
             <TextView
-                android:id="@+id/descLabel"
+                android:id="@+id/tvdescLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -118,7 +118,7 @@
                 app:layout_constraintTop_toBottomOf="@id/titleInput" />
 
             <EditText
-                android:id="@+id/descInput"
+                android:id="@+id/edtDescInput"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="4dp"
@@ -128,21 +128,21 @@
                 android:inputType="textMultiLine"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/descLabel" />
+                app:layout_constraintTop_toBottomOf="@id/tvdescLabel" />
 
             <!-- Due Date -->
             <TextView
-                android:id="@+id/dueDateLabel"
+                android:id="@+id/tvdueDateLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/inknut_antiqua_light"
                 android:text="Due Date:"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/descInput" />
+                app:layout_constraintTop_toBottomOf="@id/edtDescInput" />
 
             <EditText
-                android:id="@+id/dueDateInput"
+                android:id="@+id/edtDueDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -150,19 +150,19 @@
                 android:focusable="false"
                 android:hint="May 10, 2025"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/dueDateLabel"
-                app:layout_constraintTop_toTopOf="@id/dueDateLabel" />
+                app:layout_constraintStart_toEndOf="@id/tvdueDateLabel"
+                app:layout_constraintTop_toTopOf="@id/tvdueDateLabel" />
 
             <!-- Due Time -->
             <TextView
-                android:id="@+id/dueTimeLabel"
+                android:id="@+id/tvdueTimeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/inknut_antiqua_light"
                 android:text="Due Time:"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dueDateInput" />
+                app:layout_constraintTop_toBottomOf="@id/edtDueDate" />
 
             <EditText
                 android:id="@+id/dueTimeInput"
@@ -173,12 +173,12 @@
                 android:focusable="false"
                 android:hint="11:59 PM"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/dueTimeLabel"
-                app:layout_constraintTop_toTopOf="@id/dueTimeLabel" />
+                app:layout_constraintStart_toEndOf="@id/tvdueTimeLabel"
+                app:layout_constraintTop_toTopOf="@id/tvdueTimeLabel" />
 
             <!-- File Attachment -->
             <TextView
-                android:id="@+id/fileLabel"
+                android:id="@+id/tvfileLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -188,7 +188,7 @@
                 app:layout_constraintTop_toBottomOf="@id/dueTimeInput" />
 
             <Button
-                android:id="@+id/chooseFileButton"
+                android:id="@+id/btnChooseFile"
                 android:layout_width="150dp"
                 android:layout_height="53dp"
                 android:layout_marginTop="20dp"
@@ -199,22 +199,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fileLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/tvfileLabel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <!-- Send Button -->
     <Button
-        android:id="@+id/sendButton"
+        android:id="@+id/btnSend"
         android:layout_width="77dp"
         android:layout_height="34dp"
-        android:backgroundTint="#990100"
-        android:fontFamily="@font/@font/inknut_antiqua_light"
         android:text="Send"
         android:textColor="#FFFF"
+        android:backgroundTint="#990100"
+        android:fontFamily="@font/@font/inknut_antiqua_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardContainer" />
+        app:layout_constraintTop_toBottomOf="@+id/cardContainer"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

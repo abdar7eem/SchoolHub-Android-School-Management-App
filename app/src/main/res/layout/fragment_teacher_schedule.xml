@@ -10,7 +10,7 @@
 
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/daySpinner"
+        android:id="@+id/spnDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="148dp"
@@ -31,7 +31,7 @@
         android:background="#DFDFDF"
         android:padding="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
     <LinearLayout
         android:layout_width="374dp"
@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/schedual_day"
+            android:id="@+id/tvSchedualDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Monday"
@@ -54,7 +54,7 @@
             android:layout_marginBottom="5dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/scheduleRecyclerView"
+            android:id="@+id/rvSchedule"
             android:layout_width="346dp"
             android:layout_height="486dp"
             android:layout_marginBottom="10dp"
@@ -65,7 +65,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.484"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/daySpinner"
+            app:layout_constraintTop_toBottomOf="@id/spnDay"
             app:layout_constraintVertical_bias="0.538" />
     </LinearLayout>
 
