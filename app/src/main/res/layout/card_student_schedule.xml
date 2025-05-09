@@ -1,0 +1,75 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    android:background="@color/dark_red"
+    card_view:cardCornerRadius="20dp"
+    card_view:cardElevation="10dp"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="16dp"
+        android:clipChildren="false"
+        android:background="@color/white">
+
+        <!-- Subject Name -->
+
+        <!-- Class Time -->
+
+        <TextView
+            android:id="@+id/txtSubjectName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subject: Math"
+            android:layout_gravity="left"
+            android:textColor="#B92F2F"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtClassTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+
+            android:text="Time: 08:00 - 09:30"
+            android:textSize="16sp"
+            android:textColor="#0277BD"
+            android:layout_marginTop="6dp"
+            android:textStyle="bold" />
+
+        <!-- Instructor Name -->
+        <TextView
+            android:id="@+id/txtInstructorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Instructor: Mr. Salem"
+            android:layout_gravity="left"
+
+            android:textSize="14sp"
+            android:textColor="#4CAF50"
+            android:layout_marginTop="2dp"
+            android:textStyle="italic" />
+
+        <!-- Room Number -->
+        <TextView
+            android:id="@+id/txtClassRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Room: 301"
+            android:layout_gravity="left"
+
+            android:textColor="#4CAF50"
+            android:textSize="14sp"
+            android:textStyle="italic" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
