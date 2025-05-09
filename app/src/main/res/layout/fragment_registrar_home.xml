@@ -1,19 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Registrar.RegistrarHomeFregment">
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <!-- Dashboard Title -->
+
+    <!-- Greeting -->
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Home"
-        android:textSize="90sp"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="247dp" />
+        android:layout_marginTop="48dp"
+        android:text="DashBoard"
+        android:textColor="#800000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Divider -->
+    <TextView
+        android:id="@+id/greeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Hello Registrar kareem!\nToday is Monday, May 6, 2025"
+        android:textColor="#d9534f"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#000"
+        app:layout_constraintTop_toBottomOf="@id/greeting"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Today's Schedule -->
+    <TextView
+        android:id="@+id/today_schedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="System Overview"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/divider1"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/schedule1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="• students:14   •Teacher:28 \n •subjects:42   •classes:12 \n •Events:5        •exams:80"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/today_schedule"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Divider -->
+
+    <!-- Last Notification -->
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="246dp" />
+
+    <TextView
+        android:id="@+id/last_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scheduling Alerts"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/divider2"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/notification1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="• Class 11A has no assigned chemistry \n •2 subjects missing exam schedule"
+        app:layout_constraintTop_toBottomOf="@id/last_notification"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Divider -->
+
+    <!-- Class Snapshot -->
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="329dp" />
+
+    <TextView
+        android:id="@+id/class_snapshot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upcoming Events"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/divider3"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/snapshot_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="• MidTerms may12-23 \n oppen day june 6"
+        app:layout_constraintTop_toBottomOf="@id/class_snapshot"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Divider -->
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#000"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/snapshot_data"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Recent Submissions -->
+    <TextView
+        android:id="@+id/recent_submissions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last Notification"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/divider4"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/submission1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="• Ahmed – “Algebra HW”  -1hr ago"
+        android:textColor="#990100"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recent_submissions" />
+
+    <TextView
+        android:id="@+id/submission2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="• Nour – “Arabic HW”  -5hr ago"
+        android:textColor="#990100"
+        app:layout_constraintTop_toBottomOf="@id/submission1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/submission3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="• Ali – “WWE HW”  -15hr ago"
+        android:textColor="#990100"
+        app:layout_constraintTop_toBottomOf="@id/submission2"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
