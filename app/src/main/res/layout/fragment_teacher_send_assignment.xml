@@ -54,7 +54,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
-                android:id="@+id/subjectSpinner"
+                android:id="@+id/spnSubjects"
                 android:layout_width="225dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="8dp"
@@ -72,10 +72,10 @@
                 android:fontFamily="@font/inknut_antiqua_light"
                 android:text="Class:"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/subjectSpinner" />
+                app:layout_constraintTop_toBottomOf="@id/spnSubjects" />
 
             <Spinner
-                android:id="@+id/classSpinner"
+                android:id="@+id/spnClasses"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -93,7 +93,7 @@
                 android:fontFamily="@font/inknut_antiqua_light"
                 android:text="Title:"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/classSpinner" />
+                app:layout_constraintTop_toBottomOf="@id/spnClasses" />
 
             <EditText
                 android:id="@+id/titleInput"
