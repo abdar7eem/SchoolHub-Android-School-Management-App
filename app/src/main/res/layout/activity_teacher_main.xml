@@ -94,6 +94,8 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header"
+            app:itemIconTint="@color/dark_red"
+            app:itemTextColor="@color/dark_red"
             app:menu="@menu/nav_drawer_student_menu" />
     </androidx.drawerlayout.widget.DrawerLayout>
 
