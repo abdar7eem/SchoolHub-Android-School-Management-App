@@ -5,16 +5,106 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Student.StudentNotificationFragment">
+    android:background="#E8ECEF"
+    tools:context=".Student.StudentAssignmentsFragment">
 
-
-
+    <!-- Title -->
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Student Notification"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="178dp" />
+        android:fontFamily="@font/inknut_antiqua_light"
+        android:text="Notification"
+        android:textColor="#800000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_margin="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout >
+    <!-- Background Bar -->
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/search_background"
+        app:layout_constraintTop_toBottomOf="@id/txtTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Filter Section -->
+    <LinearLayout
+        android:id="@+id/filterBar"
+        android:layout_width="375dp"
+        android:layout_height="68dp"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/imgBack"
+        app:layout_constraintEnd_toEndOf="@id/imgBack"
+        app:layout_constraintStart_toStartOf="@id/imgBack"
+        app:layout_constraintTop_toTopOf="@id/imgBack">
+
+        <TextView
+            android:id="@+id/txtFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/aldrich"
+            android:text="Filter:"
+            android:textColor="#800000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/filterButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbAscending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/radio_button_color"
+                android:checked="true"
+                android:text="Ascending" />
+
+            <RadioButton
+                android:id="@+id/rbDescending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/radio_button_color"
+                android:text="Descending" />
+
+            <RadioButton
+                android:id="@+id/rbUnread"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/radio_button_color"
+                android:text="Unread" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ListView -->
+    <ListView
+        android:id="@+id/lstBooks"
+        android:layout_width="376dp"
+        android:layout_height="482dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/search_background"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="16dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgBack"
+        app:layout_constraintVertical_bias="0.243" />
+</androidx.constraintlayout.widget.ConstraintLayout>
