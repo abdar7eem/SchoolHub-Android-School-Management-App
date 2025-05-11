@@ -50,26 +50,15 @@
             android:id="@+id/txtInstructorName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Instructor: Mr. Salem"
             android:layout_gravity="left"
+            android:layout_marginTop="6dp"
 
+            android:text="Instructor: Mr. Salem"
+            android:textColor="#000000"
             android:textSize="14sp"
-            android:textColor="#4CAF50"
-            android:layout_marginTop="2dp"
             android:textStyle="italic" />
 
         <!-- Room Number -->
-        <TextView
-            android:id="@+id/txtClassRoom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="Room: 301"
-            android:layout_gravity="left"
-
-            android:textColor="#4CAF50"
-            android:textSize="14sp"
-            android:textStyle="italic" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
