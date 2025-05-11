@@ -2,50 +2,109 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/teacherCoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fdfdfd"
-    tools:context=".MainActivity">
+    android:fitsSystemWindows="true">
 
-
-    <LinearLayout
+    <!-- Drawer Layout -->
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/teacherDrawerLayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
-        android:background="#990100"
-        >
-        <ImageView
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <!-- Main content with toolbar and fragment -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:fitsSystemWindows="true">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/teacherToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#990100"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:elevation="4dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
+
+                    <!-- Placeholder for hamburger icon -->
+                    <View
+                        android:layout_width="48dp"
+                        android:layout_height="match_parent" />
+
+                    <!-- App Name Text (centered with weight) -->
+                    <TextView
+                        android:id="@+id/appTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="APP\nNAME"
+                        android:textAlignment="textEnd"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:fontFamily="serif"
+                        android:lineSpacingExtra="2dp"
+                        android:textAllCaps="true" />
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:layout_marginHorizontal="8dp"
+                        android:background="@android:color/white" />
+
+                    <!-- Logo -->
+                    <ImageView
+                        android:id="@+id/appLogo"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_launcher_background"
+                        android:scaleType="centerCrop"
+                        android:contentDescription="App Logo" />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+
+            <!-- Fragment container -->
+            <FrameLayout
+                android:id="@+id/teacherFragmentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <!-- Navigation Drawer -->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/teacherNavView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src=""
-            />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/nav_drawer_student_menu" />
+    </androidx.drawerlayout.widget.DrawerLayout>
 
-
-    <FrameLayout
-        android:id="@+id/frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/teacherBottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/white"
-        app:fabCradleMargin="10dp"
-        app:fabCradleRoundedCornerRadius="50dp">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:background="@android:color/transparent"
-            app:labelVisibilityMode="labeled"
-            app:menu="@menu/bottom_teacher_menu" />
-
-    </com.google.android.material.bottomappbar.BottomAppBar>
-
+        app:menu="@menu/bottom_teacher_menu"
+        android:background="?android:attr/windowBackground"
+        app:labelVisibilityMode="labeled"
+        android:fitsSystemWindows="true"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

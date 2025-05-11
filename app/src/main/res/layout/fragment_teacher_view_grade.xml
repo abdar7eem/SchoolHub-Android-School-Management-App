@@ -153,6 +153,12 @@
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:gravity="center" />
+
+                <TextView
+                    android:text="Total"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center" />
             </TableRow>
 
 

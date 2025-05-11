@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EAF0F5"
@@ -47,8 +45,7 @@
                 android:id="@+id/subjectLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inknut_antiqua_light"
-
+                android:fontFamily="@font/alatsi"
                 android:text="Subject:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -58,7 +55,7 @@
                 android:layout_width="225dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="8dp"
-                android:fontFamily="@font/inknut_antiqua_light"
+                android:fontFamily="@font/alatsi"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/subjectLabel"
                 app:layout_constraintTop_toTopOf="@id/subjectLabel" />
@@ -69,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/inknut_antiqua_light"
+                android:fontFamily="@font/alatsi"
                 android:text="Class:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/spnSubjects" />
@@ -79,7 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:fontFamily="@font/inknut_antiqua_light"
+                android:fontFamily="@font/alatsi"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/classLabel"
                 app:layout_constraintTop_toTopOf="@id/classLabel" />
@@ -90,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/inknut_antiqua_light"
+                android:fontFamily="@font/alatsi"
                 android:text="Title:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/spnClasses" />
@@ -112,7 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/inknut_antiqua_light"
+                android:fontFamily="@font/alatsi"
                 android:text="Description:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/titleInput" />
@@ -136,7 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/inknut_antiqua_light"
+                android:fontFamily="@font/alatsi"
                 android:text="Due Date:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/descInput" />
@@ -159,7 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/inknut_antiqua_light"
+                android:fontFamily="@font/alatsi"
                 android:text="Due Time:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/dueDateInput" />
@@ -182,7 +179,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/inknut_antiqua_light"
+                android:fontFamily="@font/alatsi"
                 android:text="Attach File:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/dueTimeInput" />
@@ -194,7 +191,7 @@
                 android:layout_marginTop="20dp"
                 android:backgroundTint="#767676"
                 android:textSize="5pt"
-                android:fontFamily="@font/inknut_antiqua_light"
+                android:fontFamily="@font/alatsi"
                 android:text="Choose File"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -209,7 +206,7 @@
         android:layout_width="77dp"
         android:layout_height="34dp"
         android:backgroundTint="#990100"
-        android:fontFamily="@font/@font/inknut_antiqua_light"
+        android:fontFamily="@font/alatsi"
         android:text="Send"
         android:textColor="#FFFF"
         app:layout_constraintBottom_toBottomOf="parent"

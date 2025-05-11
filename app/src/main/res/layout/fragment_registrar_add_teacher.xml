@@ -9,6 +9,8 @@
 
 
     <!-- Title -->
+    <!-- Form Container -->
+
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -17,9 +19,11 @@
         android:textColor="#800000"
         android:textSize="22sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="134dp"
-        tools:layout_editor_absoluteY="104dp" />
-    <!-- Form Container -->
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.134" />
 
     <LinearLayout
         android:id="@+id/formLayout"
@@ -67,13 +71,13 @@
             android:id="@+id/spnSubjects"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:prompt="@string/select_subject" />
+            />
 
         <Spinner
             android:id="@+id/spnClasses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:prompt="@string/select_class" />
+             />
 
         <EditText
             android:id="@+id/edtPassword"

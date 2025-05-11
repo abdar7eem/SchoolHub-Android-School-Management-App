@@ -1,46 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="230dp"
+    android:gravity="bottom"
     android:padding="16dp"
-    android:background="@color/dark_red">
+    android:background="@drawable/headerbkg"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="117dp"
+        android:layout_height="92dp"
         android:src="@drawable/avatar"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
-        android:scaleType="centerCrop" />
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Schedule"
+        android:text="Android Knowledge"
         android:textColor="@color/white"
-        android:drawableStart="@drawable/schedule"
-        android:drawablePadding="8dp"
-        android:padding="12dp" />
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Assignments"
+        android:text="contact@androidknowledge.com"
         android:textColor="@color/white"
-        android:drawableStart="@drawable/schedule"
-        android:drawablePadding="8dp"
-        android:padding="12dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My Grades"
-        android:textColor="@color/white"
-        android:drawableStart="@drawable/schedule"
-        android:drawablePadding="8dp"
-        android:padding="12dp" />
-
-    <!-- Add more TextViews as needed -->
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="30dp"/>
 
 </LinearLayout>
