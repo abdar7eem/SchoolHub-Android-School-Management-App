@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E8ECEF"
-    tools:context=".Student.StudentMarksFragment">
+    tools:context=".Student.StudentSettingsFragment">
 
 
     <!-- Title -->
@@ -23,32 +23,34 @@
         android:textColor="#800000"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/llBackground"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.103"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imgSetting"
         android:layout_width="35dp"
         android:layout_height="34dp"
         android:layout_marginStart="132dp"
+        android:layout_marginTop="76dp"
         android:src="@drawable/setting"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="79dp"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <LinearLayout
         android:id="@+id/llBackground"
         android:layout_width="383dp"
         android:layout_height="324dp"
-        android:layout_marginBottom="236dp"
+        android:layout_marginBottom="268dp"
         android:background="@drawable/search_background"
 
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent">
 
         <!-- First Place Card -->
@@ -84,10 +86,10 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvStudentName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Anas Al Sayed"
-                        android:id="@+id/tvStudentName"
                         android:textColor="#000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -106,9 +108,9 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tvStudentGrade"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/tvStudentGrade"
                             android:text=" 9th" />
                     </LinearLayout>
 
@@ -125,9 +127,9 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tvStudentAge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/tvStudentAge"
                             android:text=" 25" />
                     </LinearLayout>
 
@@ -145,9 +147,9 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tvStudentId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/tvStudentId"
                             android:text=" 1221020" />
 
                     </LinearLayout>
@@ -156,8 +158,8 @@
                         android:id="@+id/btnAboutUs"
                         android:layout_width="150dp"
                         android:layout_height="48dp"
-                        android:text="About Us"
                         android:backgroundTint="#A9ADB0"
+                        android:text="About Us"
                         app:icon="@drawable/aboutus" />
 
 

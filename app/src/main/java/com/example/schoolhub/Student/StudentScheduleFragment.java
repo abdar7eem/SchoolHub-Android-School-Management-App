@@ -9,12 +9,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.schoolhub.R;
 
-public class StudentAssignmentsFragment extends Fragment {
+public class StudentScheduleFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_student_assignments, container, false);
+        return inflater.inflate(R.layout.fragment_student_schedule, container, false);
     }
 }

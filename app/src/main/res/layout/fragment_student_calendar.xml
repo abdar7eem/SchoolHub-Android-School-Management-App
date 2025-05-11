@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E8ECEF"
-    tools:context=".Student.StudentMarksFragment">
+    tools:context=".Student.StudentCalendarFragment">
 
     <!-- Title -->
 
@@ -16,27 +16,34 @@
 
     <!-- ListView -->
 
+    <ListView
+        android:id="@+id/lstBooks"
+        android:layout_width="376dp"
+        android:layout_height="540dp"
+        android:layout_marginBottom="96dp"
+        android:background="@drawable/search_background"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="16dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/inknut_antiqua_light"
         android:text="Student Calendar"
         android:textColor="#800000"
         android:textSize="20sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="32dp" />
-
-    <ListView
-        android:id="@+id/lstBooks"
-        android:layout_width="376dp"
-        android:layout_height="540dp"
-        android:background="@drawable/search_background"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="16dp"
-        android:padding="8dp"
-        tools:layout_editor_absoluteX="19dp"
-        tools:layout_editor_absoluteY="107dp" />
+        app:layout_constraintBottom_toTopOf="@+id/lstBooks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.354" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

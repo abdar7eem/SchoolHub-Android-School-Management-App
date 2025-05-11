@@ -9,6 +9,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.schoolhub.Student.StudentMainActivity;
 import com.example.schoolhub.Teacher.TeacherMainActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +25,6 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        startActivity(new Intent(this, TeacherMainActivity.class));
+        startActivity(new Intent(this, StudentMainActivity.class));
     }
 }

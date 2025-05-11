@@ -14,13 +14,13 @@
             android:icon="@drawable/assignment_s"
             android:title="Assignments" />
         <item
-            android:id="@+id/grades_s"
-            android:icon="@drawable/marks"
-            android:title="My Grades" />
-        <item
             android:id="@+id/nav_attendance"
             android:icon="@drawable/attendance_s"
             android:title="My Attendance" />
+        <item
+            android:id="@+id/nav_leaderboard"
+            android:icon="@drawable/leaderboard"
+            android:title="Leader Board" />
         <item
             android:id="@+id/nav_calender"
             android:icon="@drawable/calendar_s"

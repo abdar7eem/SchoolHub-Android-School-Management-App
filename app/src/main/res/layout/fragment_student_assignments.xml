@@ -9,21 +9,23 @@
     tools:context=".Student.StudentAssignmentsFragment">
 
     <!-- Title -->
+
+    <!-- Filter Buttons Container -->
+
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/inknut_antiqua_light"
         android:text="Assignments"
         android:textColor="#800000"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Filter Buttons Container -->
     <ImageView
         android:id="@+id/imgBack"
         android:layout_width="383dp"
@@ -36,18 +38,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/filterBar" />
 
+    <!-- Background Bar (Optional) -->
+
+    <!-- ListView -->
+
     <LinearLayout
         android:id="@+id/filterBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/txtTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="16dp"
-        android:padding="5dp">
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTitle">
 
         <Button
             android:id="@+id/btnPending"
@@ -88,13 +94,10 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Background Bar (Optional) -->
-
-    <!-- ListView -->
     <ListView
         android:id="@+id/lstBooks"
-        android:layout_width="376dp"
-        android:layout_height="540dp"
+        android:layout_width="369dp"
+        android:layout_height="501dp"
         android:layout_margin="16dp"
         android:background="@drawable/search_background"
         android:divider="@android:color/transparent"
@@ -102,7 +105,9 @@
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/filterBar" />
+        app:layout_constraintTop_toBottomOf="@id/filterBar"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

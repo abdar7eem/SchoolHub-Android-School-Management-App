@@ -9,23 +9,27 @@
     tools:context=".Student.StudentMarksFragment">
 
     <!-- Title -->
-    <TextView
-        android:id="@+id/txtTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inknut_antiqua_light"
-        android:text="My Marks"
-        android:textColor="#800000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="152dp"
-        tools:layout_editor_absoluteY="32dp" />
 
     <!-- Filter Buttons Container -->
 
     <!-- Background Bar (Optional) -->
 
     <!-- ListView -->
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/inknut_antiqua_light"
+        android:text="My Marks"
+        android:textColor="#800000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/lstBooks"
         android:layout_width="376dp"
@@ -34,7 +38,11 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="16dp"
         android:padding="8dp"
-        tools:layout_editor_absoluteX="19dp"
-        tools:layout_editor_absoluteY="107dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+        app:layout_constraintVertical_bias="0.205" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

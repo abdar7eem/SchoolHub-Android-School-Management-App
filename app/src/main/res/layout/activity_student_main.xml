@@ -9,7 +9,7 @@
 
     <!-- Drawer Layout -->
     <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/teacherDrawerLayout"
+        android:id="@+id/studentDrawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
@@ -22,7 +22,7 @@
             android:fitsSystemWindows="true">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/teacherToolbar"
+                android:id="@+id/studentToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="#990100"
@@ -81,7 +81,7 @@
 
             <!-- Fragment container -->
             <FrameLayout
-                android:id="@+id/teacherFragmentContainer"
+                android:id="@+id/studentFragmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
@@ -89,18 +89,20 @@
 
         <!-- Navigation Drawer -->
         <com.google.android.material.navigation.NavigationView
-            android:id="@+id/teacherNavView"
+            android:id="@+id/studentNavView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header"
-            app:menu="@menu/nav_drawer_student_menu" />
+            app:menu="@menu/nav_drawer_student_menu"
+            app:itemIconTint="@color/dark_red"
+            app:itemTextColor="@color/dark_red"/>
     </androidx.drawerlayout.widget.DrawerLayout>
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/teacherBottomNav"
+        android:id="@+id/studentBottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
