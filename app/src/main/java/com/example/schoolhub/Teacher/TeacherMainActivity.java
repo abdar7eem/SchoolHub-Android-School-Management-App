@@ -10,7 +10,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.schoolhub.R;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -49,36 +48,71 @@ public class TeacherMainActivity extends AppCompatActivity {
         // Set default fragment on first launch
         if (savedInstanceState == null) {
             loadFragment(new TeacherHomeFragment());
-            teacherBottomNav.setSelectedItemId(R.id.nav_home); // highlight default item
+            teacherBottomNav.setSelectedItemId(R.id.teacher_nav_home);
         }
 
-        // Handle Bottom Navigation clicks
         teacherBottomNav.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
             int itemId = item.getItemId();
 
-            if (itemId == R.id.nav_home) {
+            if (itemId == R.id.teacher_nav_home) {
                 selectedFragment = new TeacherHomeFragment();
-                getSupportActionBar().setTitle("Dashboard");
-            } else if (itemId == R.id.schedual) {
-                loadFragment(new TeacherScheduleFragment());
+            } else if (itemId == R.id.teacher_nav_schedual) {
+                selectedFragment = new TeacherScheduleFragment();
             }
 
             if (selectedFragment != null) {
                 loadFragment(selectedFragment);
+
+                navigationView.getMenu().setGroupCheckable(0, true, false);
+                for (int i = 0; i < navigationView.getMenu().size(); i++) {
+                    navigationView.getMenu().getItem(i).setChecked(false);
+                }
+                navigationView.getMenu().setGroupCheckable(0, true, true);
+
                 return true;
             }
 
             return false;
         });
 
-        // Handle Drawer Navigation item clicks (optional)
         navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+            Fragment selectedFragment = null;
+
+            if (id == R.id.teacher_nav_assignments) {
+                selectedFragment = new TeacherSendAssignmentFragment();
+            } else if (id == R.id.teacher_nav_view_submissions) {
+                selectedFragment = new TeacherViewSubmissions();
+            } else if (id == R.id.teacher_nav_view_grades) {
+                selectedFragment = new TeacherViewGradeFragment();
+            } else if (id == R.id.teacher_nav_attendance) {
+                selectedFragment = new TeacherTakeAttendance();
+            } else if (id == R.id.teacher_nav_calender) {
+                // selectedFragment = new TeacherCalendarFragment();
+            } else if (id == R.id.teacher_nav_schedule_exam) {
+                // selectedFragment = new TeacherScheduleExamFragment();
+            } else if (id == R.id.teacher_nav_sittings) {
+                // selectedFragment = new TeacherSettingsFragment();
+            } else if (id == R.id.teacher_nav_logout) {
+                // Handle logout
+            }
+
+            if (selectedFragment != null) {
+                loadFragment(selectedFragment);
+
+                teacherBottomNav.getMenu().setGroupCheckable(0, true, false);
+                for (int i = 0; i < teacherBottomNav.getMenu().size(); i++) {
+                    teacherBottomNav.getMenu().getItem(i).setChecked(false);
+                }
+                teacherBottomNav.getMenu().setGroupCheckable(0, true, true);
+            }
+
             drawerLayout.closeDrawer(GravityCompat.START);
-            // Handle drawer items here if needed
             return true;
         });
     }
+
 
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager()

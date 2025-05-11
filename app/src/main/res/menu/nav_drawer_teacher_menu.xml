@@ -6,29 +6,29 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_schedule"
-            android:icon="@drawable/schedule_s"
-            android:title="Schedule" />
-        <item
-            android:id="@+id/nav_assignments"
+            android:id="@+id/teacher_nav_assignments"
             android:icon="@drawable/assignment_s"
-            android:title="Assignments" />
+            android:title="Send Assignments" />
         <item
-            android:id="@+id/grades_s"
+            android:id="@+id/teacher_nav_view_submissions"
+            android:icon="@drawable/schedule_s"
+            android:title="View Submissions" />
+        <item
+            android:id="@+id/teacher_nav_view_grades"
             android:icon="@drawable/marks"
-            android:title="My Grades" />
+            android:title="View Grades" />
         <item
-            android:id="@+id/nav_attendance"
+            android:id="@+id/teacher_nav_attendance"
             android:icon="@drawable/attendance_s"
-            android:title="My Attendance" />
+            android:title="View Attendance" />
         <item
-            android:id="@+id/nav_calender"
+            android:id="@+id/teacher_nav_calender"
             android:icon="@drawable/calendar_s"
             android:title="Calender" />
         <item
-            android:id="@+id/nav_event"
-            android:icon="@drawable/event_s"
-            android:title="Event Board" />
+            android:id="@+id/teacher_nav_schedule_exam"
+            android:icon="@drawable/exam_24"
+            android:title="Schedule Exam" />
 
 
     </group>
@@ -37,11 +37,11 @@
 
         <menu>
             <item
-                android:id="@+id/nav_sittings"
+                android:id="@+id/teacher_nav_sittings"
                 android:icon="@drawable/setting"
                 android:title="Settings" />
             <item
-                android:id="@+id/nav_logout"
+                android:id="@+id/teacher_nav_logout"
                 android:icon="@drawable/logout"
                 android:title="Logout" />
         </menu>
