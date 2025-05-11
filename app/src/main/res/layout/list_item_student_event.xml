@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_margin="12dp"
+    android:background="@drawable/bg_student_marks_card"
+    android:elevation="6dp">
+
+    <!-- Event Title -->
+    <TextView
+        android:id="@+id/txtEventTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Science Fair 2025"
+        android:textColor="#B22222"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Date and Time -->
+    <TextView
+        android:id="@+id/txtEventDateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="May 28, 2025 at 9:00 AM"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp"/>
+
+    <!-- Location -->
+    <TextView
+        android:id="@+id/txtEventLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location: Main Hall"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp"/>
+
+    <!-- Type -->
+    <TextView
+        android:id="@+id/txtEventType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type: Academic"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp"/>
+
+    <!-- Description -->
+    <TextView
+        android:id="@+id/txtEventDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Compete in biology, chemistry and more!"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Add to Calendar Button -->
+    <Button
+        android:id="@+id/btnAddToCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to Calendar"
+        android:backgroundTint="#990201"
+        android:textColor="#FFFFFF"
+        app:icon="@drawable/add_to_calendar"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>

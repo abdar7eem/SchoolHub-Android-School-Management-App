@@ -1,0 +1,60 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_margin="12dp"
+    android:background="@drawable/bg_student_marks_card"
+    android:elevation="6dp">
+
+    <!-- Common Title (Assignment / Exam / Event) -->
+    <TextView
+        android:id="@+id/txtEventType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Assignment"
+        android:textColor="#B22222"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Subject (if available) -->
+    <TextView
+        android:id="@+id/txtEventSubject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subject: Mathematics"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Title (optional) -->
+    <TextView
+        android:id="@+id/txtEventTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title: Algebra Homework"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Time (Due / Starts) -->
+    <TextView
+        android:id="@+id/txtEventTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Due: 11:59 PM"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Location (only for Exams and Events) -->
+    <TextView
+        android:id="@+id/txtEventLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location: Room 203"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp"
+        android:visibility="visible" />
+
+</LinearLayout>

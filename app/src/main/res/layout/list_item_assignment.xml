@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="8dp"
+    android:padding="12dp"
+    android:background="@drawable/bg_assignment_card"
+    android:elevation="4dp"
+    android:clipToPadding="false">
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title: Algebra Homework4"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/txtSubject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subject: Math"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txtTeacher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Teacher: Mr. Khaled"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txtDue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Due: May 8, 2025"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txtStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status: Pending"
+        android:textSize="14sp" />
+</LinearLayout>
