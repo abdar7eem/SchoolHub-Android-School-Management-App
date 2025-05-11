@@ -67,21 +67,21 @@ public class StudentMainActivity extends AppCompatActivity {
             Fragment selectedFragment = null;
             int id = item.getItemId();
 
-            if (id == R.id.nav_schedule) {
-            //    selectedFragment = new StudentScheduleFragment();
-            } else if (id == R.id.nav_assignments) {
-                //selectedFragment = new StudentAssignmentsFragment();
-            } else if (id == R.id.nav_grades) {
-               // selectedFragment = new StudentGradesFragment();
-            } else if (id == R.id.nav_attendance) {
-               // selectedFragment = new StudentAttendanceFragment();
-            } else if (id == R.id.nav_leaderboard) {
-                //selectedFragment = new StudentLeaderboardFragment();
-            } else if (id == R.id.nav_logout) {
-                // handle logout, e.g. go to login screen
-                finish(); // or use startActivity
-                return true;
-            }
+//            if (id == R.id.nav_schedule) {
+//            //    selectedFragment = new StudentScheduleFragment();
+//            } else if (id == R.id.nav_assignments) {
+//                //selectedFragment = new StudentAssignmentsFragment();
+//            } else if (id == R.id.nav_grades) {
+//               // selectedFragment = new StudentGradesFragment();
+//            } else if (id == R.id.nav_attendance) {
+//               // selectedFragment = new StudentAttendanceFragment();
+//            } else if (id == R.id.nav_leaderboard) {
+//                //selectedFragment = new StudentLeaderboardFragment();
+//            } else if (id == R.id.nav_logout) {
+//                // handle logout, e.g. go to login screen
+//                finish(); // or use startActivity
+//                return true;
+//            }
 
             return loadFragment(selectedFragment);
         });
