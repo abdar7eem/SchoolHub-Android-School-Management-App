@@ -1,18 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Registrar.RegistrarScheduleFregment">
+    android:background="#ECEFF1">
 
-    <TextView
-        android:id="@+id/textView3"
+
+    <!-- Content scroll -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80dp"
+        android:layout_gravity="top"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Dropdown section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="Build Schedule"
+                android:textColor="#970D0D"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#DDDDDD"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
+                android:elevation="2dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Class: 10B"
+                    android:textStyle="bold"
+                    android:textColor="#970D0D"
+                    android:paddingBottom="8dp"/>
+
+                <Spinner android:layout_width="match_parent" android:layout_height="wrap_content" android:prompt="@string/time_slot"/>
+                <Spinner android:layout_width="match_parent" android:layout_height="wrap_content" android:prompt="@string/subject"/>
+                <Spinner android:layout_width="match_parent" android:layout_height="wrap_content" android:prompt="@string/teacher"/>
+                <Spinner android:layout_width="match_parent" android:layout_height="wrap_content" android:prompt="@string/day"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:backgroundTint="#970D0D"
+                    android:textColor="@android:color/white"
+                    android:text="Add to Schedule"/>
+            </LinearLayout>
+
+            <!-- Schedule Table (use RecyclerView or TableLayout dynamically later) -->
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1,2,3,4,5"
+                android:background="@android:color/darker_gray">
+
+                <TableRow>
+                    <TextView android:text="" />
+                    <TextView android:text="Mon" android:background="#FFEB3B" android:gravity="center"/>
+                    <TextView android:text="Tue" android:background="#FFEB3B" android:gravity="center"/>
+                    <TextView android:text="Wed" android:background="#FFEB3B" android:gravity="center"/>
+                    <TextView android:text="Thu" android:background="#FFEB3B" android:gravity="center"/>
+                    <TextView android:text="Fri" android:background="#FFEB3B" android:gravity="center"/>
+                </TableRow>
+
+                <TableRow>
+                    <TextView android:text="8:00" />
+                    <TextView android:text="Math" />
+                    <TextView android:text="Chem" />
+                    <TextView android:text="PE" />
+                    <TextView android:text="Eng" />
+                    <TextView android:text="" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView android:text="9:00" />
+                    <TextView android:text="Bio" />
+                    <TextView android:text="" />
+                    <TextView android:text="Math" />
+                    <TextView android:text="" />
+                    <TextView android:text="CS" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- BottomAppBar and FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Schedule"
-        android:textSize="40sp"
-        tools:layout_editor_absoluteX="123dp"
-        tools:layout_editor_absoluteY="261dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/registrar_add"
+        app:backgroundTint="@android:color/white"
+        app:tint="@android:color/holo_red_dark" />
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="20dp"
+        app:fabCradleVerticalOffset="10dp"
+        app:hideOnScroll="false"
+        app:backgroundTint="@android:color/white" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
