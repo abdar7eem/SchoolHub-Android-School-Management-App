@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -29,17 +30,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
+            <!-- Sender Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="150dp"
+                    android:layout_marginStart="150dp"
                     android:text="Sender: "
                     android:textColor="#800000"
                     android:textSize="15sp"
@@ -49,21 +50,21 @@
                     android:id="@+id/txtSender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:text="Ali"
                     android:textColor="#000000"
                     android:textSize="15sp" />
             </LinearLayout>
 
+            <!-- Time Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:text="Time: "
                     android:textColor="#004080"
                     android:textSize="14sp"
@@ -73,22 +74,21 @@
                     android:id="@+id/txtTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:text="Today at 2:00 PM"
                     android:textColor="#000000"
                     android:textSize="14sp" />
-
             </LinearLayout>
 
+            <!-- Title Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="2dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:text="Title: "
                     android:textColor="#004080"
                     android:textSize="14sp"
@@ -98,21 +98,21 @@
                     android:id="@+id/txtTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:text="New Assignment"
                     android:textColor="#000000"
                     android:textSize="14sp" />
             </LinearLayout>
 
+            <!-- Message Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="2dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:text="Message: "
                     android:textColor="#004080"
                     android:textSize="13sp"
@@ -122,13 +122,10 @@
                     android:id="@+id/txtMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:text="A new assignment has been posted. Check your assignments section for details"
                     android:textColor="#000000"
                     android:textSize="13sp" />
-
             </LinearLayout>
-
 
         </LinearLayout>
     </RelativeLayout>

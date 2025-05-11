@@ -94,9 +94,9 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header"
+            app:menu="@menu/nav_drawer_student_menu"
             app:itemIconTint="@color/dark_red"
-            app:itemTextColor="@color/dark_red"
-            app:menu="@menu/nav_drawer_student_menu" />
+            app:itemTextColor="@color/dark_red"/>
     </androidx.drawerlayout.widget.DrawerLayout>
 
     <!-- Bottom Navigation -->
@@ -106,9 +106,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:menu="@menu/bottom_teacher_menu"
-        app:itemIconTint="@color/dark_red"
-        app:itemTextColor="@color/dark_red"
         android:background="?android:attr/windowBackground"
         app:labelVisibilityMode="labeled"
+        app:itemIconTint="@color/dark_red"
+        app:itemTextColor="@color/dark_red"
         android:fitsSystemWindows="true"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
