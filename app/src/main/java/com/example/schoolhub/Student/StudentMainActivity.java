@@ -27,12 +27,12 @@ public class StudentMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_main);
 
         // Initialize views
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+//        toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//
+//        drawerLayout = findViewById(R.id.drawer_layout);
+//        navigationView = findViewById(R.id.nav_view);
+//        bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         // Setup drawer toggle
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
