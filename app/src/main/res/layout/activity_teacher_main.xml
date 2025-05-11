@@ -104,6 +104,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:menu="@menu/bottom_teacher_menu"
+        app:itemIconTint="@color/dark_red"
+        app:itemTextColor="@color/dark_red"
         android:background="?android:attr/windowBackground"
         app:labelVisibilityMode="labeled"
         android:fitsSystemWindows="true"/>
