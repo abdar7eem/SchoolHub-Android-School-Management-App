@@ -12,6 +12,8 @@ import com.example.schoolhub.R;
 
 
 public class RegistrarAddClassFregment extends Fragment {
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

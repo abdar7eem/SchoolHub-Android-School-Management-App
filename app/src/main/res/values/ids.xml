@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tvGreeting" type="id" />
+    <item name="tvTodaySchedule" type="id" />
+    <item name="tvSchedule1" type="id" />
+    <item name="schedule2" type="id" />
+    <item name="tvLastNotification" type="id" />
+    <item name="tvNotification1" type="id" />
+    <item name="tvNotification2" type="id" />
+</resources>

@@ -7,14 +7,12 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <!-- Drawer Layout -->
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/teacherDrawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <!-- Main content with toolbar and fragment -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -39,12 +37,10 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp">
 
-                    <!-- Placeholder for hamburger icon -->
                     <View
                         android:layout_width="48dp"
                         android:layout_height="match_parent" />
 
-                    <!-- App Name Text (centered with weight) -->
                     <TextView
                         android:id="@+id/appTitle"
                         android:layout_width="0dp"
@@ -59,14 +55,12 @@
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <!-- Divider -->
                     <View
                         android:layout_width="1dp"
                         android:layout_height="40dp"
                         android:layout_marginHorizontal="8dp"
                         android:background="@android:color/white" />
 
-                    <!-- Logo -->
                     <ImageView
                         android:id="@+id/appLogo"
                         android:layout_width="55dp"
@@ -78,7 +72,6 @@
             </androidx.appcompat.widget.Toolbar>
 
 
-            <!-- Fragment container -->
             <FrameLayout
                 android:id="@+id/teacherFragmentContainer"
                 android:layout_width="match_parent"
@@ -86,7 +79,6 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <!-- Navigation Drawer -->
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/teacherNavView"
             android:layout_width="wrap_content"
@@ -94,12 +86,11 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header"
-            app:menu="@menu/nav_drawer_student_menu"
+            app:menu="@menu/nav_drawer_teacher_menu"
             app:itemIconTint="@color/dark_red"
             app:itemTextColor="@color/dark_red"/>
     </androidx.drawerlayout.widget.DrawerLayout>
 
-    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/teacherBottomNav"
         android:layout_width="match_parent"
