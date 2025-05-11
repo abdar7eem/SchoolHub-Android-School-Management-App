@@ -76,7 +76,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:background="@android:color/transparent"
+                app:itemIconTint="@color/dark_red"
+                app:itemTextColor="@color/dark_red"
                 app:labelVisibilityMode="labeled"
+                android:fitsSystemWindows="true"
                 app:menu="@menu/bottom_student_menu" />
         </com.google.android.material.bottomappbar.BottomAppBar>
 

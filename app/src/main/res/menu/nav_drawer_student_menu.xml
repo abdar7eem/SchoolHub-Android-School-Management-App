@@ -1,26 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn = "navigation_view">
+    tools:showIn="navigation_view">
 
-    <group
-        android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
 
-        <item android:id="@+id/nav_schedule" android:icon="@drawable/schedule" android:title="Schedule"/>
-        <item android:id="@+id/nav_assignments" android:icon="@drawable/schedule" android:title="Assignments"/>
-        <item android:id="@+id/nav_grades" android:icon="@drawable/schedule" android:title="My Grades"/>
-        <item android:id="@+id/nav_attendance" android:icon="@drawable/schedule" android:title="My Attendance"/>
-        <item android:id="@+id/nav_leaderboard" android:icon="@drawable/schedule" android:title="Leaderboard"/>
+        <item
+            android:id="@+id/nav_schedule"
+            android:icon="@drawable/schedule_s"
+            android:title="Schedule" />
+        <item
+            android:id="@+id/nav_assignments"
+            android:icon="@drawable/assignment_s"
+            android:title="Assignments" />
+        <item
+            android:id="@+id/grades_s"
+            android:icon="@drawable/marks"
+            android:title="My Grades" />
+        <item
+            android:id="@+id/nav_attendance"
+            android:icon="@drawable/attendance_s"
+            android:title="My Attendance" />
+        <item
+            android:id="@+id/nav_calender"
+            android:icon="@drawable/calendar_s"
+            android:title="Calender" />
+        <item
+            android:id="@+id/nav_event"
+            android:icon="@drawable/event_s"
+            android:title="Event Board" />
+
+
     </group>
-    <item
-        android:title="">
+
+    <item android:title="System" android:checkableBehavior="none">
 
         <menu>
             <item
+                android:id="@+id/nav_sittings"
+                android:icon="@drawable/setting"
+                android:title="Settings" />
+            <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/schedule"
-                android:title="Logout"/>
+                android:icon="@drawable/logout"
+                android:title="Logout" />
         </menu>
 
     </item>
