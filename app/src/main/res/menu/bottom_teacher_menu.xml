@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/notification"
+        android:id="@+id/teacher_nav_notification"
         android:title="Notification"
         android:icon="@drawable/teacher_notification"/>
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/teacher_nav_home"
         android:title="Home"
         android:icon="@drawable/home"
         />
 
     <item
-        android:id="@+id/schedual"
+        android:id="@+id/teacher_nav_schedual"
         android:title="Schedual"
         android:icon="@drawable/teacher_schedual"
         />
