@@ -54,7 +54,7 @@
 
             <Spinner
                 android:id="@+id/spnSubjects"
-                android:layout_width="225dp"
+                android:layout_width="0dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/alatsi"

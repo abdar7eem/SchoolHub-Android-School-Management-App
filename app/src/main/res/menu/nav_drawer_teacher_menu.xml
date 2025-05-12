@@ -20,7 +20,7 @@
         <item
             android:id="@+id/teacher_nav_attendance"
             android:icon="@drawable/attendance_s"
-            android:title="View Attendance" />
+            android:title="Take Attendance" />
         <item
             android:id="@+id/teacher_nav_calender"
             android:icon="@drawable/calendar_s"
