@@ -12,10 +12,10 @@ import com.example.schoolhub.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TeacherPublishMarks#newInstance} factory method to
+ * Use the {@link TeacherPublishMarksFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TeacherPublishMarks extends Fragment {
+public class TeacherPublishMarksFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class TeacherPublishMarks extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public TeacherPublishMarks() {
+    public TeacherPublishMarksFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class TeacherPublishMarks extends Fragment {
      * @return A new instance of fragment TeacherPublishMarks.
      */
     // TODO: Rename and change types and number of parameters
-    public static TeacherPublishMarks newInstance(String param1, String param2) {
-        TeacherPublishMarks fragment = new TeacherPublishMarks();
+    public static TeacherPublishMarksFragment newInstance(String param1, String param2) {
+        TeacherPublishMarksFragment fragment = new TeacherPublishMarksFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

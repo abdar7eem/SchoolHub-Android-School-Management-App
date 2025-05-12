@@ -88,12 +88,14 @@ public class TeacherMainActivity extends AppCompatActivity {
                 selectedFragment = new TeacherViewSubmissionsFragment();
             } else if (id == R.id.teacher_nav_view_grades) {
                 selectedFragment = new TeacherViewGradeFragment();
+            } else if (id == R.id.teacher_nav_publish_marks) {
+                selectedFragment = new TeacherPublishMarksFragment();
             } else if (id == R.id.teacher_nav_attendance) {
                 selectedFragment = new TeacherTakeAttendanceFragment();
             } else if (id == R.id.teacher_nav_leaderboard) {
                  selectedFragment = new TeacherLeaderBoardFragment();
             } else if (id == R.id.teacher_nav_schedule_exam) {
-                 selectedFragment = new TeacherScheduleExam();
+                 selectedFragment = new TeacherScheduleExamFragment();
             } else if (id == R.id.teacher_nav_sittings) {
                  selectedFragment = new TeacherSettingsFragment();
             } else if (id == R.id.teacher_nav_logout) {
