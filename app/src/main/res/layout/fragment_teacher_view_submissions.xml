@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#EBEFF2"
     android:padding="16dp"
-    tools:context=".Teacher.TeacherViewSubmissions">
+    tools:context=".Teacher.TeacherViewSubmissionsFragment">
 
     <TextView
         android:id="@+id/tvTitle"
