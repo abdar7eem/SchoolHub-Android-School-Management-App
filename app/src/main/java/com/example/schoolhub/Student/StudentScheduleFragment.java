@@ -2,6 +2,7 @@ package com.example.schoolhub.Student;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,8 @@ public class StudentScheduleFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchSchedule() {
-        String url = "http://your-server.com/api/get_schedule.php?student_id=123"; // Customize this URL
+        String id ="1";
+        String url = "http://192.168.1.13/SchoolHub/get_schedule.php?id=" + id;
 
         // Create a request queue to handle Volley requests
         RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -103,7 +105,9 @@ public class StudentScheduleFragment extends Fragment {
                 },
                 error -> {
                     // Handle errors during the request
-                    Toast.makeText(getContext(), "Failed to load schedule", Toast.LENGTH_SHORT).show();
+                    Log.e("VolleyError", error.toString()); // This prints the error to Logcat
+                    Toast.makeText(getContext(), "Error: " + error.toString(), Toast.LENGTH_LONG).show();
+
                 });
 
         // Add the request to the request queue for execution
