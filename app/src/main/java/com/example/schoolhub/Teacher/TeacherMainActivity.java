@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.schoolhub.R;
+import com.example.schoolhub.Teacher_Schedule_Exam;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -91,7 +92,7 @@ public class TeacherMainActivity extends AppCompatActivity {
             } else if (id == R.id.teacher_nav_calender) {
                 // selectedFragment = new TeacherCalendarFragment();
             } else if (id == R.id.teacher_nav_schedule_exam) {
-                // selectedFragment = new TeacherScheduleExamFragment();
+                 selectedFragment = new Teacher_Schedule_Exam();
             } else if (id == R.id.teacher_nav_sittings) {
                 // selectedFragment = new TeacherSettingsFragment();
             } else if (id == R.id.teacher_nav_logout) {

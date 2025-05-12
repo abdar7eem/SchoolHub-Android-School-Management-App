@@ -48,27 +48,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
-            android:text="Class:" />
+            android:fontFamily="@font/alatsi"
+            android:text="Class:"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvClass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/alatsi"
             android:text="10B"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
-            android:text="Room:" />
+            android:fontFamily="@font/alatsi"
+            android:text="Room:"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvRoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/alatsi"
             android:text="204"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -87,26 +95,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
-            android:text="Subject:" />
+            android:fontFamily="@font/alatsi"
+            android:text="Subject:"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvSubject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/alatsi"
             android:text="Chemistry"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
-            android:text="Date:" />
+            android:fontFamily="@font/alatsi"
+            android:text="Date:"
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/alatsi"
             android:text="May 8, 2025"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -126,18 +142,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/alatsi"
             android:text="Monday"
             android:textColor="#990100"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/alatsi"
             android:text="May 8, 2025"
             android:textColor="#990100"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -211,15 +229,15 @@
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="72dp"
         android:backgroundTint="#990100"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
         android:text="Save"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
