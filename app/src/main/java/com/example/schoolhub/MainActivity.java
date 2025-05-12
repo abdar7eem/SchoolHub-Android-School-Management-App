@@ -25,6 +25,6 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        startActivity(new Intent(this, StudentMainActivity.class));
+        startActivity(new Intent(this, TeacherMainActivity.class));
     }
 }
