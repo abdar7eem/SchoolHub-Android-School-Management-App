@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/home"
+        android:id="@+id/registrar_nav_home"
         android:title="Home"
         android:icon="@drawable/home"
         />
     <item
-        android:id="@+id/Add"
+        android:id="@+id/registrar_nav_Add"
         android:title="Add"
         android:icon="@drawable/registrar_add"/>
 
 
     <item
-        android:id="@+id/schedual"
+        android:id="@+id/registrar_nav_schedual"
         android:title="Schedual"
         android:icon="@drawable/teacher_schedual"
         />
