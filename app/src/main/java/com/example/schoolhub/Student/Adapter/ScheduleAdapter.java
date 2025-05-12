@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.schoolhub.Model.Schedule;
+import com.example.schoolhub.R;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class ScheduleAdapter extends BaseAdapter {
         Schedule schedule = scheduleList.get(position);
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.schedule_card, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.list_item_student_schedule, parent, false);
         }
 
         TextView subject = convertView.findViewById(R.id.txtSubjectName);
