@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.schoolhub.Model.Schedule;
+import com.example.schoolhub.R;
 
 import java.util.List;
 
