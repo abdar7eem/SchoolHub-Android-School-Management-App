@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.schoolhub.R;
 
-public class TeacherViewSubmissions extends Fragment {
+public class TeacherViewSubmissionsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -11,8 +11,12 @@
             android:title="Send Assignments" />
         <item
             android:id="@+id/teacher_nav_view_submissions"
-            android:icon="@drawable/schedule_s"
+            android:icon="@drawable/submissions_img"
             android:title="View Submissions" />
+        <item
+            android:id="@+id/teacher_nav_publish_marks"
+            android:icon="@drawable/publish_marks_img"
+            android:title="Publish Marks" />
         <item
             android:id="@+id/teacher_nav_view_grades"
             android:icon="@drawable/marks"
@@ -22,13 +26,13 @@
             android:icon="@drawable/attendance_s"
             android:title="Take Attendance" />
         <item
-            android:id="@+id/teacher_nav_calender"
-            android:icon="@drawable/calendar_s"
-            android:title="Calender" />
-        <item
             android:id="@+id/teacher_nav_schedule_exam"
             android:icon="@drawable/exam_24"
             android:title="Schedule Exam" />
+        <item
+            android:id="@+id/teacher_nav_leaderboard"
+            android:icon="@drawable/leaderboard"
+            android:title="Leader Board" />
 
 
     </group>

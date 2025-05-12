@@ -10,7 +10,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.schoolhub.R;
-import com.example.schoolhub.Teacher_Schedule_Exam;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -60,6 +59,8 @@ public class TeacherMainActivity extends AppCompatActivity {
                 selectedFragment = new TeacherHomeFragment();
             } else if (itemId == R.id.teacher_nav_schedual) {
                 selectedFragment = new TeacherScheduleFragment();
+            } else if (itemId == R.id.teacher_nav_notification) {
+                selectedFragment = new TeacherScheduleFragment();
             }
 
             if (selectedFragment != null) {
@@ -84,17 +85,17 @@ public class TeacherMainActivity extends AppCompatActivity {
             if (id == R.id.teacher_nav_assignments) {
                 selectedFragment = new TeacherSendAssignmentFragment();
             } else if (id == R.id.teacher_nav_view_submissions) {
-                selectedFragment = new TeacherViewSubmissions();
+                selectedFragment = new TeacherViewSubmissionsFragment();
             } else if (id == R.id.teacher_nav_view_grades) {
                 selectedFragment = new TeacherViewGradeFragment();
             } else if (id == R.id.teacher_nav_attendance) {
-                selectedFragment = new TeacherTakeAttendance();
-            } else if (id == R.id.teacher_nav_calender) {
-                // selectedFragment = new TeacherCalendarFragment();
+                selectedFragment = new TeacherTakeAttendanceFragment();
+            } else if (id == R.id.teacher_nav_leaderboard) {
+                 selectedFragment = new TeacherLeaderBoardFragment();
             } else if (id == R.id.teacher_nav_schedule_exam) {
-                 selectedFragment = new Teacher_Schedule_Exam();
+                 selectedFragment = new TeacherScheduleExam();
             } else if (id == R.id.teacher_nav_sittings) {
-                // selectedFragment = new TeacherSettingsFragment();
+                 selectedFragment = new TeacherSettingsFragment();
             } else if (id == R.id.teacher_nav_logout) {
                 // Handle logout
             }
