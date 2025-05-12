@@ -1,4 +1,4 @@
-# 📚 SchoolHub
+ 📚 SchoolHub
 
 SchoolHub is an Android-based school management application designed for students, teachers, and registrars. It provides a user-friendly platform for managing class schedules, assignments, grades, attendance, and communication — all in one place.
 
