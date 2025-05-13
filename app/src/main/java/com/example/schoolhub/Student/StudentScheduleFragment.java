@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
@@ -61,6 +60,7 @@ public class StudentScheduleFragment extends Fragment {
                 android.R.layout.simple_spinner_item,
                 new String[]{"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"}
         );
+
         dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnDay.setAdapter(dayAdapter);
 
