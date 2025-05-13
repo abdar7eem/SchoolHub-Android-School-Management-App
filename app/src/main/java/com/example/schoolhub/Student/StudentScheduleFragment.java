@@ -2,13 +2,18 @@ package com.example.schoolhub.Student;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
@@ -23,38 +28,72 @@ import com.example.schoolhub.Student.Adapter.ScheduleAdapter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentScheduleFragment extends Fragment {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_student_schedule, container, false);
+    private Spinner spnDay;
+    private TextView txtRoomNumber;
+    private ListView listView;
+    private List<Schedule> scheduleList = new ArrayList<>();
+    private ScheduleAdapter adapter;
+    private View rootView;
 
-        // Check for Android version before calling fetchSchedule
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_student_schedule, container, false);
+        initViews(rootView);
+        setupSpinner();
+        return rootView;
+    }
+
+    private void initViews(View view) {
+        spnDay = view.findViewById(R.id.spnDay);
+        txtRoomNumber = view.findViewById(R.id.txtRoomNumber);
+        listView = view.findViewById(R.id.listView2);
+    }
+
+    private void setupSpinner() {
+        ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                new String[]{"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"}
+        );
+        dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnDay.setAdapter(dayAdapter);
+
+        spnDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedDay = parent.getItemAtPosition(position).toString();
+                updateScheduleList(selectedDay);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // No action
+            }
+        });
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             fetchSchedule();
+        } else {
+            Toast.makeText(getContext(), "This feature requires Android O or higher.", Toast.LENGTH_SHORT).show();
         }
-
-        return view;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchSchedule() {
-        String id ="1";
+        String id = "1";
         String url = "http://192.168.1.13/SchoolHub/get_schedule.php?id=" + id;
 
-        // Create a request queue to handle Volley requests
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+        RequestQueue queue = Volley.newRequestQueue(requireContext());
 
-        // Create a new JSON Array request to fetch schedule
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
-                    List<Schedule> scheduleList = new ArrayList<>();
+                    scheduleList.clear();
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONObject obj = response.getJSONObject(i);
@@ -64,53 +103,44 @@ public class StudentScheduleFragment extends Fragment {
                             schedule.setClassId(obj.getInt("class_id"));
                             schedule.setSubjectId(obj.getInt("subject_id"));
                             schedule.setDayOfWeek(obj.getString("day_of_week"));
-
-                            String startTimeStr = obj.getString("start_time");
-                            String endTimeStr = obj.getString("end_time");
-
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
-
-                            // Parse the time strings to LocalTime
-                            try {
-                                LocalTime startTime = LocalTime.parse(startTimeStr, formatter);
-                                LocalTime endTime = LocalTime.parse(endTimeStr, formatter);
-
-                                // Set the start and end times
-                                schedule.setStartTime(startTime);
-                                schedule.setEndTime(endTime);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                // Handle invalid time format here, maybe use default times
-                            }
-
-                            // Set the other fields
+                            schedule.setStartTime(obj.getString("start_time"));
+                            schedule.setEndTime(obj.getString("end_time"));
                             schedule.setRoom(obj.getString("room"));
-                            schedule.setSubjectName(obj.getString("subject_name")); // Assuming returned from JOIN query
+                            schedule.setSubjectName(obj.getString("subject_name"));
                             schedule.setInstructorName(obj.getString("instructor_name"));
 
-                            // Add the schedule to the list
                             scheduleList.add(schedule);
-
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            // Handle JSON parsing errors here
                         }
                     }
 
-                    // Set the adapter for the ListView to display the schedules
-                    ScheduleAdapter adapter = new ScheduleAdapter(getContext(), scheduleList);
-                    ListView listView = getView().findViewById(R.id.listView2);
-                    listView.setAdapter(adapter);
-
+                    // Update the list based on currently selected day
+                    String selectedDay = spnDay.getSelectedItem().toString();
+                    updateScheduleList(selectedDay);
                 },
-                error -> {
-                    // Handle errors during the request
-                    Log.e("VolleyError", error.toString()); // This prints the error to Logcat
-                    Toast.makeText(getContext(), "Error: " + error.toString(), Toast.LENGTH_LONG).show();
+                error -> Toast.makeText(getContext(), "Error: " + error.toString(), Toast.LENGTH_LONG).show()
+        );
 
-                });
-
-        // Add the request to the request queue for execution
         queue.add(request);
+    }
+
+    private void updateScheduleList(String selectedDay) {
+        List<Schedule> filtered = new ArrayList<>();
+        for (Schedule s : scheduleList) {
+            if (s.getDayOfWeek().equalsIgnoreCase(selectedDay)) {
+                filtered.add(s);
+            }
+        }
+
+        if (!filtered.isEmpty()) {
+            txtRoomNumber.setText("Your Room is " + filtered.get(0).getRoom());
+        } else {
+            txtRoomNumber.setText("No Room Found");
+        }
+
+        adapter = new ScheduleAdapter(requireContext(), filtered);
+        listView.setAdapter(adapter);
+
     }
 }

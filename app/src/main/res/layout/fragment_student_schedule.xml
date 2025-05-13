@@ -47,13 +47,13 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
-        android:id="@+id/spnSubject"
+        android:id="@+id/spnDay"
         android:layout_width="335dp"
         android:layout_height="41dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/search_background"
         android:fontFamily="@font/inknut_antiqua"
-        android:hint="Select Subject"
+        android:hint="Select Day"
         android:padding="8dp"
         android:spinnerMode="dropdown"
         android:textColor="#000"
@@ -71,7 +71,7 @@
         android:textColor="#800000"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/spnSubject"
+        app:layout_constraintBottom_toTopOf="@+id/spnDay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
