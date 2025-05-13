@@ -53,24 +53,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Time:"
-                android:textSize="16sp"
                 android:textColor="#0277BD"
-                android:layout_marginTop="6dp"
-                android:textStyle="bold"  />
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/txtClassTime"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
 
                 android:text="08:00 - 09:30"
-                android:textSize="16sp"
                 android:textColor="#0277BD"
-                android:layout_marginTop="6dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -78,18 +79,36 @@
 
 
 
-        <!-- Instructor Name -->
-        <TextView
-            android:id="@+id/txtInstructorName"
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
 
-            android:text="Instructor: Mr. Salem"
-            android:textColor="#000000"
-            android:textSize="14sp"
-            android:textStyle="italic" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instructor:"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:textStyle="italic" />
+
+            <!-- Instructor Name -->
+            <TextView
+                android:id="@+id/txtInstructorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="6dp"
+
+                android:text="Mr. Salem"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+
+
 
         <!-- Room Number -->
 

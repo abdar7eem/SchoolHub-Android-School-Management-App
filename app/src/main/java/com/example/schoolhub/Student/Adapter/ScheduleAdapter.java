@@ -48,10 +48,13 @@ public class ScheduleAdapter extends BaseAdapter {
         TextView time = convertView.findViewById(R.id.txtClassTime);
         TextView instructor = convertView.findViewById(R.id.txtInstructorName);
 
-        subject.setText("Subject: " + schedule.getSubjectName());
-        time.setText("Time: " + schedule.getStartTime() + " - " + schedule.getEndTime());
-        instructor.setText("Instructor: " + schedule.getInstructorName());
+        subject.setText(schedule.getSubjectName());
+        time.setText(schedule.getStartTime() + " - " + schedule.getEndTime());
+
+        instructor.setText(schedule.getInstructorName());
 
         return convertView;
     }
+
+
 }

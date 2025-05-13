@@ -13,8 +13,8 @@ public class Schedule {
     private int classId;
     private int subjectId;
     private String dayOfWeek;  // e.g., "Monday", "Tuesday"
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private String startTime;
+    private String endTime;
     private String room;
     private String subjectName;       // Show subject
     private String instructorName;    // Show teacher
@@ -32,10 +32,8 @@ public class Schedule {
         this.subjectId = subjectId;
         this.dayOfWeek = dayOfWeek;
 
-        // Expecting format like "8:30 AM", "2:15 PM"
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
-        this.startTime = LocalTime.parse(startTime, formatter);
-        this.endTime = LocalTime.parse(endTime, formatter);
+        this.startTime =startTime;
+        this.endTime = endTime;
 
         this.room = room;
         this.subjectName = subjectName;
@@ -76,19 +74,19 @@ public class Schedule {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public LocalTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalTime startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public LocalTime getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalTime endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
