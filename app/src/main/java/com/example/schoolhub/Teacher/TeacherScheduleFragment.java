@@ -2,67 +2,78 @@ package com.example.schoolhub.Teacher;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.Schedule;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Student.Adapter.ScheduleAdapter;
 import com.example.schoolhub.Teacher.Adapter.TeacherSchedualAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 public class TeacherScheduleFragment extends Fragment {
 
+    private Spinner spnDay;
     private ListView listView;
+    private TextView tvScheduleDay;
+    private List<Schedule> scheduleList = new ArrayList<>();
+    private TeacherSchedualAdapter adapter;
+
+    private View rootView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_teacher_schedule, container, false);
-
-        listView = view.findViewById(R.id.lvTeacherSchedual); // Ensure this ID exists in your layout
-
+        rootView = inflater.inflate(R.layout.fragment_teacher_schedule, container, false);
+        initViews();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            fetchTeacherSchedule();
+            fetchSchedule();
         } else {
-            Toast.makeText(getContext(), "Requires Android O or higher", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Android O or higher is required.", Toast.LENGTH_SHORT).show();
         }
+        return rootView;
+    }
 
-        return view;
+    private void initViews() {
+        spnDay = rootView.findViewById(R.id.spnDay);
+        listView = rootView.findViewById(R.id.lvTeacherSchedual);
+        tvScheduleDay = rootView.findViewById(R.id.tvSchedualDay);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void fetchTeacherSchedule() {
-        String id ="1";
-        String url = "http://192.168.3.1/SchoolHub/get_schedule.php?id=" + id;
+    private void fetchSchedule() {
+        String teacherId = "1";
+        String url = "http://192.168.3.246/SchoolHub/get_schedule.php?id=" + teacherId;
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
-
-
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
-                    List<Schedule> scheduleList = new ArrayList<>();
+                    scheduleList.clear();
+                    Set<String> daySet = new HashSet<>();
 
                     for (int i = 0; i < response.length(); i++) {
                         try {
@@ -72,45 +83,69 @@ public class TeacherScheduleFragment extends Fragment {
                             schedule.setId(obj.getInt("id"));
                             schedule.setClassId(obj.getInt("class_id"));
                             schedule.setSubjectId(obj.getInt("subject_id"));
-                            schedule.setDayOfWeek(obj.getString("day"));
-
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-
-                            try {
-                                LocalTime startTime = LocalTime.parse(obj.getString("start_time"), formatter);
-                                LocalTime endTime = LocalTime.parse(obj.getString("end_time"), formatter);
-                                schedule.setStartTime(startTime);
-                                schedule.setEndTime(endTime);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
+                            schedule.setDayOfWeek(obj.getString("day_of_week"));
+                            schedule.setStartTime(obj.getString("start_time"));
+                            schedule.setEndTime(obj.getString("end_time"));
                             schedule.setRoom(obj.getString("room"));
                             schedule.setSubjectName(obj.getString("subject_name"));
                             schedule.setInstructorName(obj.getString("instructor_name"));
+                            schedule.setClassName(obj.getString("class_name"));
 
                             scheduleList.add(schedule);
-
+                            daySet.add(schedule.getDayOfWeek());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
-                    TeacherSchedualAdapter adapter = new TeacherSchedualAdapter(getContext(), scheduleList);
-                    listView.setAdapter(adapter);
+                    setupDaySpinner(new ArrayList<>(daySet));
                 },
-                error -> {
-                    Log.e("VolleyError", "Error fetching schedule: " + error.getMessage());
-                    Toast.makeText(getContext(), "Failed to load schedule", Toast.LENGTH_SHORT).show();
-                }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
-                return headers;
-            }
-        };
+                error -> Toast.makeText(getContext(), "Error: " + error.toString(), Toast.LENGTH_LONG).show()
+        );
 
         queue.add(request);
+    }
+
+    private void setupDaySpinner(List<String> days) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                days
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnDay.setAdapter(adapter);
+
+        spnDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedDay = parent.getItemAtPosition(position).toString();
+                updateScheduleList(selectedDay);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
+
+        if (!days.isEmpty()) {
+            updateScheduleList(days.get(0));
+        }
+    }
+
+    private void updateScheduleList(String dayOfWeek) {
+        List<Schedule> filtered = new ArrayList<>();
+        for (Schedule s : scheduleList) {
+            if (s.getDayOfWeek().equalsIgnoreCase(dayOfWeek)) {
+                filtered.add(s);
+            }
+        }
+
+        if (!filtered.isEmpty()) {
+            tvScheduleDay.setText(filtered.get(0).getDayOfWeek());
+        } else {
+            tvScheduleDay.setText("No Schedule Found");
+        }
+
+        adapter = new TeacherSchedualAdapter(requireContext(), filtered);
+        listView.setAdapter(adapter);
     }
 }

@@ -18,6 +18,7 @@ public class Schedule {
     private String room;
     private String subjectName;       // Show subject
     private String instructorName;    // Show teacher
+    private String className;         // Show class
 
     public Schedule() {
         // Default constructor
@@ -112,5 +113,13 @@ public class Schedule {
 
     public void setInstructorName(String instructorName) {
         this.instructorName = instructorName;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 }
