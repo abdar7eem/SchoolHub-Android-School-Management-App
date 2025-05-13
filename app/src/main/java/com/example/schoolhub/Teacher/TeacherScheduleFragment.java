@@ -53,8 +53,8 @@ public class TeacherScheduleFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchTeacherSchedule() {
-        int teacherId = 1; // Replace with dynamic ID if available
-        String url = "https://almushtarakagroup.infinityfreeapp.com/teacher_schedual.php?id=" + teacherId;
+        String id ="1";
+        String url = "http://192.168.3.1/SchoolHub/get_schedule.php?id=" + id;
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
