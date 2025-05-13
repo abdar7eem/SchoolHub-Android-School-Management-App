@@ -104,8 +104,10 @@ public class TeacherScheduleFragment extends Fragment {
 
                     setupDaySpinner(new ArrayList<>(daySet));
                 },
-                error -> Toast.makeText(getContext(), "Error: " + error.toString(), Toast.LENGTH_LONG).show()
-        );
+                error -> {
+                    Log.e("schedule Error", error.toString());
+                    Toast.makeText(getContext(), "Error: " + error.toString(), Toast.LENGTH_LONG).show();
+                });
 
         queue.add(request);
     }

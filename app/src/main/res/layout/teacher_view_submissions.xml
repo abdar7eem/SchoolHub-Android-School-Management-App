@@ -24,14 +24,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Time:"
-                android:textColor="#003399"
+                android:text="Student Name:"
+                android:textColor="#990100"
                 android:textStyle="bold" />
             <TextView
-                android:id="@+id/timeText"
+                android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="08:00–09:30 AM"
+                android:text="Student name"
                 android:textColor="#000000"
                 android:layout_marginStart="4dp" />
         </LinearLayout>
@@ -45,10 +45,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Subject:"
-                android:textColor="#000000"
+                android:textColor="#990100"
                 android:textStyle="bold" />
             <TextView
-                android:id="@+id/subjectText"
+                android:id="@+id/tvSubject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Math"
@@ -63,14 +63,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Class:"
-                android:textColor="#0000CC"
+                android:text="Submitted:"
+                android:textColor="#990100"
                 android:textStyle="bold" />
             <TextView
-                android:id="@+id/classText"
+                android:id="@+id/tvSubmissionDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="9A"
+                android:text="1/1/2025"
                 android:layout_marginStart="4dp"
                 android:textColor="#000000" />
         </LinearLayout>
@@ -83,14 +83,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Room:"
-                android:textColor="#0000CC"
+                android:text="File:"
+                android:textColor="#990100"
                 android:textStyle="bold" />
             <TextView
-                android:id="@+id/roomText"
+                android:id="@+id/tvFileName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="301"
+                android:text="test.pdf"
                 android:layout_marginStart="4dp"
                 android:textColor="#000000" />
         </LinearLayout>
