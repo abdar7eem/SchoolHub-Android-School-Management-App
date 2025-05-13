@@ -2,6 +2,7 @@ package com.example.schoolhub.Teacher;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +67,7 @@ public class TeacherScheduleFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchSchedule() {
         String teacherId = "1";
-        String url = "http://192.168.3.246/SchoolHub/get_schedule.php?id=" + teacherId;
+        String url = "http://192.168.3.246/SchoolHub/get_teacher_schedule.php?id=" + teacherId;
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
@@ -74,7 +75,7 @@ public class TeacherScheduleFragment extends Fragment {
                 response -> {
                     scheduleList.clear();
                     Set<String> daySet = new HashSet<>();
-
+                    Log.d("TeacherSchedule", "Response: " + response.toString());
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONObject obj = response.getJSONObject(i);
@@ -91,8 +92,11 @@ public class TeacherScheduleFragment extends Fragment {
                             schedule.setInstructorName(obj.getString("instructor_name"));
                             schedule.setClassName(obj.getString("class_name"));
 
+                            Log.d("ScheduleParse", "Parsed subject: " + obj.toString());
+
                             scheduleList.add(schedule);
                             daySet.add(schedule.getDayOfWeek());
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -138,6 +142,7 @@ public class TeacherScheduleFragment extends Fragment {
                 filtered.add(s);
             }
         }
+        Log.d("FilteredData", "Items found for day " + dayOfWeek + ": " + filtered.size());
 
         if (!filtered.isEmpty()) {
             tvScheduleDay.setText(filtered.get(0).getDayOfWeek());
