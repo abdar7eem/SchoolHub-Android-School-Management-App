@@ -1,6 +1,7 @@
 package com.example.schoolhub.Student;
 
 import android.app.DatePickerDialog;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
@@ -22,25 +21,38 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.R;
 import com.journeyapps.barcodescanner.CaptureActivity;
+import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.Calendar;
 import java.util.Locale;
 
 public class StudentAttendanceFragment extends Fragment {
+
     private TextView txtDay, txtStatus;
     private Button btnSelectDate, btnScanQR;
 
-    private final int studentId = 1; // Replace with actual student ID
+    private final int studentId = 1; // Replace with real logged-in student ID
+    private final String BASE_URL = "http://192.168.3.246/SchoolHub/";
 
-    //private final ActivityResultLauncher<ScanOptions> barcodeLauncher =
-           // registerForActivityResult(new ScanContract(), result -> {
-               // if (result.getContents() != null) {
-                   // submitAttendance(result.getContents());
-              //  } else {
-                    //Toast.makeText(requireContext(), "Scan cancelled", Toast.LENGTH_SHORT).show();
-              //  }
-           // });
+    // QR Scan Launcher
+    private final ActivityResultLauncher<ScanOptions> qrLauncher = registerForActivityResult(
+            new ScanContract(),
+            result -> {
+                if (result.getContents() != null) {
+                    String contents = result.getContents();
+                    if (contents.contains("session_id=")) {
+                        String sessionId = Uri.parse(contents).getQueryParameter("session_id");
+                        submitAttendance(sessionId);
+                    } else {
+                        Toast.makeText(requireContext(), "Invalid QR code", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Scan cancelled", Toast.LENGTH_SHORT).show();
+                }
+            }
+    );
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,16 +64,17 @@ public class StudentAttendanceFragment extends Fragment {
         btnSelectDate = view.findViewById(R.id.removeFromCartButton);
         btnScanQR = view.findViewById(R.id.btnScanQR);
 
-        // Set listeners
+        // Select date button
         btnSelectDate.setOnClickListener(v -> openDatePicker());
 
+        // QR scan button
         btnScanQR.setOnClickListener(v -> {
             ScanOptions options = new ScanOptions();
-            options.setPrompt("Scan QR Code");
+            options.setPrompt("Scan the attendance QR code");
             options.setBeepEnabled(true);
             options.setOrientationLocked(true);
-            options.setBarcodeImageEnabled(true);
-          //  barcodeLauncher.launch(options);
+            options.setCaptureActivity(CaptureActivity.class);
+            qrLauncher.launch(options);
         });
 
         return view;
@@ -83,25 +96,19 @@ public class StudentAttendanceFragment extends Fragment {
     }
 
     private void fetchAttendance(String selectedDate) {
-        String url = "http://192.168.1.13/SchoolHub/get_attendance.php?student_id=" + studentId + "&date=" + selectedDate;
+        String url = BASE_URL + "get_attendance.php?student_id=" + studentId + "&date=" + selectedDate;
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
-                    // Attempt to extract status
                     String status = response.optString("status", null);
-                    if (status != null) {
-                        txtStatus.setText(status);
-                    } else {
-                        txtStatus.setText("Absent");
-                    }
+                    txtStatus.setText(status != null ? status : "Absent");
                     txtDay.setText("DAY: " + selectedDate);
                 },
                 error -> {
-                    // If request fails (network or empty), show as absent
-                    txtDay.setText("DAY: " + selectedDate);
                     txtStatus.setText("Absent");
+                    txtDay.setText("DAY: " + selectedDate);
                     Toast.makeText(requireContext(), "Unable to fetch attendance", Toast.LENGTH_SHORT).show();
                     error.printStackTrace();
                 });
@@ -110,12 +117,12 @@ public class StudentAttendanceFragment extends Fragment {
     }
 
     private void submitAttendance(String sessionId) {
-        String url = "http://192.168.1.13/SchoolHub/mark_attendance.php?student_id=" + studentId + "&session_id=" + sessionId;
+        String url = BASE_URL + "mark_attendance.php?student_id=" + studentId + "&session_id=" + sessionId;
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
-                response -> Toast.makeText(requireContext(), response, Toast.LENGTH_SHORT).show(),
+                response -> Toast.makeText(requireContext(), "Attendance: " + response, Toast.LENGTH_SHORT).show(),
                 error -> {
                     error.printStackTrace();
                     Toast.makeText(requireContext(), "Failed to submit attendance", Toast.LENGTH_SHORT).show();
