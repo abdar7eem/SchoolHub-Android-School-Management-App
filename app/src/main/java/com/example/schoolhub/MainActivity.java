@@ -1,5 +1,5 @@
 package com.example.schoolhub;
-
+import com.example.schoolhub.Registrar.RegistrarMainActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -25,6 +25,6 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        startActivity(new Intent(this, TeacherMainActivity.class));
+        startActivity(new Intent(this, RegistrarMainActivity.class));
     }
 }
