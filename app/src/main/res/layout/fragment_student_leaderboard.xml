@@ -94,7 +94,9 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
+                    <!-- First Place Card -->
                     <TextView
+                        android:id="@+id/card1_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ahmad Mohsen"
@@ -103,9 +105,11 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/card1_grade"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Grade: 70/75" />
+
                 </LinearLayout>
 
                 <ImageView
@@ -138,7 +142,9 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
+                    <!-- Second Place Card -->
                     <TextView
+                        android:id="@+id/card2_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Toffaha"
@@ -147,9 +153,11 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/card2_grade"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Grade: 5/45" />
+
                 </LinearLayout>
 
                 <ImageView
@@ -181,7 +189,9 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
+                    <!-- Third Place Card -->
                     <TextView
+                        android:id="@+id/card3_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ali"
@@ -190,9 +200,11 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/card3_grade"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Grade: 30/45" />
+
                 </LinearLayout>
 
                 <ImageView

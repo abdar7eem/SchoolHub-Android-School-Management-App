@@ -4,9 +4,11 @@ public class Subject {
     private int id;
     private String name;
 
-    private int classId;
-    private int subjectId;
-    private int teacherId;
+    public Subject(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
-
+    public int getId() { return id; }
+    public String getName() { return name; }
 }
