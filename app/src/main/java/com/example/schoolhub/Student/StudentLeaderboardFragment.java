@@ -60,7 +60,7 @@ public class StudentLeaderboardFragment extends Fragment {
     }
 
     private void loadSubjects() {
-        String url = "http://192.168.3.246//SchoolHub/get_subjects.php";
+        String url = "http://192.168.3.246/SchoolHub/get_subjects.php";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
