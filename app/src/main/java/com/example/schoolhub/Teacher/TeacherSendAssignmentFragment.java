@@ -38,7 +38,7 @@ public class TeacherSendAssignmentFragment extends Fragment {
     Uri fileUri;
     String fileName;
 
-    String baseUrl = "http://192.168.3.246/SchoolHub/";
+    String baseUrl = "http://192.168.3.246/SchoolHub/SchoolHub/";
     int teacherId = 1; // Replace with real teacher ID
 
     List<ClassInfo> classList = new ArrayList<>();

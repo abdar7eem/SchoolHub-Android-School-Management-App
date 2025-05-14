@@ -1,132 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EBEFF2"
-    android:padding="16dp">
+    android:background="#E6EBF1"
+    tools:context=".TeacherPublishMarksActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:padding="16dp">
 
-        <!-- Title -->
+        <!-- Page Title -->
         <TextView
-            android:id="@+id/tvHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Teacher publish marks"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#990100"
-            android:layout_marginBottom="16dp" />
+            android:textColor="#8B0000"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="16dp" />
 
-        <!-- Dropdowns -->
+        <!-- Subject -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Subject:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
         <Spinner
-            android:id="@+id/spinnerSubject"
+            android:id="@+id/spnSubject"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/spinner_background" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_background"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp" />
 
+        <!-- Class -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Class:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
         <Spinner
-            android:id="@+id/spinnerClass"
+            android:id="@+id/spnClass"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/spinner_background" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_background"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp" />
 
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Title:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
         <Spinner
-            android:id="@+id/spinnerTitle"
+            android:id="@+id/spnTitle"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/spinner_background" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_background"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp" />
 
-        <!-- Grade value input -->
+        <!-- Grade Value -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Grade Value:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Grade value:"
-                android:textColor="#000"
-                android:textSize="16sp" />
+            android:layout_marginBottom="16dp">
 
             <EditText
                 android:id="@+id/etGradeValue"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:background="@android:drawable/edit_text"
-                android:inputType="number"
-                android:text="20"
-                android:gravity="center" />
-        </LinearLayout>
-
-        <!-- Grades List Container -->
-        <LinearLayout
-            android:id="@+id/layoutGrades"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/spinner_background"
-            android:padding="12dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="4dp"
-            android:elevation="2dp">
-
-            <!-- Example grade item -->
-            <!-- Repeat this programmatically or using RecyclerView -->
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="#ffffff"
-                android:layout_marginBottom="10dp"
-                android:padding="12dp"
-                android:elevation="1dp"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Ahmad Muhsen"
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="24dp"
-                    android:background="#999999"
-                    android:layout_marginEnd="12dp" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Enter Grade"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:backgroundTint="#990100"
-                    android:minHeight="0dp"
-                    android:minWidth="0dp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp" />
-            </LinearLayout>
-
-            <!-- Duplicate the above block for other students or use RecyclerView in real usage -->
-
+                android:inputType="number"
+                android:background="@android:drawable/edit_text"
+                android:padding="8dp" />
         </LinearLayout>
+
+        <!-- RecyclerView for Student List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvStudents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
 
         <!-- Save Button -->
         <Button
@@ -135,9 +108,6 @@
             android:layout_height="wrap_content"
             android:text="Save Marks"
             android:textColor="#FFFFFF"
-            android:backgroundTint="#990100"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp" />
-
+            android:backgroundTint="#8B0000" />
     </LinearLayout>
 </ScrollView>

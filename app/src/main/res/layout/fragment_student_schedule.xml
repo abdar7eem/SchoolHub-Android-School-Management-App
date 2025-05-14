@@ -8,10 +8,6 @@
     android:background="#E8ECEF"
     tools:context=".Student.StudentScheduleFragment">
 
-
-    <!-- Title -->
-
-
     <ListView
         android:id="@+id/listView2"
         android:layout_width="338dp"

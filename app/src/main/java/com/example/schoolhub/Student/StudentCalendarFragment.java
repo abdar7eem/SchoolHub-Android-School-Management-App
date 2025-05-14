@@ -27,7 +27,7 @@ public class StudentCalendarFragment extends Fragment {
     private CalendarEventAdapter adapter;
     private List<CalendarEvent> eventList;
 
-    private int classId = 1, userId=1; // Replace with actual class_id for the logged-in student
+    private int classId = 1, userId=4; // Replace with actual class_id for the logged-in student
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

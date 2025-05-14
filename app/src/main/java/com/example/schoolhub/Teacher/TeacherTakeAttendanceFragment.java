@@ -118,13 +118,14 @@ public class TeacherTakeAttendanceFragment extends Fragment {
                         try {
                             JSONObject obj = response.getJSONObject(i);
                             int id = obj.getInt("id");
-                            String name = obj.getString("name");
+                            String name = obj.getString("class_name");
                             String room = obj.optString("room", "N/A");
                             String subject = obj.optString("subject_name", "N/A");
 
                             classList.add(new ClassInfo(id, name, room, subject));
                             classNames.add(name);
                         } catch (JSONException e) {
+                            Log.e("JSON Response", e.toString());
                             e.printStackTrace();
                         }
                     }
