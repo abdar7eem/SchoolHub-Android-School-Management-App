@@ -38,7 +38,7 @@ public class TeacherSendAssignmentFragment extends Fragment {
     Uri fileUri;
     String fileName;
 
-    String baseUrl = "http://192.168.3.246/SchoolHub/SchoolHub/";
+    String baseUrl = "http://192.168.3.246/SchoolHub/";
     int teacherId = 1; // Replace with real teacher ID
 
     List<ClassInfo> classList = new ArrayList<>();
@@ -98,7 +98,7 @@ public class TeacherSendAssignmentFragment extends Fragment {
                     Log.d("ClassResponse", response.toString());
                 },
                 error -> {
-                    error.printStackTrace();
+                    Log.e("Classes Error", error.toString());
                     Toast.makeText(getContext(), "Failed to load classes", Toast.LENGTH_SHORT).show();
                 });
 
