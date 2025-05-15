@@ -33,7 +33,7 @@ public class StudentAttendanceFragment extends Fragment {
     private Button btnSelectDate, btnScanQR;
 
     private final int studentId = 1; // Replace with real logged-in student ID
-    private final String BASE_URL = "http://192.168.3.246/SchoolHub/";
+    private final String BASE_URL = "http://192.168.1.13/SchoolHub/";
 
     // QR Scan Launcher
     private final ActivityResultLauncher<ScanOptions> qrLauncher = registerForActivityResult(

@@ -81,6 +81,10 @@ public class StudentEventFragment extends Fragment {
     }
 
     private String capitalize(String input) {
+        if (input == null || input.trim().isEmpty()) {
+            return "Unknown"; // or just return ""
+        }
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
+
 }

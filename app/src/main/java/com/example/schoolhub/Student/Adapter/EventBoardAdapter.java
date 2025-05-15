@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.EventBoardItem;
+import com.example.schoolhub.Model.NotificationHelper;
 import com.example.schoolhub.R;
 
 import java.util.List;
@@ -47,6 +48,16 @@ public class EventBoardAdapter extends ArrayAdapter<EventBoardItem> {
 
             StringRequest request = new StringRequest(Request.Method.GET, url,
                     response -> {
+
+//                        NotificationHelper.sendNotification(
+//                                getContext(),
+//                                "Event Added",
+//                                "You have successfully added "+event.title+" to your calendar.",
+//                                studentId,
+//                                2
+//                        );
+
+
                         Toast.makeText(getContext(), "Event added to calendar!", Toast.LENGTH_SHORT).show();
                         btn.setEnabled(false); // Optional: disable to avoid re-adding
                         btn.setText("Added");

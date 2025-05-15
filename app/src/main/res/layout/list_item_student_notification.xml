@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Colored Dot (Status Indicator) -->
+        <!-- Status Dot -->
         <View
             android:id="@+id/viewStatusDot"
             android:layout_width="14dp"
@@ -24,67 +24,18 @@
             android:layout_marginEnd="4dp"
             android:background="@drawable/status_dot" />
 
-        <!-- Notification Content -->
+        <!-- Notification Title and Expandable Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Sender Row -->
+            <!-- Title (Always Visible) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="4dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="150dp"
-                    android:text="Sender: "
-                    android:textColor="#800000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txtSender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ali"
-                    android:textColor="#000000"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <!-- Time Row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="4dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Time: "
-                    android:textColor="#004080"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txtTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Today at 2:00 PM"
-                    android:textColor="#000000"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <!-- Title Row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="2dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -103,30 +54,86 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <!-- Message Row -->
+            <!-- 🔽 Expandable Content (Initially Hidden) -->
             <LinearLayout
+                android:id="@+id/expandableContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="2dp">
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_marginTop="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Sender -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Message: "
-                    android:textColor="#004080"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/txtMessage"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sender: "
+                        android:textColor="#800000"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtSender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ali"
+                        android:textColor="#000000"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <!-- Time -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="A new assignment has been posted. Check your assignments section for details"
-                    android:textColor="#000000"
-                    android:textSize="13sp" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time: "
+                        android:textColor="#004080"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Today at 2:00 PM"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Message -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Message: "
+                        android:textColor="#004080"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtMessage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A new assignment has been posted. Check your assignments section for details"
+                        android:textColor="#000000"
+                        android:textSize="13sp" />
+                </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
