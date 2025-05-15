@@ -117,14 +117,16 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv1Student"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ahmad Mohsen"
+                        android:text="Top 1 name"
                         android:textColor="#000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv1Grade"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Grade: 70/75" />
@@ -161,14 +163,16 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv2Student"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Toffaha"
+                        android:text="Top 2 name"
                         android:textColor="#000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv2Grade"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Grade: 5/45" />
@@ -204,14 +208,16 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv3Student"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ali"
+                        android:text="Top 3 name"
                         android:textColor="#000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv3Grade"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Grade: 30/45" />
