@@ -22,8 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtName"
-
-        android:text="Anas Al Sayed"
+        android:text="User name"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_marginTop="10dp"/>
@@ -32,8 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtEmail"
-
-        android:text="anasalsayed14@gmail.com"
+        android:text="user@email.com"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:layout_marginTop="5dp"

@@ -23,7 +23,7 @@ public class NotificationHelper {
     private static final String CHANNEL_ID = "schoolhub_notifications";
 
     public static void sendNotification(Context context, String title, String message, int recipientId, int senderId) {
-        String url = "http://192.168.1.13/SchoolHub/send_notification.php";
+        String url = "http://192.168.3.246/SchoolHub/send_notification.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {

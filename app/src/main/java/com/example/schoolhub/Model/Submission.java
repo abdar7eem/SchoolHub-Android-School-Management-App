@@ -1,55 +1,37 @@
 package com.example.schoolhub.Model;
 
 public class Submission {
-    String studentName, subjectName, submissionDate, fileUrl;
-    int submissionId;
+    private final int id;
+    private final String studentName;
+    private final String subjectName;
+    private final String submissionDate;
+    private final String fileUrl;
 
-    public Submission(int submissionId, String studentName, String subjectName,
-                      String submissionDate, String fileUrl) {
-        this.submissionId = submissionId;
+    public Submission(int id, String studentName, String subjectName, String submissionDate, String fileUrl) {
+        this.id = id;
         this.studentName = studentName;
         this.subjectName = subjectName;
         this.submissionDate = submissionDate;
         this.fileUrl = fileUrl;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getStudentName() {
         return studentName;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
-    }
-
     public String getSubjectName() {
         return subjectName;
-    }
-
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
     }
 
     public String getSubmissionDate() {
         return submissionDate;
     }
 
-    public void setSubmissionDate(String submissionDate) {
-        this.submissionDate = submissionDate;
-    }
-
     public String getFileUrl() {
         return fileUrl;
-    }
-
-    public void setFileUrl(String fileUrl) {
-        this.fileUrl = fileUrl;
-    }
-
-    public int getSubmissionId() {
-        return submissionId;
-    }
-
-    public void setSubmissionId(int submissionId) {
-        this.submissionId = submissionId;
     }
 }

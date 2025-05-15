@@ -9,6 +9,7 @@
     android:padding="16dp"
     tools:context=".Teacher.TeacherViewSubmissionsFragment">
 
+    <!-- Title -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -23,19 +24,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Class Spinner -->
     <Spinner
         android:id="@+id/spnClass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#DFDFDF"
-        android:padding="8dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/spinner_background"
+        android:padding="8dp"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Submissions List -->
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardSubmissions"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
@@ -43,7 +46,7 @@
         app:cardElevation="4dp"
         app:cardCornerRadius="12dp"
         app:cardBackgroundColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/spnDay"
+        app:layout_constraintTop_toBottomOf="@id/spnClass"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -53,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="12dp"
-            android:clipToPadding="false"/>
+            android:clipToPadding="false" />
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
