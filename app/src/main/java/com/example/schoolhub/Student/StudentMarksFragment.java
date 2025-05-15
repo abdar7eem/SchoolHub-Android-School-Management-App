@@ -44,7 +44,7 @@ public class StudentMarksFragment extends Fragment {
     }
 
     private void loadMarks() {
-        String url = "http://192.168.1.13/SchoolHub/get_student_marks.php?student_id=1";
+        String url = "http://192.168.2.30/SchoolHub/get_student_marks.php?student_id=1";
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 

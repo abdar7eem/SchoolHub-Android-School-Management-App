@@ -49,6 +49,7 @@
             app:cardBackgroundColor="@android:color/white">
 
             <LinearLayout
+                android:id="@+id/llUpcoming"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -84,6 +85,7 @@
             app:cardBackgroundColor="@android:color/white">
 
             <LinearLayout
+                android:id="@+id/llFeaturedEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -119,6 +121,7 @@
             app:cardBackgroundColor="@android:color/white">
 
             <LinearLayout
+                android:id="@+id/llClassSnapshot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

@@ -27,7 +27,6 @@ import com.example.schoolhub.Model.NotificationItem;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Student.Adapter.NotificationAdapter;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -75,7 +74,7 @@ public class StudentNotificationFragment extends Fragment {
     }
 
     private void fetchNotifications(String filter) {
-        String url = "http://192.168.1.13/SchoolHub/get_notifications.php?user_id=" + studentId + "&filter=" + filter;
+        String url = "http://192.168.2.30/SchoolHub/get_notifications.php?user_id=" + studentId + "&filter=" + filter;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
