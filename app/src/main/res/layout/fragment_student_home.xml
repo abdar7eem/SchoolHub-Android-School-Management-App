@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="#F8F9FA"
-    tools:context=".Student.StudentHomeFragment"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".Student.StudentHomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,14 +32,14 @@
             android:id="@+id/txtGreeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello Ms. Sara!\nToday is Monday, May 6, 2025"
+            android:text="Hello!"
             android:textColor="#d9534f"
             android:textSize="14sp"
             android:fontFamily="@font/inknut_antiqua_light"
             android:layout_marginTop="8dp"
             android:gravity="center" />
 
-        <!-- What's Coming Up -->
+        <!-- What’s Coming Up -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,28 +64,13 @@
                     android:fontFamily="@font/inknut_antiqua" />
 
                 <TextView
-                    android:text="• Math at 10:00AM"
+                    android:id="@+id/txtUpcoming"
                     android:layout_marginTop="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#212121"
-                    android:fontFamily="@font/inknut_antiqua_light" />
-
-                <TextView
-                    android:text="• Physics at 11:30AM - Class 10A"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#212121"
-                    android:fontFamily="@font/inknut_antiqua_light" />
-
-                <TextView
-                    android:text="• Chemistry at 01:00PM - Class 10B"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#212121"
-                    android:fontFamily="@font/inknut_antiqua_light" />
+                    android:fontFamily="@font/inknut_antiqua_light"
+                    android:text="Loading..." />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -94,7 +79,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-
             app:cardCornerRadius="12dp"
             app:cardElevation="4dp"
             app:cardBackgroundColor="@android:color/white">
@@ -115,12 +99,13 @@
                     android:fontFamily="@font/inknut_antiqua" />
 
                 <TextView
-                    android:text="• Science Fair - Friday, May 10 at IT"
+                    android:id="@+id/txtEvent"
                     android:layout_marginTop="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#050404"
-                    android:fontFamily="@font/inknut_antiqua_light" />
+                    android:fontFamily="@font/inknut_antiqua_light"
+                    android:text="Loading..." />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -149,12 +134,13 @@
                     android:fontFamily="@font/inknut_antiqua" />
 
                 <TextView
-                    android:text="• Math Avg: 84% | Attendance: 90%"
+                    android:id="@+id/txtSnapshot"
                     android:layout_marginTop="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#0B0808"
-                    android:fontFamily="@font/inknut_antiqua_light" />
+                    android:fontFamily="@font/inknut_antiqua_light"
+                    android:text="Loading..." />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

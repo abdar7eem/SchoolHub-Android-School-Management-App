@@ -3,7 +3,6 @@ package com.example.schoolhub.Student;
 import android.app.DatePickerDialog;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
@@ -32,8 +32,8 @@ public class StudentAttendanceFragment extends Fragment {
     private TextView txtDay, txtStatus;
     private Button btnSelectDate, btnScanQR;
 
-    private final int studentId = 4; // Replace with real logged-in student ID
-    private final String BASE_URL = "http://192.168.3.246/SchoolHub/";
+    private final int studentId = 1; // Replace with real logged-in student ID
+    private final String BASE_URL = "http://192.168.1.13/SchoolHub/";
 
     // QR Scan Launcher
     private final ActivityResultLauncher<ScanOptions> qrLauncher = registerForActivityResult(
@@ -122,10 +122,7 @@ public class StudentAttendanceFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
-                response -> {
-                    Log.e("Attendance Error", response.toString());
-                    Toast.makeText(requireContext(), "Attendance: " + response, Toast.LENGTH_SHORT).show();
-                },
+                response -> Toast.makeText(requireContext(), "Attendance: " + response, Toast.LENGTH_SHORT).show(),
                 error -> {
                     error.printStackTrace();
                     Toast.makeText(requireContext(), "Failed to submit attendance", Toast.LENGTH_SHORT).show();

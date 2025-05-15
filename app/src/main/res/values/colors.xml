@@ -9,4 +9,6 @@
     <color name="dark_blue">#FF0000FF</color>
     <color name="light_blue">#FF2196F3</color>
     <color name="lavender">#E6E6FA</color>
+    <color name="green">#FF388E3C</color>
+    <color name="red">#8A0606</color>
 </resources>
