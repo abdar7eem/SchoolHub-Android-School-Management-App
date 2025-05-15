@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_addClass"
+            android:icon="@drawable/addclass"
+            android:title="Add Class" />
+        <item
+            android:id="@+id/nav_addStudent"
+            android:icon="@drawable/addstudent"
+            android:title="Add Student" />
+        <item
+            android:id="@+id/nav_addSubject"
+            android:icon="@drawable/addsubject"
+            android:title="Add Subject" />
+        <item
+            android:id="@+id/nav_addTeacher"
+            android:icon="@drawable/addteacher"
+            android:title="Add Teacher" />
+        <item
+            android:id="@+id/nav_postEvent"
+            android:icon="@drawable/addevent"
+            android:title="Post Event" />
+<!--        <item-->
+<!--            android:id="@+id/nav_event"-->
+<!--            android:icon="@drawable/event_s"-->
+<!--            android:title="Event Board" />-->
+
+
+    </group>
+
+    <item android:title="System" android:checkableBehavior="none">
+
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/setting"
+                android:title="Settings" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/logout"
+                android:title="Logout" />
+        </menu>
+
+    </item>
+
+</menu>

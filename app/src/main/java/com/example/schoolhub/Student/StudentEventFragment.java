@@ -28,7 +28,7 @@ public class StudentEventFragment extends Fragment {
     private EventBoardAdapter adapter;
     private List<EventBoardItem> eventList;
 
-    private final int studentId = 1; // TODO: Replace with actual logged-in student ID
+    private final int studentId = 4; // TODO: Replace with actual logged-in student ID
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,7 +46,7 @@ public class StudentEventFragment extends Fragment {
     }
 
     private void fetchEvents() {
-        String url = "http://192.168.1.13/SchoolHub/get_event_board.php";
+        String url = "http://192.168.3.246/SchoolHub/get_event_board.php";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
