@@ -16,19 +16,22 @@ import com.example.schoolhub.Model.EventBoardItem;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Student.Adapter.EventBoardAdapter;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class StudentEventFragment extends Fragment {
 
     private ListView lstBooks;
     private EventBoardAdapter adapter;
     private List<EventBoardItem> eventList;
-
-    private final int studentId = 4; // TODO: Replace with actual logged-in student ID
+    private Set<Integer> confirmedEventIds = new HashSet<>();
+    private final int studentId = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,16 +40,43 @@ public class StudentEventFragment extends Fragment {
 
         lstBooks = view.findViewById(R.id.lstBooks);
         eventList = new ArrayList<>();
-        adapter = new EventBoardAdapter(requireContext(), eventList, studentId);
-        lstBooks.setAdapter(adapter);
 
-        fetchEvents();
+        fetchConfirmedEventsThenLoad();
 
         return view;
     }
 
+    private void fetchConfirmedEventsThenLoad() {
+        String url = "http://192.168.2.30/SchoolHub/check_event_confirmation.php?student_id=" + studentId;
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        JSONObject obj = response.getJSONObject(0);
+                        JSONArray confirmed = obj.getJSONArray("confirmed_events");
+
+                        confirmedEventIds.clear();
+                        for (int i = 0; i < confirmed.length(); i++) {
+                            confirmedEventIds.add(confirmed.getInt(i));
+                        }
+
+                        fetchEvents(); // Load full event list after we get confirmations
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(requireContext(), "Error parsing confirmation list", Toast.LENGTH_SHORT).show();
+                        fetchEvents(); // fallback
+                    }
+                },
+                error -> {
+                    Toast.makeText(requireContext(), "Failed to check confirmations", Toast.LENGTH_SHORT).show();
+                    fetchEvents(); // fallback
+                });
+
+        Volley.newRequestQueue(requireContext()).add(request);
+    }
+
     private void fetchEvents() {
-        String url = "http://192.168.3.246/SchoolHub/get_event_board.php";
+        String url = "http://192.168.2.30/SchoolHub/get_event_board.php";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -68,7 +98,10 @@ public class StudentEventFragment extends Fragment {
 
                             eventList.add(new EventBoardItem(id, title, dateTime, location, type, desc));
                         }
-                        adapter.notifyDataSetChanged();
+
+                        adapter = new EventBoardAdapter(requireContext(), eventList, studentId);
+                        lstBooks.setAdapter(adapter);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(requireContext(), "Error parsing event data", Toast.LENGTH_SHORT).show();
@@ -81,10 +114,7 @@ public class StudentEventFragment extends Fragment {
     }
 
     private String capitalize(String input) {
-        if (input == null || input.trim().isEmpty()) {
-            return "Unknown"; // or just return ""
-        }
+        if (input == null || input.trim().isEmpty()) return "Unknown";
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
-
 }

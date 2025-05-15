@@ -73,7 +73,7 @@ public class NotificationAdapter extends ArrayAdapter<NotificationItem> {
 
 
     private void markAsRead(int id, View dotView) {
-        String url = "http://192.168.3.246/SchoolHub/mark_notification_read.php";
+        String url = "http://192.168.2.30/SchoolHub/mark_notification_read.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> dotView.setBackgroundResource(R.drawable.dot_green),
