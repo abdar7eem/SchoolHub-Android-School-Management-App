@@ -44,7 +44,7 @@ public class StudentHomeFragment extends Fragment {
 
 
     private void setGreeting() {
-        String url = "http://192.168.1.13/SchoolHub/get_student_name.php?user_id=" + studentId;
+        String url = "http://192.168.56.1/schoolhub/get_student_name.php?user_id=" + studentId;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
@@ -64,7 +64,7 @@ public class StudentHomeFragment extends Fragment {
 
 
     private void fetchDashboardData() {
-        String url = "http://192.168.1.13/SchoolHub/get_dashboard_data.php?student_id=" + studentId;
+        String url = "http://192.168.56.1/schoolhub/get_dashboard_data.php?student_id=" + studentId;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
