@@ -27,7 +27,7 @@ public class StudentCalendarFragment extends Fragment {
     private CalendarEventAdapter adapter;
     private List<CalendarEvent> eventList;
 
-    private int classId = 1, userId=4; // Replace with actual class_id for the logged-in student
+    private int classId = 1, userId=1; // Replace with actual class_id for the logged-in student
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +45,7 @@ public class StudentCalendarFragment extends Fragment {
     }
 
     private void fetchEvents() {
-        String url = "http://192.168.1.13/SchoolHub/get_calendar_events.php?class_id=" + classId + "&student_id=" + userId;
+        String url = "http://192.168.2.30/SchoolHub/get_calendar_events.php?class_id=" + classId + "&student_id=" + userId;
 
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,

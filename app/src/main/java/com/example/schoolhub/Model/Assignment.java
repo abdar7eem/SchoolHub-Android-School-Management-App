@@ -6,12 +6,24 @@ public class Assignment {
     private String dueDate;
     private String status;
 
-    public Assignment(String title, String subjectName, String teacherName, String dueDate, String status) {
+    private int id;
+
+    private String  attachmentPath;
+
+    public Assignment(int id,String title, String subject, String teacher, String dueDate, String status, String attachmentPath ) {
         this.title = title;
-        this.subjectName = subjectName;
-        this.teacherName = teacherName;
+        this.subjectName = subject;
+        this.teacherName = teacher;
         this.dueDate = dueDate;
         this.status = status;
+        this.attachmentPath = attachmentPath;
+    }
+
+    public String getAttachmentPath() {
+        return attachmentPath;
+    }
+    public int getId() {
+        return id;
     }
 
     public String getTitle() { return title; }

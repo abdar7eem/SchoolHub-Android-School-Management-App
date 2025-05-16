@@ -1,66 +1,164 @@
 package com.example.schoolhub.Teacher;
 
+import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.RadioGroup;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.fragment.app.Fragment;
+
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.Model.NotificationItem;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Student.Adapter.NotificationAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TeacherNotificationFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class TeacherNotificationFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public TeacherNotificationFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TeacherNotificationFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TeacherNotificationFragment newInstance(String param1, String param2) {
-        TeacherNotificationFragment fragment = new TeacherNotificationFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private ListView lstBooks;
+    private NotificationAdapter adapter;
+    private List<NotificationItem> notificationList;
+    private final int teacherId = 1; // Replace with actual logged-in teacher ID
+    private final String CHANNEL_ID = "schoolhub_notifications";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_teacher_notification, container, false);
+        View view = inflater.inflate(R.layout.fragment_teacher_notification, container, false);
+
+        lstBooks = view.findViewById(R.id.lstBooks);
+        notificationList = new ArrayList<>();
+        adapter = new NotificationAdapter(getContext(), notificationList);
+        lstBooks.setAdapter(adapter);
+
+        RadioGroup rgFilter = view.findViewById(R.id.rgFilter);
+        rgFilter.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.rbAscending) {
+                fetchNotifications("asc");
+            } else if (checkedId == R.id.rbDescending) {
+                fetchNotifications("desc");
+            } else if (checkedId == R.id.rbUnread) {
+                fetchNotifications("unread");
+            }
+        });
+
+        createNotificationChannel();
+        fetchNotifications("asc");
+
+        return view;
+    }
+
+    private void fetchNotifications(String filter) {
+        String url = "http://192.168.3.246/SchoolHub/get_notifications.php?user_id=" + teacherId + "&filter=" + filter;
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                response -> {
+                    notificationList.clear();
+                    try {
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject obj = response.getJSONObject(i);
+                            NotificationItem item = new NotificationItem(
+                                    obj.getInt("id"),
+                                    obj.optString("sender_name", ""),
+                                    obj.getString("title"),
+                                    obj.getString("message"),
+                                    obj.getString("created_at"),
+                                    obj.getInt("is_read") == 1
+                            );
+                            notificationList.add(item);
+
+                            if (!item.isRead) {
+                                showLocalPopupNotification(item.title, item.message);
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                    } catch (JSONException e) {
+                        Log.e("Notification", "Error parsing JSON: " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                },
+                error -> {
+                    error.printStackTrace();
+                    Log.e("Notification", "Error fetching notifications: " + error.getMessage());
+                });
+
+        Volley.newRequestQueue(requireContext()).add(request);
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "SchoolHub Notifications",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            channel.setDescription("Used for sending school alerts");
+
+            NotificationManager manager = requireContext().getSystemService(NotificationManager.class);
+            if (manager != null) {
+                manager.createNotificationChannel(channel);
+            }
+        }
+    }
+
+    public void sendNotificationToServerAndDevice(String title, String message, int recipientId, int senderId) {
+        String url = "http://192.168.3.246/SchoolHub/send_notification.php";
+
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                response -> showLocalPopupNotification(title, message),
+                error -> error.printStackTrace()) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("title", title);
+                params.put("message", message);
+                params.put("sender_id", String.valueOf(senderId));
+                params.put("recipient_id", String.valueOf(recipientId));
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(requireContext()).add(request);
+    }
+
+    private void showLocalPopupNotification(String title, String message) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (requireContext().checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+                return;
+            }
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+                .setSmallIcon(R.drawable.logo2)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat manager = NotificationManagerCompat.from(requireContext());
+        manager.notify((int) System.currentTimeMillis(), builder.build());
     }
 }

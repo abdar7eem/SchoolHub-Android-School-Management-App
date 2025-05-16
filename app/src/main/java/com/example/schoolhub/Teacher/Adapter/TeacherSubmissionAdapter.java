@@ -1,4 +1,3 @@
-
 package com.example.schoolhub.Teacher.Adapter;
 
 import android.content.Context;
@@ -9,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,9 +20,9 @@ import java.util.List;
 
 public class TeacherSubmissionAdapter extends RecyclerView.Adapter<TeacherSubmissionAdapter.ViewHolder> {
 
-
     private final Context context;
     private final List<Submission> submissionList;
+    private final String baseUrl = "http://192.168.3.246/SchoolHub/"; // Adjust to your actual base URL
 
     public TeacherSubmissionAdapter(Context context, List<Submission> submissionList) {
         this.context = context;
@@ -31,28 +31,40 @@ public class TeacherSubmissionAdapter extends RecyclerView.Adapter<TeacherSubmis
 
     @NonNull
     @Override
-    public TeacherSubmissionAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.teacher_view_submissions, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TeacherSubmissionAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Submission submission = submissionList.get(position);
 
         holder.tvName.setText(submission.getStudentName());
         holder.tvSubject.setText(submission.getSubjectName());
-        holder.tvDate.setText(submission.getSubmissionDate());
-        holder.tvFile.setText(submission.getFileUrl());
+        holder.tvSubmissionDate.setText(submission.getSubmissionDate());
 
-        holder.btnView.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(submission.getFileUrl()));
-            context.startActivity(intent);
-        });
+        String fileUrl = submission.getFileUrl();
+        if (fileUrl != null && !fileUrl.isEmpty()) {
+            String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+            holder.tvFileName.setText(fileName);
+        } else {
+            holder.tvFileName.setText("No file");
+        }
 
-        holder.btnGrade.setOnClickListener(v -> {
-            // Future enhancement: show grade entry dialog
+        holder.btnViewFile.setOnClickListener(v -> {
+            if (fileUrl != null && !fileUrl.isEmpty()) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.parse(fileUrl.startsWith("http") ? fileUrl : baseUrl + fileUrl), "*/*");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    context.startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(context, "No app found to open this file.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(context, "No file to view.", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -62,17 +74,16 @@ public class TeacherSubmissionAdapter extends RecyclerView.Adapter<TeacherSubmis
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvSubject, tvDate, tvFile;
-        Button btnView, btnGrade;
+        TextView tvName, tvSubject, tvSubmissionDate, tvFileName;
+        Button btnViewFile, btnEnterGrade;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
             tvSubject = itemView.findViewById(R.id.tvSubject);
-            tvDate = itemView.findViewById(R.id.tvSubmissionDate);
-            tvFile = itemView.findViewById(R.id.tvFileName);
-            btnView = itemView.findViewById(R.id.btnViewFile);
-            btnGrade = itemView.findViewById(R.id.btnEnterGrade);
+            tvSubmissionDate = itemView.findViewById(R.id.tvSubmissionDate);
+            tvFileName = itemView.findViewById(R.id.tvFileName);
+            btnViewFile = itemView.findViewById(R.id.btnViewFile);
         }
     }
 }

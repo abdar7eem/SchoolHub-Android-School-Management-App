@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -23,7 +25,8 @@ import java.util.Locale;
 public class StudentHomeFragment extends Fragment {
 
     private TextView txtGreeting, txtUpcoming, txtEvent, txtSnapshot;
-    private final int studentId = 1; // replace with actual logged-in student ID
+    private final int studentId = 1;
+    private LinearLayout llUpcoming, llEvent, llSnapshot;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,17 +37,29 @@ public class StudentHomeFragment extends Fragment {
         txtEvent = view.findViewById(R.id.txtEvent);
         txtSnapshot = view.findViewById(R.id.txtSnapshot);
 
+        llUpcoming = view.findViewById(R.id.llUpcoming);
+        llEvent = view.findViewById(R.id.llFeaturedEvent);
+        llSnapshot = view.findViewById(R.id.llClassSnapshot);
+
         setGreeting();
         fetchDashboardData();
+
+        llUpcoming.setOnClickListener(v -> openFragment(new StudentScheduleFragment()));
+        llEvent.setOnClickListener(v -> openFragment(new StudentEventFragment()));
+        llSnapshot.setOnClickListener(v -> openFragment(new StudentMarksFragment()));
 
         return view;
     }
 
-
-
+    private void openFragment(Fragment fragment) {
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.studentFragmentContainer, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
     private void setGreeting() {
-        String url = "http://192.168.56.1/schoolhub/get_student_name.php?user_id=" + studentId;
+        String url = "http://192.168.2.30/SchoolHub/get_student_name.php?user_id=" + studentId;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
@@ -62,37 +77,48 @@ public class StudentHomeFragment extends Fragment {
         Volley.newRequestQueue(requireContext()).add(request);
     }
 
-
     private void fetchDashboardData() {
-        String url = "http://192.168.56.1/schoolhub/get_dashboard_data.php?student_id=" + studentId;
+        String url = "http://192.168.2.30/SchoolHub/get_dashboard_data.php?student_id=" + studentId;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
-                        // What's Coming Up
-                        JSONArray schedule = response.getJSONArray("schedule");
-                        StringBuilder sbSchedule = new StringBuilder();
-                        for (int i = 0; i < schedule.length(); i++) {
-                            JSONObject obj = schedule.getJSONObject(i);
-                            sbSchedule.append("• ").append(obj.getString("subject"))
-                                    .append(" at ").append(obj.getString("start_time")).append("\n");
+                        if (response.has("schedule")) {
+                            JSONArray schedule = response.getJSONArray("schedule");
+                            StringBuilder sbSchedule = new StringBuilder();
+                            for (int i = 0; i < schedule.length(); i++) {
+                                JSONObject obj = schedule.getJSONObject(i);
+                                sbSchedule.append("• ").append(obj.getString("subject"))
+                                        .append(" at ").append(obj.getString("start_time")).append("\n");
+                            }
+                            txtUpcoming.setText(sbSchedule.toString().trim());
+                        } else {
+                            txtUpcoming.setText("No upcoming schedule.");
                         }
-                        txtUpcoming.setText(sbSchedule.toString().trim());
 
-                        // Featured Event
-                        JSONObject event = response.getJSONObject("event");
-                        txtEvent.setText("• " + event.getString("title") + " - " + event.getString("date") + " at " + event.getString("location"));
+                        if (response.has("event")) {
+                            JSONObject event = response.getJSONObject("event");
+                            txtEvent.setText("• " + event.getString("title") + " - " +
+                                    event.getString("date") + " at " +
+                                    event.optString("location", "TBA"));
+                        } else {
+                            txtEvent.setText("No event today.");
+                        }
 
-                        // Snapshot
-                        JSONObject snapshot = response.getJSONObject("snapshot");
-                        txtSnapshot.setText("• Math Avg: " + snapshot.getString("math_avg") +
-                                " | Attendance: " + snapshot.getString("attendance") + "%");
+                        if (response.has("snapshot")) {
+                            JSONObject snapshot = response.getJSONObject("snapshot");
+                            txtSnapshot.setText("• Math Avg: " + snapshot.getString("math_avg") +
+                                    " | Attendance: " + snapshot.getString("attendance") + "%");
+                        } else {
+                            txtSnapshot.setText("No snapshot available.");
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },
-                error -> error.printStackTrace());
+                error -> error.printStackTrace()
+        );
 
         Volley.newRequestQueue(requireContext()).add(request);
     }
