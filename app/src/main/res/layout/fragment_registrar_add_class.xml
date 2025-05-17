@@ -43,8 +43,8 @@
         app:layout_constraintTop_toBottomOf="@id/title">
 
         <!-- Input Fields -->
-        <EditText
-            android:id="@+id/edtClassName"
+        <Spinner
+            android:id="@+id/spnAcademicStage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Class Name" />
@@ -54,32 +54,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Grade" />
-
         <EditText
-            android:id="@+id/edtHomeromTeacher"
+            android:id="@+id/edtSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Section"/>
+
+        <Spinner
+            android:id="@+id/spnHomeromTeacher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Homeroom Teacher" />
 
-        <EditText
-            android:id="@+id/edtRoom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Room" />
 
-        <Spinner
-            android:id="@+id/spnSubjects"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/edtNotes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:hint="Notes"
-            android:inputType="textMultiLine"
-            android:minLines="3" />
 
         <Button
             android:id="@+id/btnAddClass"

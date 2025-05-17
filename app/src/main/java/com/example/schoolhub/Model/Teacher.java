@@ -5,4 +5,6 @@ public class Teacher extends User {
     private int userId;
     private String specialization;
     private String phone;
+
+
 }
