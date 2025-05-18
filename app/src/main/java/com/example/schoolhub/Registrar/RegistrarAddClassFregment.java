@@ -114,6 +114,8 @@ public class RegistrarAddClassFregment extends Fragment {
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     Toast.makeText(getContext(), "Class added successfully!", Toast.LENGTH_SHORT).show();
+                    LoadTeachers(); // refresh the spinner
+
                 },
                 error -> {
                     Toast.makeText(getContext(), "Error in volley request : " + error.getMessage(), Toast.LENGTH_LONG).show();
