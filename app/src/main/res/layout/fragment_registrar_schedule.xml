@@ -40,38 +40,48 @@
                 android:layout_marginTop="8dp"
                 android:elevation="2dp">
 
-                <TextView
+                <Spinner
+                    android:id="@+id/spnClasses"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
                     android:text="Class: 10B"
-                    android:textStyle="bold"
                     android:textColor="#970D0D"
-                    android:paddingBottom="8dp"/>
+                    android:textStyle="bold" />
 
                 <Spinner
+                    android:id="@+id/spnSubject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txtSelectedDays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Select Days"
+                    android:padding="12dp"
+                    android:focusable="false"
+                    android:clickable="true" />
+
+                <Spinner
+                    android:id="@+id/spnStartTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <Spinner
+                    android:id="@+id/spnEndTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <Button
+                    android:id="@+id/btnAddSchedule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="12dp"
                     android:backgroundTint="#970D0D"
-                    android:textColor="@android:color/white"
-                    android:text="Add to Schedule"/>
+                    android:text="Add to Schedule"
+                    android:textColor="@android:color/white" />
             </LinearLayout>
 
             <!-- Schedule Table (use RecyclerView or TableLayout dynamically later) -->
