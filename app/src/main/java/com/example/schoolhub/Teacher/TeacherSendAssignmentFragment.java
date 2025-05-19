@@ -189,6 +189,39 @@ public class TeacherSendAssignmentFragment extends Fragment {
             return;
         }
 
+        String dueDateStr = dueDateInput.getText().toString();
+        String dueTimeStr = dueTimeInput.getText().toString();
+
+        if (dueDateStr.isEmpty() || dueTimeStr.isEmpty()) {
+            Toast.makeText(getContext(), "Please select due date and time", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Parse due date and time
+        Calendar dueCalendar = Calendar.getInstance();
+        try {
+            String[] dateParts = dueDateStr.split("-");
+            String[] timeParts = dueTimeStr.split(":");
+
+            int year = Integer.parseInt(dateParts[0]);
+            int month = Integer.parseInt(dateParts[1]) - 1; // Calendar months are 0-based
+            int day = Integer.parseInt(dateParts[2]);
+            int hour = Integer.parseInt(timeParts[0]);
+            int minute = Integer.parseInt(timeParts[1]);
+
+            dueCalendar.set(year, month, day, hour, minute, 0);
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Invalid due date or time", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Compare with current time
+        Calendar now = Calendar.getInstance();
+        if (dueCalendar.before(now)) {
+            Toast.makeText(getContext(), "Due date/time cannot be in the past", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         try {
             InputStream inputStream = getContext().getContentResolver().openInputStream(fileUri);
             byte[] fileBytes = new byte[inputStream.available()];
@@ -207,8 +240,8 @@ public class TeacherSendAssignmentFragment extends Fragment {
                     params.put("class_id", String.valueOf(((ClassInfo) spnClasses.getSelectedItem()).id));
                     params.put("title", titleInput.getText().toString());
                     params.put("description", descInput.getText().toString());
-                    params.put("due_date", dueDateInput.getText().toString());
-                    params.put("due_time", dueTimeInput.getText().toString());
+                    params.put("due_date", dueDateStr);
+                    params.put("due_time", dueTimeStr);
                     params.put("file", fileBase64);
                     params.put("filename", fileName);
                     return params;
@@ -219,8 +252,10 @@ public class TeacherSendAssignmentFragment extends Fragment {
 
         } catch (IOException e) {
             e.printStackTrace();
+            Toast.makeText(getContext(), "File error", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     // ClassInfo model
     public static class ClassInfo {

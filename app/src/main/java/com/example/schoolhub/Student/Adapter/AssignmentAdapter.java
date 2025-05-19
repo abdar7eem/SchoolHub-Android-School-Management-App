@@ -1,19 +1,12 @@
 package com.example.schoolhub.Student.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.*;
+import android.widget.*;
 
 import androidx.annotation.NonNull;
 
@@ -26,17 +19,23 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
 
     private final Context context;
     private final List<Assignment> assignmentList;
-    private int selectedPosition = -1;
+    private final FileSelectCallback callback;
 
+    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
     private final String[] backgroundColors = {
             "#AEFFA4", "#FBFF85", "#EB6C6E", "#98E3FF", "#FFB3D1",
             "#C3F5D9", "#FFE29A", "#D6C7FF", "#AED9FF", "#FFD6A5"
     };
 
-    public AssignmentAdapter(Context context, List<Assignment> assignmentList) {
+    public interface FileSelectCallback {
+        void onSubmitClick(int assignmentId, Button button);
+    }
+
+    public AssignmentAdapter(Context context, List<Assignment> assignmentList, FileSelectCallback callback) {
         super(context, 0, assignmentList);
         this.context = context;
         this.assignmentList = assignmentList;
+        this.callback = callback;
     }
 
     @NonNull
@@ -59,8 +58,8 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
         TextView txtDue = view.findViewById(R.id.txtDue);
         TextView txtStatus = view.findViewById(R.id.txtStatus);
         LinearLayout expandableLayout = view.findViewById(R.id.expandableLayout);
-        Button downloadButton = view.findViewById(R.id.btnDownload);
-        Button submitButton = view.findViewById(R.id.btnSubmit);
+        Button btnDownload = view.findViewById(R.id.btnDownload);
+        Button btnSubmit = view.findViewById(R.id.btnSubmit);
 
         txtTitle.setText("Title: " + assignment.getTitle());
         txtSubject.setText("Subject: " + assignment.getSubjectName());
@@ -68,39 +67,34 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
         txtDue.setText("Due: " + assignment.getDueDate());
         txtStatus.setText("Status: " + assignment.getStatus());
 
-        downloadButton.setOnClickListener(v -> {
-            String rawPath = assignment.getAttachmentPath();
-            if (rawPath != null && !rawPath.trim().isEmpty()) {
-                String fullUrl = rawPath.startsWith("http://") || rawPath.startsWith("https://")
-                        ? rawPath
-                        : "http://192.168.2.30/SchoolHub/uploads/" + rawPath;
-
-                Log.d("DownloadButton", "Opening: " + fullUrl);
+        btnDownload.setOnClickListener(v -> {
+            String path = assignment.getAttachmentPath();
+            if (path != null && !path.trim().isEmpty()) {
+                String fullUrl = path.startsWith("http") ? path : baseUrl + path;
                 try {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl));
-                    browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(browserIntent);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
                 } catch (Exception e) {
                     Toast.makeText(context, "Error opening file", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
                 }
             } else {
                 Toast.makeText(context, "No file available", Toast.LENGTH_SHORT).show();
             }
         });
 
-        submitButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("*/*");
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            ((Activity) context).startActivityForResult(Intent.createChooser(intent, "Choose file"),
-                    1000 + assignment.getId());
+        btnSubmit.setOnClickListener(v -> {
+            if (callback != null) {
+                callback.onSubmitClick(assignment.getId(), btnSubmit);
+            }
         });
 
-        expandableLayout.setVisibility(position == selectedPosition ? View.VISIBLE : View.GONE);
+        // Expand/collapse section
+        expandableLayout.setVisibility(View.GONE);
         view.setOnClickListener(v -> {
-            selectedPosition = (selectedPosition == position) ? -1 : position;
-            notifyDataSetChanged();
+            expandableLayout.setVisibility(
+                    expandableLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE
+            );
         });
 
         return view;

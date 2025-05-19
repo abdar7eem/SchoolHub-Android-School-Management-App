@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 
 import org.json.JSONException;
@@ -22,6 +23,8 @@ public class StudentSettingsFragment extends Fragment {
 
     private TextView tvStudentName, tvGrade, tvAge, tvId;
     private Button btnAboutUs, btnLogout;
+
+
 
     private final int studentId = 1; // Replace with actual logged-in student ID
 
@@ -58,7 +61,7 @@ public class StudentSettingsFragment extends Fragment {
     }
 
     private void fetchStudentInfo() {
-        String url = "http://192.168.2.30/SchoolHub/get_student_profile.php?student_id=" + studentId;
+        String url = MainActivity.baseUrl+"get_student_profile.php?student_id=" + studentId;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {

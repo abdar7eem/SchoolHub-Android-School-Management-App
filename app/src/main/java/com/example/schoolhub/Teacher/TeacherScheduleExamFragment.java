@@ -25,9 +25,8 @@ import java.util.*;
 public class TeacherScheduleExamFragment extends Fragment {
 
     Spinner spinnerClass, spinnerSubject, spinnerStartTime, spinnerEndTime;
-    EditText etDate, etLocation;
+    EditText etDate, etLocation, etExamTitle;
     Button btnScheduleExam, btnConflictStatus;
-    EditText etExamTitle;
     int selectedClassId, selectedSubjectId;
     String baseUrl = "http://192.168.3.246/SchoolHub/";
     int teacherId = 1;
@@ -77,13 +76,13 @@ public class TeacherScheduleExamFragment extends Fragment {
             String date = etDate.getText().toString().trim();
             String startTime = spinnerStartTime.getSelectedItem().toString();
             String endTime = spinnerEndTime.getSelectedItem().toString();
-            int duration = calculateDuration(startTime, endTime);
             String location = etLocation.getText().toString().trim();
 
             if (date.isEmpty()) {
                 Toast.makeText(getContext(), "Please select a date", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             checkConflict(selectedClassId, date, startTime, endTime, location);
         });
 
@@ -92,8 +91,8 @@ public class TeacherScheduleExamFragment extends Fragment {
             String startTime = spinnerStartTime.getSelectedItem().toString();
             String endTime = spinnerEndTime.getSelectedItem().toString();
             String location = etLocation.getText().toString().trim();
-            int duration = calculateDuration(startTime, endTime);
             String examTitle = etExamTitle.getText().toString().trim();
+            int duration = calculateDuration(startTime, endTime);
 
             if (duration <= 0) {
                 Toast.makeText(getContext(), "End time must be after start time", Toast.LENGTH_SHORT).show();
@@ -104,6 +103,12 @@ public class TeacherScheduleExamFragment extends Fragment {
                 Toast.makeText(getContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            if (!isFutureDateTime(date, startTime)) {
+                Toast.makeText(getContext(), "You can't schedule an exam in the past", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             scheduleExam(selectedClassId, selectedSubjectId, date, startTime, endTime, duration, location, examTitle);
         });
     }
@@ -143,6 +148,29 @@ public class TeacherScheduleExamFragment extends Fragment {
         }
     }
 
+    private boolean isFutureDateTime(String dateStr, String timeStr) {
+        try {
+            String[] dateParts = dateStr.split("-");
+            String[] timeParts = timeStr.split(":");
+
+            int year = Integer.parseInt(dateParts[0]);
+            int month = Integer.parseInt(dateParts[1]) - 1; // Month is 0-based
+            int day = Integer.parseInt(dateParts[2]);
+            int hour = Integer.parseInt(timeParts[0]);
+            int minute = Integer.parseInt(timeParts[1]);
+
+            Calendar selectedDateTime = Calendar.getInstance();
+            selectedDateTime.set(year, month, day, hour, minute, 0);
+            selectedDateTime.set(Calendar.MILLISECOND, 0);
+
+            Calendar now = Calendar.getInstance();
+            return selectedDateTime.after(now);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private void checkConflict(int classId, String date, String startTime, String endTime, String location) {
         String url = baseUrl + "teacher_check_exam_conflict.php?class_id=" + classId +
                 "&exam_date=" + date +
@@ -173,8 +201,7 @@ public class TeacherScheduleExamFragment extends Fragment {
         Volley.newRequestQueue(requireContext()).add(request);
     }
 
-
-    private void scheduleExam(int classId, int subjectId, String date, String startTime,String endTime, int duration, String location, String examTitle) {
+    private void scheduleExam(int classId, int subjectId, String date, String startTime, String endTime, int duration, String location, String examTitle) {
         String url = baseUrl + "teacher_schedule_exam.php";
 
         JSONObject data = new JSONObject();
@@ -188,7 +215,6 @@ public class TeacherScheduleExamFragment extends Fragment {
             data.put("location", location);
             data.put("exam_title", examTitle);
             data.put("teacher_id", teacherId);
-
         } catch (JSONException e) {
             e.printStackTrace();
             return;
@@ -199,7 +225,7 @@ public class TeacherScheduleExamFragment extends Fragment {
                     if (response.optString("status").equals("success")) {
                         Toast.makeText(getContext(), "Exam scheduled successfully", Toast.LENGTH_SHORT).show();
                     } else {
-                        Log.e("BTN erro", response.toString());
+                        Log.e("BTN error", response.toString());
                         Toast.makeText(getContext(), "Error: " + response.optString("error"), Toast.LENGTH_SHORT).show();
                     }
                 },

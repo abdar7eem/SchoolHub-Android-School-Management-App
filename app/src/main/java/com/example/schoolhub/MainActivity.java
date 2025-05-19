@@ -16,17 +16,19 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Student.StudentMainActivity;
 import com.example.schoolhub.Teacher.TeacherMainActivity;
-import com.example.schoolhub.Registrar.RegistrarMainActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final     String baseUrl = "http://192.168.3.246/SchoolHub/";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startActivity(new Intent(this, RegistrarMainActivity.class));
+        startActivity(new Intent(this, StudentMainActivity.class));
         finish(); // Prevent back navigation to this splash
     }
 

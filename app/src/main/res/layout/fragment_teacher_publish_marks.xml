@@ -23,22 +23,6 @@
             android:layout_gravity="center_horizontal"
             android:paddingBottom="16dp" />
 
-        <!-- Subject -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Subject:"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp" />
-        <Spinner
-            android:id="@+id/spnSubject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/spinner_background"
-            android:padding="8dp"
-            android:layout_marginBottom="8dp" />
-
         <!-- Class -->
         <TextView
             android:layout_width="wrap_content"
@@ -49,6 +33,22 @@
             android:layout_marginTop="8dp" />
         <Spinner
             android:id="@+id/spnClass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_background"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Subject -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Subject:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
+        <Spinner
+            android:id="@+id/spnSubject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/spinner_background"

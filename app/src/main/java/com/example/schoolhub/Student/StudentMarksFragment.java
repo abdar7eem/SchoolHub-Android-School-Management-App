@@ -14,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.MarkItem;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Student.Adapter.MarkAdapter;
@@ -44,7 +45,7 @@ public class StudentMarksFragment extends Fragment {
     }
 
     private void loadMarks() {
-        String url = "http://192.168.2.30/SchoolHub/get_student_marks.php?student_id=1";
+        String url = MainActivity.baseUrl+"get_student_marks.php?student_id=1";
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 

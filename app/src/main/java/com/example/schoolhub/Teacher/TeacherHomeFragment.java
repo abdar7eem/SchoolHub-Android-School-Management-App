@@ -91,7 +91,8 @@ public class TeacherHomeFragment extends Fragment {
     }
 
     private void fetchDashboardData() {
-        String url = baseUrl + "get_teacher_dashboard.php?teacher_id=" + teacherId;
+        String currentDay = new SimpleDateFormat("EEEE", Locale.getDefault()).format(new Date()); // e.g., Monday
+        String url = baseUrl + "get_teacher_dashboard.php?teacher_id=" + teacherId + "&day=" + currentDay;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
@@ -117,7 +118,6 @@ public class TeacherHomeFragment extends Fragment {
                         }
                         tvNotification.setText(sbSystemNotifs.toString().trim());
 
-
                         // Submissions
                         JSONArray subs = response.getJSONArray("submissions");
                         StringBuilder sbSub = new StringBuilder();
@@ -133,8 +133,10 @@ public class TeacherHomeFragment extends Fragment {
                         e.printStackTrace();
                     }
                 },
-                error -> error.printStackTrace());
+                error -> error.printStackTrace()
+        );
 
         Volley.newRequestQueue(requireContext()).add(request);
     }
+
 }
