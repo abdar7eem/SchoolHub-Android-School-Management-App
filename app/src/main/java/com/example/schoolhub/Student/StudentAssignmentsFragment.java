@@ -43,7 +43,8 @@ public class StudentAssignmentsFragment extends Fragment {
     private AssignmentAdapter adapter;
     private List<Assignment> assignmentList = new ArrayList<>();
 
-    private final int studentId = 1; // Replace with actual logged-in student ID
+    private final int studentId = 6;
+    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
 
     private Button btnPending, btnSubmitted, btnGraded;
 
@@ -73,7 +74,7 @@ public class StudentAssignmentsFragment extends Fragment {
     }
 
     private void fetchAssignmentsFromDB() {
-        String url = "http://192.168.2.30/SchoolHub/get_student_assignments.php?student_id=" + studentId;
+        String url = baseUrl + "get_student_assignments.php?student_id=" + studentId;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -149,8 +150,9 @@ public class StudentAssignmentsFragment extends Fragment {
             String base64File = Base64.encodeToString(fileBytes, Base64.DEFAULT);
             String fileName = getFileName(fileUri);
 
-            StringRequest request = new StringRequest(Request.Method.POST,
-                    "http://192.168.2.30/SchoolHub/student_submit_assignment.php",
+            String url = baseUrl + "student_submit_assignment.php";
+
+            StringRequest request = new StringRequest(Request.Method.POST, url,
                     response -> {
                         Log.d("UPLOAD_SUCCESS", response);
                         Toast.makeText(getContext(), "Submission successful", Toast.LENGTH_SHORT).show();

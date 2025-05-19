@@ -17,13 +17,13 @@ import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.NotificationItem;
 import com.example.schoolhub.R;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class NotificationAdapter extends ArrayAdapter<NotificationItem> {
     private Context context;
+    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
 
     public NotificationAdapter(Context context, List<NotificationItem> list) {
         super(context, 0, list);
@@ -70,10 +70,8 @@ public class NotificationAdapter extends ArrayAdapter<NotificationItem> {
         return convertView;
     }
 
-
-
     private void markAsRead(int id, View dotView) {
-        String url = "http://192.168.2.30/SchoolHub/mark_notification_read.php";
+        String url = baseUrl + "mark_notification_read.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> dotView.setBackgroundResource(R.drawable.dot_green),
@@ -89,7 +87,4 @@ public class NotificationAdapter extends ArrayAdapter<NotificationItem> {
 
         Volley.newRequestQueue(getContext()).add(request);
     }
-
-
-
 }

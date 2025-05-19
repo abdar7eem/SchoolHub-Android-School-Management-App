@@ -13,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.R;
@@ -65,6 +66,7 @@ public class TeacherMainActivity extends AppCompatActivity {
         txtEmail = headerView.findViewById(R.id.txtEmail);
 
         loadHeaderData();
+        checkUnreadNotifications();
 
         // Load default fragment
         if (savedInstanceState == null) {
@@ -138,6 +140,7 @@ public class TeacherMainActivity extends AppCompatActivity {
     }
 
     private void loadFragment(Fragment fragment) {
+        checkUnreadNotifications();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.teacherFragmentContainer, fragment)
@@ -145,7 +148,7 @@ public class TeacherMainActivity extends AppCompatActivity {
     }
 
     private void loadHeaderData() {
-        String url = baseUrl + "get_teacher_nav.php?teacher_id=" + teacherId;
+        String url = baseUrl + "get_user_nav.php?id=" + teacherId;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
@@ -163,6 +166,27 @@ public class TeacherMainActivity extends AppCompatActivity {
                 },
                 error -> Log.e("TeacherMainActivity", "Header data load error", error)
         );
+
+        Volley.newRequestQueue(this).add(request);
+    }
+
+    private void checkUnreadNotifications() {
+        String url = baseUrl + "get_notifications.php?user_id=1&filter=unread";
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                response -> {
+                    boolean hasUnread = response.length() > 0;
+
+                    // Update notification icon based on unread status
+                    teacherBottomNav.getMenu().findItem(R.id.teacher_nav_notification).setIcon(
+                            hasUnread ? R.drawable.notification_alert : R.drawable.notification
+                    );
+                },
+                error -> {
+                    error.printStackTrace();
+                    // Optional: Fallback to normal icon if error occurs
+                    teacherBottomNav.getMenu().findItem(R.id.teacher_nav_notification).setIcon(R.drawable.notification);
+                });
 
         Volley.newRequestQueue(this).add(request);
     }
