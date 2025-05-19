@@ -61,7 +61,7 @@ public class StudentSettingsFragment extends Fragment {
     }
 
     private void fetchStudentInfo() {
-        String url = MainActivity.baseUrl+"SchoolHub/get_student_profile.php?student_id=" + studentId;
+        String url = MainActivity.baseUrl+"get_student_profile.php?student_id=" + studentId;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {

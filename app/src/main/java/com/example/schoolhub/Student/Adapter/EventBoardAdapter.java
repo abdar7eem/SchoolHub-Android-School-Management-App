@@ -47,8 +47,8 @@ public class EventBoardAdapter extends ArrayAdapter<EventBoardItem> {
 
         ((TextView) convertView.findViewById(R.id.txtEventTitle)).setText(event.title);
         ((TextView) convertView.findViewById(R.id.txtEventDateTime)).setText(event.dateTime);
-        ((TextView) convertView.findViewById(R.id.txtEventLocation)).setText("Location: " + event.location);
-        ((TextView) convertView.findViewById(R.id.txtEventType)).setText("Type: " + event.type);
+        ((TextView) convertView.findViewById(R.id.txtEventLocation)).setText( event.location);
+        ((TextView) convertView.findViewById(R.id.txtEventType)).setText(event.type);
         ((TextView) convertView.findViewById(R.id.txtEventDescription)).setText(event.description);
 
         Button btn = convertView.findViewById(R.id.btnAddToCalendar);

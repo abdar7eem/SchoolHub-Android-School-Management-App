@@ -104,11 +104,12 @@ public class StudentAttendanceFragment extends Fragment {
                 response -> {
                     String status = response.optString("status", null);
                     txtStatus.setText(status != null ? status : "Absent");
-                    txtDay.setText("DAY: " + selectedDate);
+                    txtDay.setText("Selected: " + selectedDate);
+
                 },
                 error -> {
                     txtStatus.setText("Absent");
-                    txtDay.setText("DAY: " + selectedDate);
+                    txtDay.setText("Selected: " + selectedDate);
                     Toast.makeText(requireContext(), "Unable to fetch attendance", Toast.LENGTH_SHORT).show();
                     error.printStackTrace();
                 });
