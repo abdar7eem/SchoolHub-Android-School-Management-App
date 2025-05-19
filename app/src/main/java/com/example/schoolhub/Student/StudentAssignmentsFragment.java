@@ -1,7 +1,6 @@
 package com.example.schoolhub.Student;
 
-import static android.app.Activity.RESULT_OK;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -9,19 +8,17 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.view.*;
+import android.widget.*;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.Assignment;
 import com.example.schoolhub.R;
@@ -32,10 +29,7 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class StudentAssignmentsFragment extends Fragment {
 
@@ -43,29 +37,53 @@ public class StudentAssignmentsFragment extends Fragment {
     private AssignmentAdapter adapter;
     private List<Assignment> assignmentList = new ArrayList<>();
 
-    private final int studentId = 6;
+    private final int studentId = 4;
     private final String baseUrl = "http://192.168.3.246/SchoolHub/";
 
     private Button btnPending, btnSubmitted, btnGraded;
+    private int pendingAssignmentId = -1;
+    private Button pendingSubmitButton = null;
+
+    private ActivityResultLauncher<Intent> filePickerLauncher;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_assignments, container, false);
 
-        // Bind views
         lstBooks = view.findViewById(R.id.lstBooks);
         btnPending = view.findViewById(R.id.btnPending);
         btnSubmitted = view.findViewById(R.id.btnSubmitted);
         btnGraded = view.findViewById(R.id.btnGraded);
 
-        // Set default adapter
-        adapter = new AssignmentAdapter(requireContext(), assignmentList);
-        lstBooks.setAdapter(adapter);
+        filePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        Uri fileUri = result.getData().getData();
+                        String fileName = getFileName(fileUri);
 
-        // Fetch from backend
+                        if (pendingSubmitButton != null) {
+                            pendingSubmitButton.setText(fileName);
+                        }
+
+                        uploadFileToServer(fileUri, pendingAssignmentId, studentId);
+                    }
+                }
+        );
+
+        adapter = new AssignmentAdapter(requireActivity(), assignmentList, (assignmentId, button) -> {
+            pendingAssignmentId = assignmentId;
+            pendingSubmitButton = button;
+
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("*/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            filePickerLauncher.launch(Intent.createChooser(intent, "Select file to submit"));
+        });
+
+        lstBooks.setAdapter(adapter);
         fetchAssignmentsFromDB();
 
-        // Button logic
         btnPending.setOnClickListener(v -> filterBy("Pending", btnPending));
         btnSubmitted.setOnClickListener(v -> filterBy("Submitted", btnSubmitted));
         btnGraded.setOnClickListener(v -> filterBy("Graded", btnGraded));
@@ -82,23 +100,21 @@ public class StudentAssignmentsFragment extends Fragment {
                     try {
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject obj = response.getJSONObject(i);
+                            int id = obj.getInt("id");
                             String title = obj.getString("title");
                             String subject = obj.getString("subject");
                             String teacher = obj.getString("teacher_name");
                             String due = obj.getString("due_date");
                             String status = obj.optString("status", "Pending");
                             String attachment = obj.optString("attachment_path", "");
-                            int id = obj.getInt("id");
                             assignmentList.add(new Assignment(id, title, subject, teacher, due, status, attachment));
                         }
-                        adapter = new AssignmentAdapter(requireContext(), assignmentList);
-                        lstBooks.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },
-                error -> error.printStackTrace()
-        );
+                error -> error.printStackTrace());
 
         Volley.newRequestQueue(requireContext()).add(request);
     }
@@ -111,7 +127,16 @@ public class StudentAssignmentsFragment extends Fragment {
             }
         }
 
-        adapter = new AssignmentAdapter(requireContext(), filtered);
+        adapter = new AssignmentAdapter(requireActivity(), filtered, (assignmentId, button) -> {
+            pendingAssignmentId = assignmentId;
+            pendingSubmitButton = button;
+
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("*/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            filePickerLauncher.launch(Intent.createChooser(intent, "Select file to submit"));
+        });
+
         lstBooks.setAdapter(adapter);
         updateButtonColors(activeButton);
     }
@@ -129,17 +154,6 @@ public class StudentAssignmentsFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri fileUri = data.getData();
-            int assignmentId = requestCode - 1000;
-            uploadFileToServer(fileUri, assignmentId, studentId);
-        }
-    }
-
     private void uploadFileToServer(Uri fileUri, int assignmentId, int studentId) {
         try {
             InputStream inputStream = requireContext().getContentResolver().openInputStream(fileUri);
@@ -149,20 +163,18 @@ public class StudentAssignmentsFragment extends Fragment {
 
             String base64File = Base64.encodeToString(fileBytes, Base64.DEFAULT);
             String fileName = getFileName(fileUri);
-
             String url = baseUrl + "student_submit_assignment.php";
 
             StringRequest request = new StringRequest(Request.Method.POST, url,
                     response -> {
-                        Log.d("UPLOAD_SUCCESS", response);
                         Toast.makeText(getContext(), "Submission successful", Toast.LENGTH_SHORT).show();
+                        fetchAssignmentsFromDB();
+                        Log.d("SubmitAssignment", response.toString());
                     },
                     error -> {
                         error.printStackTrace();
                         Toast.makeText(getContext(), "Upload failed: " + error.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-            ) {
+                    }) {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
@@ -177,7 +189,6 @@ public class StudentAssignmentsFragment extends Fragment {
             Volley.newRequestQueue(requireContext()).add(request);
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("FileError", "Error reading file: " + e.getMessage());
             Toast.makeText(getContext(), "File read error: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
@@ -186,15 +197,10 @@ public class StudentAssignmentsFragment extends Fragment {
         String result = null;
         if ("content".equals(uri.getScheme())) {
             Cursor cursor = requireContext().getContentResolver().query(uri, null, null, null, null);
-            if (cursor != null) {
-                try {
-                    if (cursor.moveToFirst()) {
-                        int index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                        if (index >= 0) result = cursor.getString(index);
-                    }
-                } finally {
-                    cursor.close();
-                }
+            if (cursor != null && cursor.moveToFirst()) {
+                int index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                if (index >= 0) result = cursor.getString(index);
+                cursor.close();
             }
         }
         if (result == null) {

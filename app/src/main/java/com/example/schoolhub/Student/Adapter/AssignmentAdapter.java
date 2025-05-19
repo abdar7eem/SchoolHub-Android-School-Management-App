@@ -2,10 +2,10 @@ package com.example.schoolhub.Student.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.util.Log;
+import android.view.*;
 import android.widget.*;
 
 import androidx.annotation.NonNull;
@@ -17,64 +17,86 @@ import java.util.List;
 
 public class AssignmentAdapter extends ArrayAdapter<Assignment> {
 
-    private Context context;
-    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
+    private final Context context;
+    private final List<Assignment> assignmentList;
+    private final FileSelectCallback callback;
 
-    public AssignmentAdapter(Context context, List<Assignment> assignmentList) {
+    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
+    private final String[] backgroundColors = {
+            "#AEFFA4", "#FBFF85", "#EB6C6E", "#98E3FF", "#FFB3D1",
+            "#C3F5D9", "#FFE29A", "#D6C7FF", "#AED9FF", "#FFD6A5"
+    };
+
+    public interface FileSelectCallback {
+        void onSubmitClick(int assignmentId, Button button);
+    }
+
+    public AssignmentAdapter(Context context, List<Assignment> assignmentList, FileSelectCallback callback) {
         super(context, 0, assignmentList);
         this.context = context;
+        this.assignmentList = assignmentList;
+        this.callback = callback;
     }
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Assignment assignment = getItem(position);
-
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.list_item_student_assignment, parent, false);
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+        View view = convertView;
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.list_item_student_assignment, parent, false);
         }
 
-        // Bind UI components
-        TextView txtTitle = convertView.findViewById(R.id.txtTitle);
-        TextView txtSubject = convertView.findViewById(R.id.txtSubject);
-        TextView txtTeacher = convertView.findViewById(R.id.txtTeacher);
-        TextView txtDue = convertView.findViewById(R.id.txtDue);
-        TextView txtStatus = convertView.findViewById(R.id.txtStatus);
-        Button btnDownload = convertView.findViewById(R.id.btnDownload);
-        Button btnSubmit = convertView.findViewById(R.id.btnSubmit);
-        LinearLayout expandableLayout = convertView.findViewById(R.id.expandableLayout);
+        Assignment assignment = assignmentList.get(position);
 
-        // Set assignment data
+        int colorIndex = position % backgroundColors.length;
+        int color = Color.parseColor(backgroundColors[colorIndex]);
+        view.setBackgroundColor(color);
+
+        TextView txtTitle = view.findViewById(R.id.txtTitle);
+        TextView txtSubject = view.findViewById(R.id.txtSubject);
+        TextView txtTeacher = view.findViewById(R.id.txtTeacher);
+        TextView txtDue = view.findViewById(R.id.txtDue);
+        TextView txtStatus = view.findViewById(R.id.txtStatus);
+        LinearLayout expandableLayout = view.findViewById(R.id.expandableLayout);
+        Button btnDownload = view.findViewById(R.id.btnDownload);
+        Button btnSubmit = view.findViewById(R.id.btnSubmit);
+
         txtTitle.setText("Title: " + assignment.getTitle());
-        txtSubject.setText("Subject: " + assignment.getSubject());
-        txtTeacher.setText("Teacher: " + assignment.getTeacher());
+        txtSubject.setText("Subject: " + assignment.getSubjectName());
+        txtTeacher.setText("Teacher: " + assignment.getTeacherName());
         txtDue.setText("Due: " + assignment.getDueDate());
         txtStatus.setText("Status: " + assignment.getStatus());
 
-        // Toggle card on click
-        convertView.setOnClickListener(v -> {
-            if (expandableLayout.getVisibility() == View.VISIBLE) {
-                expandableLayout.setVisibility(View.GONE);
-            } else {
-                expandableLayout.setVisibility(View.VISIBLE);
-            }
-        });
-
         btnDownload.setOnClickListener(v -> {
-            String attachmentPath = assignment.getAttachment();
-            if (attachmentPath != null && !attachmentPath.isEmpty()) {
-                String fullUrl = baseUrl + attachmentPath;
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl));
-                context.startActivity(intent);
+            String path = assignment.getAttachmentPath();
+            if (path != null && !path.trim().isEmpty()) {
+                String fullUrl = path.startsWith("http") ? path : baseUrl + path;
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(context, "Error opening file", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(context, "No file attached", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "No file available", Toast.LENGTH_SHORT).show();
             }
         });
 
         btnSubmit.setOnClickListener(v -> {
-            Toast.makeText(context, "Submit button clicked", Toast.LENGTH_SHORT).show();
+            if (callback != null) {
+                callback.onSubmitClick(assignment.getId(), btnSubmit);
+            }
         });
 
-        return convertView;
+        // Expand/collapse section
+        expandableLayout.setVisibility(View.GONE);
+        view.setOnClickListener(v -> {
+            expandableLayout.setVisibility(
+                    expandableLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE
+            );
+        });
+
+        return view;
     }
 }

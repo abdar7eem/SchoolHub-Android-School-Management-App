@@ -22,7 +22,7 @@ import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final     String baseUrl = "http://192.168.1.8/SchoolHub/";
+    public static final     String baseUrl = "http://192.168.3.246/SchoolHub/";
 
 
     @Override
