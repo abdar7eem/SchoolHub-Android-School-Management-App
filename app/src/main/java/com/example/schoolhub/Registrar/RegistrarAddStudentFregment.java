@@ -5,20 +5,31 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.Model.InfoClass;
 import com.example.schoolhub.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -28,7 +39,10 @@ public class RegistrarAddStudentFregment extends Fragment {
     private final String URL = "http://192.168.56.1/schoolhub/Add_user.php"; // Replace with your actual PHP URL
     EditText edtStudentName,edtParent, edtDateOfBirth, edtEmail, edtPhone, edtClass, edtPassword, edtConfirmPassword;
     TextView txtStatusMessage;
+    Spinner spnClasses;
     Button btnAddStudent;
+
+    InfoClass ChoosenClass;
 
 
     @Override
@@ -40,7 +54,7 @@ public class RegistrarAddStudentFregment extends Fragment {
         edtDateOfBirth = view.findViewById(R.id.edtDateOfBirth);
         edtEmail = view.findViewById(R.id.edtEmail);
         edtPhone = view.findViewById(R.id.edtPhone);
-        edtClass = view.findViewById(R.id.edtClass);
+        spnClasses = view.findViewById(R.id.spnClasses);
         edtPassword = view.findViewById(R.id.edtPassword);
         edtConfirmPassword = view.findViewById(R.id.edtConfirmPassword);
         btnAddStudent = view.findViewById(R.id.btnAddStudent);
@@ -50,6 +64,8 @@ public class RegistrarAddStudentFregment extends Fragment {
 
         edtDateOfBirth.setOnClickListener(v -> showDatePicker());
 
+        loadClasses();
+
 
         btnAddStudent.setOnClickListener(e->{
             if (edtStudentName.getText().toString().isEmpty() ||
@@ -57,7 +73,6 @@ public class RegistrarAddStudentFregment extends Fragment {
                     edtPassword.getText().toString().isEmpty() ||
                     edtConfirmPassword.getText().toString().isEmpty() ||
                     edtDateOfBirth.getText().toString().isEmpty() ||
-                    edtClass.getText().toString().isEmpty() ||
                     edtParent.getText().toString().isEmpty()) {
 
                 Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
@@ -91,7 +106,7 @@ public class RegistrarAddStudentFregment extends Fragment {
                     params.put("dob", edtDateOfBirth.getText().toString().trim());
                     params.put("password", edtPassword.getText().toString().trim());
                     params.put("parent", edtParent.getText().toString().trim());
-                    params.put("class", edtClass.getText().toString().trim());
+                    params.put("class", ChoosenClass.getName());
                     params.put("phone", edtPhone.getText().toString().trim());
 
 
@@ -118,6 +133,55 @@ public class RegistrarAddStudentFregment extends Fragment {
         return true;
     }
         return false;
+    }
+
+    private void loadClasses() {
+        String url = "http://192.168.56.1/schoolhub/get_classes.php";
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        List<InfoClass> Classes = new ArrayList<>();
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject obj = jsonArray.getJSONObject(i);
+                            int id = obj.getInt("id");
+                            String name = obj.getString("class_name");
+
+                            Classes.add(new InfoClass(id,name));
+                        }
+
+                        ArrayAdapter<InfoClass> adapter = new ArrayAdapter<>(
+                                getContext(),
+                                android.R.layout.simple_spinner_item,
+                                Classes
+                        );
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spnClasses.setAdapter(adapter);
+                        spnClasses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                InfoClass selectedClass = (InfoClass) parent.getItemAtPosition(position);
+                                ChoosenClass=selectedClass;
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+                                // Optional: Handle case when nothing is selected
+                            }
+                        });
+
+                    } catch (JSONException e) {
+                        Toast.makeText(getContext(), "JSON Parsing Error", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(getContext(), "Failed to load classes", Toast.LENGTH_SHORT).show()
+        );
+
+        queue.add(request);
     }
 
 }

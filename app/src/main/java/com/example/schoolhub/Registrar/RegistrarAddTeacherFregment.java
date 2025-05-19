@@ -1,4 +1,5 @@
 package com.example.schoolhub.Registrar;
+import android.util.Log;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -6,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +50,7 @@ public class RegistrarAddTeacherFregment extends Fragment {
     boolean[] selectedClassItems;
     List<Integer> selectedClassIds = new ArrayList<>();
     String[] classNames;
+    SubjectInfo ChoosenSubject;
 
 
     @Override
@@ -60,7 +63,6 @@ public class RegistrarAddTeacherFregment extends Fragment {
         edtEmail = view.findViewById(R.id.edtEmail);
         edtPhone = view.findViewById(R.id.edtPhone);
         spnSubjects = view.findViewById(R.id.spnSubjects);
-//        spnClasses = view.findViewById(R.id.spnClasses);
         edtPassword = view.findViewById(R.id.edtPassword);
         edtConfirmPassword = view.findViewById(R.id.edtConfirmPassword);
         btnAddTeacher = view.findViewById(R.id.btnAddTeacher);
@@ -114,8 +116,11 @@ public class RegistrarAddTeacherFregment extends Fragment {
                 params.put("role", "Teacher");
                 params.put("password", edtPassword.getText().toString().trim());
                 params.put("phone", edtPhone.getText().toString().trim());
+                params.put("subject_id",String.valueOf( ChoosenSubject.getId()));
+
 
                 String classIdsJson = new Gson().toJson(selectedClassIds);
+                Log.d("CLASS_IDS", new Gson().toJson(selectedClassIds));
                 params.put("class_ids", classIdsJson);
                 return params;
             }
@@ -142,6 +147,18 @@ public class RegistrarAddTeacherFregment extends Fragment {
                                 getContext(), android.R.layout.simple_spinner_item, subjectList);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spnSubjects.setAdapter(adapter);
+                        spnSubjects.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                SubjectInfo selectedSubject = (SubjectInfo) parent.getItemAtPosition(position);
+                                ChoosenSubject= selectedSubject;
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+                                // Optional: Handle case when nothing is selected
+                            }
+                        });
 
                     } catch (JSONException e) {
                         e.printStackTrace();
