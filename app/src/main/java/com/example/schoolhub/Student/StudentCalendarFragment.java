@@ -45,7 +45,7 @@ public class StudentCalendarFragment extends Fragment {
     }
 
     private void fetchEvents() {
-        String url = "http://192.168.2.30/SchoolHub/get_calendar_events.php?class_id=" + classId + "&student_id=" + userId;
+        String url = "http://192.168.1.18/SchoolHub/get_calendar_events.php?class_id=" + classId + "&student_id=" + userId;
 
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,

@@ -47,7 +47,7 @@ public class StudentEventFragment extends Fragment {
     }
 
     private void fetchConfirmedEventsThenLoad() {
-        String url = "http://192.168.2.30/SchoolHub/check_event_confirmation.php?student_id=" + studentId;
+        String url = "http://192.168.1.18/SchoolHub/check_event_confirmation.php?student_id=" + studentId;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -76,7 +76,7 @@ public class StudentEventFragment extends Fragment {
     }
 
     private void fetchEvents() {
-        String url = "http://192.168.2.30/SchoolHub/get_event_board.php";
+        String url = "http://192.168.1.18/SchoolHub/get_event_board.php";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {

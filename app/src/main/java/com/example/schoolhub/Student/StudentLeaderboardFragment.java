@@ -60,7 +60,7 @@ public class StudentLeaderboardFragment extends Fragment {
     }
 
     private void loadSubjects() {
-        String url = "http://192.168.2.30//SchoolHub/get_subjects.php";
+        String url = "http://192.168.1.18//SchoolHub/get_subjects.php";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -91,7 +91,7 @@ public class StudentLeaderboardFragment extends Fragment {
     }
 
     private void fetchTop3(int subjectId) {
-        String url = "http://192.168.2.30/SchoolHub/get_top3_by_subject.php?subject_id=" + subjectId;
+        String url = "http://192.168.1.18/SchoolHub/get_top3_by_subject.php?subject_id=" + subjectId;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {

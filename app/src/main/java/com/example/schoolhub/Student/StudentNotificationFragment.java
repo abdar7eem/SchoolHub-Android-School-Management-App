@@ -74,7 +74,7 @@ public class StudentNotificationFragment extends Fragment {
     }
 
     private void fetchNotifications(String filter) {
-        String url = "http://192.168.2.30/SchoolHub/get_notifications.php?user_id=" + studentId + "&filter=" + filter;
+        String url = "http://192.168.1.18/SchoolHub/get_notifications.php?user_id=" + studentId + "&filter=" + filter;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -130,7 +130,7 @@ public class StudentNotificationFragment extends Fragment {
     }
 
     public void sendNotificationToServerAndDevice(String title, String message, int recipientId, int senderId) {
-        String url = "http://192.168.1.13/SchoolHub/send_notification.php";
+        String url = "http://192.168.1.18/SchoolHub/send_notification.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {

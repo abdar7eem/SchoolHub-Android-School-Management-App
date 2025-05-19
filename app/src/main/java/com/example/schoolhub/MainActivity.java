@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startActivity(new Intent(this, TeacherMainActivity.class));
+        startActivity(new Intent(this, StudentMainActivity.class));
         finish(); // Prevent back navigation to this splash
     }
 

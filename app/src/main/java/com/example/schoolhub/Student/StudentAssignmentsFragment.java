@@ -73,7 +73,7 @@ public class StudentAssignmentsFragment extends Fragment {
     }
 
     private void fetchAssignmentsFromDB() {
-        String url = "http://192.168.2.30/SchoolHub/get_student_assignments.php?student_id=" + studentId;
+        String url = "http://192.168.1.18/SchoolHub/get_student_assignments.php?student_id=" + studentId;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {

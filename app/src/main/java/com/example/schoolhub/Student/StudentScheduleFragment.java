@@ -87,7 +87,7 @@ public class StudentScheduleFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchSchedule() {
         String id = "1";
-        String url = "http://192.168.2.30/SchoolHub/get_schedule.php?id=" + id;
+        String url = "http://192.168.1.18/SchoolHub/get_schedule.php?id=" + id;
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
