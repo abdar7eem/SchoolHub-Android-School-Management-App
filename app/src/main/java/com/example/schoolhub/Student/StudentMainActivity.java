@@ -1,6 +1,8 @@
 package com.example.schoolhub.Student;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,11 +13,14 @@ import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class StudentMainActivity extends AppCompatActivity {
@@ -24,6 +29,10 @@ public class StudentMainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
+    private TextView txtName, txtEmail;
+    private final int studentId = 2; // Replace with actual ID
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +44,13 @@ public class StudentMainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.studentToolbar);
         navigationView = findViewById(R.id.studentNavView);
         studentBottomNav = findViewById(R.id.studentBottomNav);
+        txtName = navigationView.getHeaderView(0).findViewById(R.id.txtName);
+        txtEmail = navigationView.getHeaderView(0).findViewById(R.id.txtEmail);
+
 
         // Set toolbar as the action bar
         setSupportActionBar(toolbar);
-
+        loadHeaderData();
         checkUnreadNotifications();
 
         // Set up drawer toggle
@@ -133,6 +145,29 @@ public class StudentMainActivity extends AppCompatActivity {
         return false;
     }
 
+    private void loadHeaderData() {
+        String url = MainActivity.baseUrl+"get_user_nav.php?id=" + studentId;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                response -> {
+                    Log.d("StudentMainActivity", "Header data loaded: " + response.toString() + "");
+                    try {
+                        String name = response.getString("name");
+                        String email = response.getString("email");
+
+                        txtName.setText(name);
+                        txtEmail.setText(email);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.e("StudentMainActivity", "Header data load error", error)
+        );
+
+        Volley.newRequestQueue(this).add(request);
+    }
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -144,7 +179,7 @@ public class StudentMainActivity extends AppCompatActivity {
 
 
     private void checkUnreadNotifications() {
-        String url = "http://192.168.2.30/SchoolHub/get_notifications.php?user_id=1&filter=unread";
+        String url = "http://192.168.1.8/SchoolHub/get_notifications.php?user_id=1&filter=unread";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {

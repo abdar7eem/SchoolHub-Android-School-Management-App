@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.Subject;
 import com.example.schoolhub.R;
 
@@ -60,7 +61,7 @@ public class StudentLeaderboardFragment extends Fragment {
     }
 
     private void loadSubjects() {
-        String url = "http://192.168.2.30//SchoolHub/get_subjects.php";
+        String url = MainActivity.baseUrl+"get_subjects.php";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -91,7 +92,7 @@ public class StudentLeaderboardFragment extends Fragment {
     }
 
     private void fetchTop3(int subjectId) {
-        String url = "http://192.168.2.30/SchoolHub/get_top3_by_subject.php?subject_id=" + subjectId;
+        String url = MainActivity.baseUrl+"get_top3_by_subject.php?subject_id=" + subjectId;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {

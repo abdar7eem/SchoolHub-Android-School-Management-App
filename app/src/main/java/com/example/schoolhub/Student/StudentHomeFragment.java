@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 
 import org.json.JSONArray;
@@ -59,7 +60,7 @@ public class StudentHomeFragment extends Fragment {
     }
 
     private void setGreeting() {
-        String url = "http://192.168.2.30/SchoolHub/get_student_name.php?user_id=" + studentId;
+        String url = MainActivity.baseUrl+"get_student_name.php?user_id=" + studentId;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
@@ -78,7 +79,7 @@ public class StudentHomeFragment extends Fragment {
     }
 
     private void fetchDashboardData() {
-        String url = "http://192.168.2.30/SchoolHub/get_dashboard_data.php?student_id=" + studentId;
+        String url = MainActivity.baseUrl+"get_dashboard_data.php?student_id=" + studentId;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {

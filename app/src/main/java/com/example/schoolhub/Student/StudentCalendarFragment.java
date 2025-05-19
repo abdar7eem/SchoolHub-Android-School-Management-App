@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.CalendarEvent;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Student.Adapter.CalendarEventAdapter;
@@ -45,7 +46,7 @@ public class StudentCalendarFragment extends Fragment {
     }
 
     private void fetchEvents() {
-        String url = "http://192.168.2.30/SchoolHub/get_calendar_events.php?class_id=" + classId + "&student_id=" + userId;
+        String url = MainActivity.baseUrl+"get_calendar_events.php?class_id=" + classId + "&student_id=" + userId;
 
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,

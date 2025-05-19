@@ -19,6 +19,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.journeyapps.barcodescanner.CaptureActivity;
 import com.journeyapps.barcodescanner.ScanContract;
@@ -33,7 +34,6 @@ public class StudentAttendanceFragment extends Fragment {
     private Button btnSelectDate, btnScanQR;
 
     private final int studentId = 1; // Replace with real logged-in student ID
-    private final String BASE_URL = "http://192.168.2.30/SchoolHub/";
 
     // QR Scan Launcher
     private final ActivityResultLauncher<ScanOptions> qrLauncher = registerForActivityResult(
@@ -96,7 +96,7 @@ public class StudentAttendanceFragment extends Fragment {
     }
 
     private void fetchAttendance(String selectedDate) {
-        String url = BASE_URL + "get_attendance.php?student_id=" + studentId + "&date=" + selectedDate;
+        String url = MainActivity.baseUrl+"get_attendance.php?student_id=" + studentId + "&date=" + selectedDate;
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
@@ -117,7 +117,7 @@ public class StudentAttendanceFragment extends Fragment {
     }
 
     private void submitAttendance(String sessionId) {
-        String url = BASE_URL + "mark_attendance.php?student_id=" + studentId + "&session_id=" + sessionId;
+        String url = MainActivity.baseUrl+"mark_attendance.php?student_id=" + studentId + "&session_id=" + sessionId;
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 

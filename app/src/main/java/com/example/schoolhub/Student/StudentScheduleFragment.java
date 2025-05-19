@@ -20,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.Schedule;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Student.Adapter.ScheduleAdapter;
@@ -87,7 +88,7 @@ public class StudentScheduleFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchSchedule() {
         String id = "1";
-        String url = "http://192.168.2.30/SchoolHub/get_schedule.php?id=" + id;
+        String url = MainActivity.baseUrl+"SchoolHub/get_schedule.php?id=" + id;
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
