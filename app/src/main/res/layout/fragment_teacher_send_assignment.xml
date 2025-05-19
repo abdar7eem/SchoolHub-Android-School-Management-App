@@ -145,6 +145,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/descInput" />
 
+            <!-- Due Time -->
             <EditText
                 android:id="@+id/dueDateInput"
                 android:layout_width="0dp"
@@ -154,10 +155,10 @@
                 android:focusable="false"
                 android:hint="May 10, 2025"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/dueDateLabel"
                 app:layout_constraintTop_toTopOf="@id/dueDateLabel" />
 
-            <!-- Due Time -->
             <TextView
                 android:id="@+id/dueTimeLabel"
                 android:layout_width="wrap_content"

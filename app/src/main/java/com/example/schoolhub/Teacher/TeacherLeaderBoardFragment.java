@@ -26,12 +26,12 @@ import java.util.List;
 
 public class TeacherLeaderBoardFragment extends Fragment {
 
-    Spinner spnClass, spnSubject;
-    TextView tv1Student, tv1Grade, tv2Student, tv2Grade, tv3Student, tv3Grade;
+    private Spinner spnClass, spnSubject;
+    private TextView tv1Student, tv1Grade, tv2Student, tv2Grade, tv3Student, tv3Grade;
 
-    int teacherId = 1;
-    int selectedClassId, selectedSubjectId;
-    String baseUrl = "http://192.168.3.246/SchoolHub/";
+    private final int teacherId = 1; // Replace with actual teacher ID
+    private int selectedClassId, selectedSubjectId;
+    private final String baseUrl = "http://192.168.3.246/SchoolHub/"; // ✅ Base URL is already here
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,7 +89,8 @@ public class TeacherLeaderBoardFragment extends Fragment {
                     }
                     spnClass.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, classList));
                 },
-                error -> Toast.makeText(getContext(), "Failed to load classes", Toast.LENGTH_SHORT).show());
+                error -> Toast.makeText(getContext(), "Failed to load classes", Toast.LENGTH_SHORT).show()
+        );
 
         Volley.newRequestQueue(requireContext()).add(request);
     }
@@ -110,7 +111,8 @@ public class TeacherLeaderBoardFragment extends Fragment {
                     }
                     spnSubject.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, subjects));
                 },
-                error -> Toast.makeText(getContext(), "Failed to load subjects", Toast.LENGTH_SHORT).show());
+                error -> Toast.makeText(getContext(), "Failed to load subjects", Toast.LENGTH_SHORT).show()
+        );
 
         Volley.newRequestQueue(requireContext()).add(request);
     }
@@ -166,4 +168,3 @@ public class TeacherLeaderBoardFragment extends Fragment {
         tv3Grade.setText("Grade: -");
     }
 }
-

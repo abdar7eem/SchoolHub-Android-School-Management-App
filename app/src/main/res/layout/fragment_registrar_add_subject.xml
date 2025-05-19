@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="#F4F6F7"
     android:padding="16dp"
-    tools:context=".AddSubjectActivity">
+    tools:context="Registrar.RegistrarAddSubjectFregment">
 
 
     <!-- Title -->
@@ -54,22 +54,23 @@
             android:hint="Subject code" />
 
         <!-- Grade Level -->
-        <EditText
-            android:id="@+id/edtGradeLevel"
+        <TextView
+            android:id="@+id/txtSelectClasses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:background="@android:drawable/edit_text"
-            android:hint="Grade level" />
+            android:hint="Select Classes"
+            android:padding="12dp"
+            android:focusable="false"
+            android:clickable="true" />
 
         <!-- Subject Type -->
-        <EditText
-            android:id="@+id/edtType"
+        <Spinner
+            android:id="@+id/spnTeacher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="@android:drawable/edit_text"
-            android:hint="Subject type" />
+            android:hint="Teacher" />
+
+
 
         <Button
             android:id="@+id/btnAddSubject"

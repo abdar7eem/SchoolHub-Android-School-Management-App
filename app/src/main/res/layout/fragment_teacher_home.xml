@@ -17,7 +17,7 @@
         <TextView
             android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
-            android:layout_height="49dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/inknut_antiqua"
             android:text="Dashboard"
@@ -33,7 +33,6 @@
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
-            <!-- First Line: Hello Ms. Sara! -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,7 +46,7 @@
                     android:textColor="#d9534f"
                     android:textSize="14sp"
                     android:fontFamily="@font/inknut_antiqua_light"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvUserName"
@@ -57,10 +56,9 @@
                     android:textColor="#d9534f"
                     android:textSize="14sp"
                     android:fontFamily="@font/inknut_antiqua_light"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Second Line: Today is Monday, May 6, 2025 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,7 +72,7 @@
                     android:textColor="#d9534f"
                     android:textSize="14sp"
                     android:fontFamily="@font/inknut_antiqua_light"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvToday"
@@ -84,12 +82,13 @@
                     android:textColor="#d9534f"
                     android:textSize="14sp"
                     android:fontFamily="@font/inknut_antiqua_light"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Today's Schedule -->
+        <!-- Today's Schedule Card -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardSchedule"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -99,39 +98,33 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="145dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    android:fontFamily="@font/inknut_antiqua"
                     android:text="Today’s Schedule"
                     android:textColor="#7F0000"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/inknut_antiqua"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
+                    android:id="@+id/tvSchedule"
                     android:layout_marginTop="8dp"
+                    android:textColor="#212121"
+                    android:textSize="14sp"
                     android:fontFamily="@font/inknut_antiqua_light"
-                    android:text="• Math at 8:00AM - Class 9A"
-                    android:textColor="#212121" />
-
-                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/inknut_antiqua_light"
-                    android:text="• Physics at 11:30AM - Class 10A"
-                    android:textColor="#212121" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Last Notification -->
+        <!-- Notifications Card -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardNotification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -146,7 +139,7 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:text="Last Notification"
+                    android:text="Notifications"
                     android:textColor="#7E0000"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -155,51 +148,21 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="• Science Fair - Friday, May 10 @ IT"
+                    android:id="@+id/tvNotification"
                     android:layout_marginTop="4dp"
                     android:textColor="#050404"
+                    android:textSize="14sp"
                     android:fontFamily="@font/inknut_antiqua_light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Class Snapshot -->
+        <!-- Class Snapshot Card -->
+
+        <!-- Recent Submissions Card -->
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@android:color/white">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:text="Class Snapshot"
-                    android:textColor="#7D0000"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/inknut_antiqua"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:text="• Math Avg: 84% | Attendance: 90%"
-                    android:layout_marginTop="4dp"
-                    android:textColor="#0B0808"
-                    android:fontFamily="@font/inknut_antiqua_light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Recent Submissions -->
-        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardSubmissions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -223,27 +186,17 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="• Ahmed – “Algebra HW”  -1hr ago"
+                    android:id="@+id/tvSubmissions"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="@font/inknut_antiqua_light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:text="• Nour – “Arabic HW”  -5hr ago"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/inknut_antiqua_light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:text="• Ali – “WWE HW”  -15hr ago"
-                    android:layout_marginTop="4dp"
+                    android:textColor="#050404"
+                    android:textSize="14sp"
                     android:fontFamily="@font/inknut_antiqua_light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
+
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

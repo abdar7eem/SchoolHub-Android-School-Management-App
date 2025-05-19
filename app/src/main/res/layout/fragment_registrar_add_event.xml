@@ -25,7 +25,11 @@
         app:layout_constraintHorizontal_bias="0.968"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title">
-
+        <Spinner
+            android:id="@+id/spnType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Event Type" />
         <EditText
             android:id="@+id/edtEventTiltle"
             android:layout_width="match_parent"
@@ -43,6 +47,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Start Time" />
+        <EditText
+            android:id="@+id/edtEventEndTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="End Time" />
 
         <EditText
             android:id="@+id/edtEventLocation"

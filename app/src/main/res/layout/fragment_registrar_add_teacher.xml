@@ -48,11 +48,17 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/edtName"
+            android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
             android:inputType="textEmailAddress" />
+        <EditText
+            android:id="@+id/edtDateOfBirth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="Date Of Birth" />
 
         <EditText
             android:id="@+id/edtPhone"
@@ -61,23 +67,21 @@
             android:hint="Phone"
             android:inputType="phone" />
 
-        <EditText
-            android:id="@+id/edtDegree"
+        <TextView
+            android:id="@+id/txtSelectClasses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Degree" />
+            android:hint="Select Classes"
+            android:padding="12dp"
+            android:focusable="false"
+            android:clickable="true" />
 
         <Spinner
             android:id="@+id/spnSubjects"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
-        <Spinner
-            android:id="@+id/spnClasses"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-             />
+
 
         <EditText
             android:id="@+id/edtPassword"

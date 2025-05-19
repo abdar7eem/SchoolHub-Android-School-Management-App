@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.Submission;
@@ -36,14 +37,18 @@ public class TeacherViewSubmissionsFragment extends Fragment {
     private RecyclerView rvSubmissions;
     private List<Submission> submissionList = new ArrayList<>();
     private TeacherSubmissionAdapter adapter;
-    private int teacherId = 1;
-    private List<Integer> classIds = new ArrayList<>(); // Keep track of classIds
+    private List<Integer> classIds = new ArrayList<>();
 
+    private final int teacherId = 1;
+    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_teacher_view_submissions, container, false);
 
         spnClass = view.findViewById(R.id.spnClass);
         rvSubmissions = view.findViewById(R.id.rvViewSubmissions);
+
         rvSubmissions.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TeacherSubmissionAdapter(getContext(), submissionList);
         rvSubmissions.setAdapter(adapter);
@@ -53,14 +58,12 @@ public class TeacherViewSubmissionsFragment extends Fragment {
         spnClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Retrieve the selected classId from the classIds list
-                int classId = classIds.get(position);
-                loadSubmissions(classId); // Load submissions for the selected classId
+                int selectedClassId = classIds.get(position);
+                loadSubmissions(selectedClassId);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Optionally handle case when no item is selected
             }
         });
 
@@ -68,38 +71,36 @@ public class TeacherViewSubmissionsFragment extends Fragment {
     }
 
     private void loadClasses() {
-        String url = "http://192.168.3.246/SchoolHub/teacher_get_classes.php?id=1";
+        String url = baseUrl + "teacher_get_classes.php?teacher_id=" + teacherId +" = 1";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     try {
                         JSONArray jsonArray = new JSONArray(response);
                         List<String> classNames = new ArrayList<>();
-
-                        // Clear existing classIds before adding new ones
                         classIds.clear();
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject obj = jsonArray.getJSONObject(i);
-                            classIds.add(obj.getInt("id")); // Add classId to the list
-                            classNames.add(obj.getString("name")); // Add className to the list
+                            classIds.add(obj.getInt("id"));
+                            classNames.add(obj.getString("class_name"));
                         }
 
-                        // Set up the spinner adapter with the class names
-                        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
-                                android.R.layout.simple_spinner_dropdown_item, classNames);
+                        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(
+                                getContext(),
+                                android.R.layout.simple_spinner_dropdown_item,
+                                classNames
+                        );
                         spnClass.setAdapter(spinnerAdapter);
-
                     } catch (JSONException e) {
-                        Log.e("JSON Parsing Error", e.getMessage());
-                        e.printStackTrace();
+                        Log.e("JSON Error", "Failed to parse classes: " + e.getMessage());
+                        Toast.makeText(getContext(), "Failed to parse class data", Toast.LENGTH_SHORT).show();
                     }
                 },
                 error -> {
-                    Log.e("Classes Error", error.toString());
+                    Log.e("Class Load Error", error.toString());
                     Toast.makeText(getContext(), "Failed to load classes", Toast.LENGTH_SHORT).show();
                 }) {
-
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<>();
@@ -108,51 +109,38 @@ public class TeacherViewSubmissionsFragment extends Fragment {
             }
         };
 
-        Volley.newRequestQueue(getContext()).add(request);
+        Volley.newRequestQueue(requireContext()).add(request);
     }
 
     private void loadSubmissions(int classId) {
-        String url = "http://192.168.3.246/SchoolHub/teacher_get_submissions.php";
+        String url = baseUrl + "teacher_get_submissions.php?class_id=" + classId + "&teacher_id=" + teacherId;
 
-        StringRequest request = new StringRequest(Request.Method.POST, url,
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
+                    submissionList.clear();
+                    Log.e("Submittions Response", response.toString() + "");
                     try {
-                        JSONArray jsonArray = new JSONArray(response);
-                        submissionList.clear();
-
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject obj = jsonArray.getJSONObject(i);
-                            Submission s = new Submission(
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject obj = response.getJSONObject(i);
+                            submissionList.add(new Submission(
                                     obj.getInt("submission_id"),
                                     obj.getString("student_name"),
                                     obj.getString("subject_name"),
                                     obj.getString("submission_date"),
-                                    obj.getString("file_url")
-                            );
-                            submissionList.add(s);
+                                    obj.optString("file_url", null)
+                            ));
                         }
-
                         adapter.notifyDataSetChanged();
-
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        Log.e("ParseError", e.getMessage());
+                        Toast.makeText(getContext(), "Failed to parse submissions", Toast.LENGTH_SHORT).show();
                     }
                 },
                 error -> {
-                        Log.e("Submit error", error.toString());
-                        Toast.makeText(getContext(), "Error loading submissions", Toast.LENGTH_SHORT).show();
+                    Log.e("VolleyError", error.toString());
+                    Toast.makeText(getContext(), "Failed to load submissions", Toast.LENGTH_SHORT).show();
+                });
 
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> map = new HashMap<>();
-                map.put("class_id", String.valueOf(1));
-                map.put("teacher_id", String.valueOf(teacherId));
-                return map;
-            }
-        };
-
-        Volley.newRequestQueue(getContext()).add(request);
+        Volley.newRequestQueue(requireContext()).add(request);
     }
 }
