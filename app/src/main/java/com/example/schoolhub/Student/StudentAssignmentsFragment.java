@@ -23,6 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.Assignment;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Student.Adapter.AssignmentAdapter;
@@ -41,7 +42,7 @@ public class StudentAssignmentsFragment extends Fragment {
 
     private ListView lstBooks;
     private AssignmentAdapter adapter;
-    private List<Assignment> assignmentList = new ArrayList<>();
+    private final List<Assignment> assignmentList = new ArrayList<>();
 
     private final int studentId = 1; // Replace with actual logged-in student ID
 
@@ -57,23 +58,35 @@ public class StudentAssignmentsFragment extends Fragment {
         btnSubmitted = view.findViewById(R.id.btnSubmitted);
         btnGraded = view.findViewById(R.id.btnGraded);
 
-        // Set default adapter
+        // Init adapter
         adapter = new AssignmentAdapter(requireContext(), assignmentList);
         lstBooks.setAdapter(adapter);
 
-        // Fetch from backend
-        fetchAssignmentsFromDB();
+        // Default load: Pending
+        fetchAssignmentsFromDB("Pending");
+        updateButtonColors(btnPending);
 
-        // Button logic
-        btnPending.setOnClickListener(v -> filterBy("Pending", btnPending));
-        btnSubmitted.setOnClickListener(v -> filterBy("Submitted", btnSubmitted));
-        btnGraded.setOnClickListener(v -> filterBy("Graded", btnGraded));
+        // Button listeners
+        btnPending.setOnClickListener(v -> {
+            fetchAssignmentsFromDB("Pending");
+            updateButtonColors(btnPending);
+        });
+
+        btnSubmitted.setOnClickListener(v -> {
+            fetchAssignmentsFromDB("Submitted");
+            updateButtonColors(btnSubmitted);
+        });
+
+        btnGraded.setOnClickListener(v -> {
+            fetchAssignmentsFromDB("Graded");
+            updateButtonColors(btnGraded);
+        });
 
         return view;
     }
 
-    private void fetchAssignmentsFromDB() {
-        String url = "http://192.168.1.18/SchoolHub/get_student_assignments.php?student_id=" + studentId;
+    private void fetchAssignmentsFromDB(String status) {
+        String url = MainActivity.baseUrl+"get_student_assignments.php?student_id=" + studentId + "&status=" + status;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -85,34 +98,22 @@ public class StudentAssignmentsFragment extends Fragment {
                             String subject = obj.getString("subject");
                             String teacher = obj.getString("teacher_name");
                             String due = obj.getString("due_date");
-                            String status = obj.optString("status", "Pending");
                             String attachment = obj.optString("attachment_path", "");
                             int id = obj.getInt("id");
                             assignmentList.add(new Assignment(id, title, subject, teacher, due, status, attachment));
                         }
-                        adapter = new AssignmentAdapter(requireContext(), assignmentList);
-                        lstBooks.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Toast.makeText(requireContext(), "Error parsing assignment data", Toast.LENGTH_SHORT).show();
                     }
                 },
-                error -> error.printStackTrace()
-        );
+                error -> {
+                    error.printStackTrace();
+                    Toast.makeText(requireContext(), "Failed to fetch assignments", Toast.LENGTH_SHORT).show();
+                });
 
         Volley.newRequestQueue(requireContext()).add(request);
-    }
-
-    private void filterBy(String status, Button activeButton) {
-        List<Assignment> filtered = new ArrayList<>();
-        for (Assignment a : assignmentList) {
-            if (a.getStatus().equalsIgnoreCase(status)) {
-                filtered.add(a);
-            }
-        }
-
-        adapter = new AssignmentAdapter(requireContext(), filtered);
-        lstBooks.setAdapter(adapter);
-        updateButtonColors(activeButton);
     }
 
     private void updateButtonColors(Button selected) {
@@ -150,10 +151,12 @@ public class StudentAssignmentsFragment extends Fragment {
             String fileName = getFileName(fileUri);
 
             StringRequest request = new StringRequest(Request.Method.POST,
-                    "http://192.168.2.30/SchoolHub/student_submit_assignment.php",
+                    MainActivity.baseUrl+"student_submit_assignment.php",
                     response -> {
                         Log.d("UPLOAD_SUCCESS", response);
                         Toast.makeText(getContext(), "Submission successful", Toast.LENGTH_SHORT).show();
+                        fetchAssignmentsFromDB("Submitted");
+                        updateButtonColors(btnSubmitted);
                     },
                     error -> {
                         error.printStackTrace();

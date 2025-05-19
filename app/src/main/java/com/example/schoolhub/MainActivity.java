@@ -22,6 +22,9 @@ import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final     String baseUrl = "http://192.168.1.8/SchoolHub/";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.NotificationItem;
 import com.example.schoolhub.R;
 
@@ -73,7 +74,7 @@ public class NotificationAdapter extends ArrayAdapter<NotificationItem> {
 
 
     private void markAsRead(int id, View dotView) {
-        String url = "http://192.168.2.30/SchoolHub/mark_notification_read.php";
+        String url = MainActivity.baseUrl+"mark_notification_read.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> dotView.setBackgroundResource(R.drawable.dot_green),

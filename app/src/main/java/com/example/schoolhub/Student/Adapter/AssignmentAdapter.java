@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.Assignment;
 import com.example.schoolhub.R;
 
@@ -73,7 +74,7 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
             if (rawPath != null && !rawPath.trim().isEmpty()) {
                 String fullUrl = rawPath.startsWith("http://") || rawPath.startsWith("https://")
                         ? rawPath
-                        : "http://192.168.2.30/SchoolHub/uploads/" + rawPath;
+                        : MainActivity.baseUrl+"uploads/" + rawPath;
 
                 Log.d("DownloadButton", "Opening: " + fullUrl);
                 try {

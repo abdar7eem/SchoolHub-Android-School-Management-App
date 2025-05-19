@@ -1,6 +1,7 @@
 package com.example.schoolhub.Student;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.EventBoardItem;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Student.Adapter.EventBoardAdapter;
@@ -47,22 +49,27 @@ public class StudentEventFragment extends Fragment {
     }
 
     private void fetchConfirmedEventsThenLoad() {
-        String url = "http://192.168.1.18/SchoolHub/check_event_confirmation.php?student_id=" + studentId;
+        String url = MainActivity.baseUrl+"check_event_confirmation.php?student_id=" + studentId;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
-                        JSONObject obj = response.getJSONObject(0);
-                        JSONArray confirmed = obj.getJSONArray("confirmed_events");
+                        if (response.length() > 0) {
+                            JSONObject obj = response.getJSONObject(0);
+                            JSONArray confirmed = obj.getJSONArray("confirmed_events");
 
-                        confirmedEventIds.clear();
-                        for (int i = 0; i < confirmed.length(); i++) {
-                            confirmedEventIds.add(confirmed.getInt(i));
+                            confirmedEventIds.clear();
+                            for (int i = 0; i < confirmed.length(); i++) {
+                                confirmedEventIds.add(confirmed.getInt(i));
+                            }
+                        } else {
+                            Log.w("JSON Parsing Warning", "No confirmed events found for student");
                         }
 
-                        fetchEvents(); // Load full event list after we get confirmations
+                        fetchEvents(); // Load events regardless
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.e("JSON Parsing Error", "Error parsing confirmation data: " + e.getMessage());
                         Toast.makeText(requireContext(), "Error parsing confirmation list", Toast.LENGTH_SHORT).show();
                         fetchEvents(); // fallback
                     }
@@ -76,7 +83,7 @@ public class StudentEventFragment extends Fragment {
     }
 
     private void fetchEvents() {
-        String url = "http://192.168.1.18/SchoolHub/get_event_board.php";
+        String url = MainActivity.baseUrl+"get_event_board.php";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -104,10 +111,14 @@ public class StudentEventFragment extends Fragment {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.e("JSON Parsing Error", "Error parsing JSON data: " + e.getMessage());
                         Toast.makeText(requireContext(), "Error parsing event data", Toast.LENGTH_SHORT).show();
                     }
                 },
-                error -> Toast.makeText(requireContext(), "Failed to load events", Toast.LENGTH_SHORT).show()
+                error ->{
+
+                    Toast.makeText(requireContext(), "Failed to load events", Toast.LENGTH_SHORT).show();
+                }
         );
 
         Volley.newRequestQueue(requireContext()).add(request);
