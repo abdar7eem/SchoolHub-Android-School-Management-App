@@ -37,7 +37,7 @@ public class CalendarEventAdapter extends ArrayAdapter<CalendarEvent> {
         TextView locationView = convertView.findViewById(R.id.txtEventLocation);
         if (event.location != null && !event.location.isEmpty()) {
             locationView.setVisibility(View.VISIBLE);
-            locationView.setText("Location: " + event.location);
+            locationView.setText(event.location);
         } else {
             locationView.setVisibility(View.GONE);
         }

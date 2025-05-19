@@ -57,10 +57,10 @@ public class StudentCalendarFragment extends Fragment {
                             JSONObject obj = response.getJSONObject(i);
 
                             String type = capitalize(obj.getString("event_type"));
-                            String subject = obj.isNull("subject_name") ? "Subject: -" : "Subject: " + obj.getString("subject_name");
-                            String title = "Title: " + obj.getString("event_title");
+                            String subject = obj.isNull("subject_name") ? " -" :  obj.getString("subject_name");
+                            String title =  obj.getString("event_title");
                             String date = obj.getString("event_date");
-                            String time = "Date: " + date;
+                            String time = date;
                             int eventId = obj.getInt("id");
 
                             if (!obj.isNull("event_start_time")) {
