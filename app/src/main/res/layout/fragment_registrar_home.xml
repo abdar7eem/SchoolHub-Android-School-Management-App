@@ -235,13 +235,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <TextView
-                    android:text="•Class 11A has no assigned Chemistry"
-                    android:layout_marginTop="4dp"
-                    android:textColor="#050404"
-                    android:fontFamily="@font/inknut_antiqua_light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:id="@+id/AlertsConatiner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -268,22 +270,15 @@
                     android:textColor="#7D0000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/EventsConatiner"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/inknut_antiqua_light"
-                    android:text="•MidTerms May 12-18"
-                    android:textColor="#0B0808" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/inknut_antiqua_light"
-                    android:text="•Oppen Day May 20"
-                    android:textColor="#0B0808" />
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
