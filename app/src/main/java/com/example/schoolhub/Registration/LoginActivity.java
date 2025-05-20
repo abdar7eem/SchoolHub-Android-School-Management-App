@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -33,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPrefs;
 
-    public static final     String baseUrl = "http://192.168.1.14/SchoolHub/";
+    public static final String baseUrl = "http://192.168.3.246/SchoolHub/";
 
 
 
@@ -69,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String username, String password) {
-        StringRequest request = new StringRequest(Request.Method.POST, "http://192.168.1.14/SchoolHub/login.php",
+        StringRequest request = new StringRequest(Request.Method.POST, baseUrl+ "login.php",
                 response -> {
                     try {
                         JSONObject obj = new JSONObject(response);
@@ -122,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                 },
                 error -> {
                     error.printStackTrace();
+                    Log.e("LoginError", "Error: " + error.getMessage());
                     Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
                 }) {
             @Override
@@ -150,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                     intent = new Intent(this, StudentMainActivity.class);
                     break;
                 case "teacher":
-                    intent = new Intent(this, TeacherMainActivity.class);
+                    intent = new Intent(this, LoginActivity.class);
                     break;
                 case "registrar":
                     intent = new Intent(this, RegistrarMainActivity.class);

@@ -22,9 +22,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.Schedule;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Student.Adapter.ScheduleAdapter;
 import com.example.schoolhub.Teacher.Adapter.TeacherSchedualAdapter;
 
@@ -43,7 +43,7 @@ public class TeacherScheduleFragment extends Fragment {
     private TextView tvScheduleDay;
     private List<Schedule> scheduleList = new ArrayList<>();
     private TeacherSchedualAdapter adapter;
-    private final String baseUrl = MainActivity.baseUrl;
+    private final String baseUrl = LoginActivity.baseUrl;
     private View rootView;
 
     @Override

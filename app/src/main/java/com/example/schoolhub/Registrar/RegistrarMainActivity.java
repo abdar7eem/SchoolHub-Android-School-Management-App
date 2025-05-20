@@ -2,7 +2,6 @@ package com.example.schoolhub.Registrar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,7 +17,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Registration.LoginActivity;
-import com.example.schoolhub.Teacher.TeacherMainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
