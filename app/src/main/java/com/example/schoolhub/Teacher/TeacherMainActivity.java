@@ -22,7 +22,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class TeacherMainActivity extends AppCompatActivity {
 
@@ -30,10 +29,8 @@ public class TeacherMainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-
     private final int teacherId = 1;
     private final String baseUrl = MainActivity.baseUrl;
-
     private TextView txtName, txtEmail;
 
     @Override
