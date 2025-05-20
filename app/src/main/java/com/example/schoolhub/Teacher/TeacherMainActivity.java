@@ -1,5 +1,6 @@
 package com.example.schoolhub.Teacher;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -30,8 +32,8 @@ public class TeacherMainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private Toolbar toolbar;
 
-    private final int teacherId = 1;
-    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
+    private int userId;
+    private int teacherId;
 
     private TextView txtName, txtEmail;
 
@@ -40,154 +42,164 @@ public class TeacherMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_main);
 
-        // Initialize views
+        userId = getIntent().getIntExtra("user_id", -1);
+
+        // Initialize UI
         drawerLayout = findViewById(R.id.teacherDrawerLayout);
         toolbar = findViewById(R.id.teacherToolbar);
         navigationView = findViewById(R.id.teacherNavView);
         teacherBottomNav = findViewById(R.id.teacherBottomNav);
 
-        // Set toolbar as action bar
         setSupportActionBar(toolbar);
 
-        // Set up drawer toggle (hamburger icon)
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this,
-                drawerLayout,
-                toolbar,
-                R.string.open_nav,
-                R.string.close_nav
-        );
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        // Access header view for name & email
         View headerView = navigationView.getHeaderView(0);
         txtName = headerView.findViewById(R.id.txtName);
         txtEmail = headerView.findViewById(R.id.txtEmail);
 
-        loadHeaderData();
+        fetchTeacherId(userId);
         checkUnreadNotifications();
 
-        // Load default fragment
-        if (savedInstanceState == null) {
-            loadFragment(new TeacherHomeFragment());
-            teacherBottomNav.setSelectedItemId(R.id.teacher_nav_home);
-        }
+        // Drawer toggle
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
         teacherBottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
-            int itemId = item.getItemId();
-
-            if (itemId == R.id.teacher_nav_home) {
-                selectedFragment = new TeacherHomeFragment();
-            } else if (itemId == R.id.teacher_nav_schedual) {
-                selectedFragment = new TeacherScheduleFragment();
-            } else if (itemId == R.id.teacher_nav_notification) {
-                selectedFragment = new TeacherNotificationFragment();
+            Fragment f = getTeacherFragment(item.getItemId());
+            if (f != null) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("teacher_id", teacherId);
+                f.setArguments(bundle);
+                return loadFragment(f);
             }
-
-            if (selectedFragment != null) {
-                loadFragment(selectedFragment);
-                navigationView.getMenu().setGroupCheckable(0, true, false);
-                for (int i = 0; i < navigationView.getMenu().size(); i++) {
-                    navigationView.getMenu().getItem(i).setChecked(false);
-                }
-                navigationView.getMenu().setGroupCheckable(0, true, true);
-                return true;
-            }
-
             return false;
         });
 
         navigationView.setNavigationItemSelectedListener(item -> {
-            int id = item.getItemId();
-            Fragment selectedFragment = null;
-
-            if (id == R.id.teacher_nav_assignments) {
-                selectedFragment = new TeacherSendAssignmentFragment();
-            } else if (id == R.id.teacher_nav_view_submissions) {
-                selectedFragment = new TeacherViewSubmissionsFragment();
-            } else if (id == R.id.teacher_nav_view_grades) {
-                selectedFragment = new TeacherViewGradeFragment();
-            } else if (id == R.id.teacher_nav_publish_marks) {
-                selectedFragment = new TeacherPublishMarksFragment();
-            } else if (id == R.id.teacher_nav_attendance) {
-                selectedFragment = new TeacherTakeAttendanceFragment();
-            } else if (id == R.id.teacher_nav_leaderboard) {
-                selectedFragment = new TeacherLeaderBoardFragment();
-            } else if (id == R.id.teacher_nav_schedule_exam) {
-                selectedFragment = new TeacherScheduleExamFragment();
-            } else if (id == R.id.teacher_nav_sittings) {
-                selectedFragment = new TeacherSettingsFragment();
-            } else if (id == R.id.teacher_nav_notification) {
-                selectedFragment = new TeacherNotificationFragment();
-            } else if (id == R.id.teacher_nav_logout) {
-                // Handle logout
+            Fragment f = getTeacherFragment(item.getItemId());
+            if (f != null) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("teacher_id", teacherId);
+                f.setArguments(bundle);
+                loadFragment(f);
             }
-
-            if (selectedFragment != null) {
-                loadFragment(selectedFragment);
-                teacherBottomNav.getMenu().setGroupCheckable(0, true, false);
-                for (int i = 0; i < teacherBottomNav.getMenu().size(); i++) {
-                    teacherBottomNav.getMenu().getItem(i).setChecked(false);
-                }
-                teacherBottomNav.getMenu().setGroupCheckable(0, true, true);
-            }
-
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
     }
 
-    private void loadFragment(Fragment fragment) {
-        checkUnreadNotifications();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.teacherFragmentContainer, fragment)
-                .commit();
-    }
-
-    private void loadHeaderData() {
-        String url = baseUrl + "get_user_nav.php?id=" + teacherId;
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+    private void fetchTeacherId(int userId) {
+        String url = LoginActivity.baseUrl + "get_user_role_id.php?user_id=" + userId;
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
-                    Log.d("TeacherMainActivity", "Header data loaded: " + response.toString() + "");
                     try {
-                        String name = response.getString("name");
-                        String email = response.getString("email");
+                        if (response.has("role_id")) {
+                            teacherId = response.getInt("role_id");
 
-                        txtName.setText(name);
-                        txtEmail.setText(email);
+                            // Load default fragment with teacherId
+                            Fragment f = new TeacherHomeFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("teacher_id", teacherId);
+                            f.setArguments(bundle);
+                            loadFragment(f);
+                            teacherBottomNav.setSelectedItemId(R.id.teacher_nav_home);
 
+                            loadHeaderData(teacherId);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },
-                error -> Log.e("TeacherMainActivity", "Header data load error", error)
+                error -> {
+                    error.printStackTrace();
+                    Log.e("TeacherMainActivity", "Error fetching teacher_id");
+                }
         );
+        Volley.newRequestQueue(this).add(req);
+    }
 
+    private Fragment getTeacherFragment(int id) {
+        if (id == R.id.teacher_nav_home) {
+            return new TeacherHomeFragment();
+        } else if (id == R.id.teacher_nav_schedual) {
+            return new TeacherScheduleFragment();
+        } else if (id == R.id.teacher_nav_notification) {
+            return new TeacherNotificationFragment();
+        } else if (id == R.id.teacher_nav_assignments) {
+            return new TeacherSendAssignmentFragment();
+        } else if (id == R.id.teacher_nav_view_submissions) {
+            return new TeacherViewSubmissionsFragment();
+        } else if (id == R.id.teacher_nav_view_grades) {
+            return new TeacherViewGradeFragment();
+        } else if (id == R.id.teacher_nav_publish_marks) {
+            return new TeacherPublishMarksFragment();
+        } else if (id == R.id.teacher_nav_attendance) {
+            return new TeacherTakeAttendanceFragment();
+        } else if (id == R.id.teacher_nav_leaderboard) {
+            return new TeacherLeaderBoardFragment();
+        } else if (id == R.id.teacher_nav_schedule_exam) {
+            return new TeacherScheduleExamFragment();
+        } else if (id == R.id.teacher_nav_sittings) {
+            return new TeacherSettingsFragment();
+        } else if (id == R.id.teacher_nav_logout) {
+            // Clear saved user session
+            getSharedPreferences("userData", MODE_PRIVATE)
+                    .edit()
+                    .clear()
+                    .apply();
+
+            // Redirect to login screen
+            Intent intent = new Intent(TeacherMainActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // clear back stack
+            startActivity(intent);
+
+            finish(); // finish current activity
+            return null;
+        }
+        else {
+            return null;
+        }
+    }
+
+
+
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            checkUnreadNotifications();
+            getSupportFragmentManager().beginTransaction().replace(R.id.teacherFragmentContainer, fragment).commit();
+            return true;
+        }
+        return false;
+    }
+
+
+    private void loadHeaderData(int teacherId) {
+        String url = LoginActivity.baseUrl + "get_user_nav.php?id=" + teacherId;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        txtName.setText(response.getString("name"));
+                        txtEmail.setText(response.getString("email"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> error.printStackTrace()
+        );
         Volley.newRequestQueue(this).add(request);
     }
 
     private void checkUnreadNotifications() {
-        String url = baseUrl + "get_notifications.php?user_id=1&filter=unread";
-
+        String url = LoginActivity.baseUrl + "get_notifications.php?user_id=" + userId + "&filter=unread";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
                     boolean hasUnread = response.length() > 0;
-
-                    // Update notification icon based on unread status
                     teacherBottomNav.getMenu().findItem(R.id.teacher_nav_notification).setIcon(
                             hasUnread ? R.drawable.notification_alert : R.drawable.notification
                     );
                 },
-                error -> {
-                    error.printStackTrace();
-                    // Optional: Fallback to normal icon if error occurs
-                    teacherBottomNav.getMenu().findItem(R.id.teacher_nav_notification).setIcon(R.drawable.notification);
-                });
-
+                error -> teacherBottomNav.getMenu().findItem(R.id.teacher_nav_notification).setIcon(R.drawable.notification)
+        );
         Volley.newRequestQueue(this).add(request);
     }
 

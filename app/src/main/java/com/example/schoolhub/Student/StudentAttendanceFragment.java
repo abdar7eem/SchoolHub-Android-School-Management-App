@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
@@ -19,8 +18,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.journeyapps.barcodescanner.CaptureActivity;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -33,7 +32,8 @@ public class StudentAttendanceFragment extends Fragment {
     private TextView txtDay, txtStatus;
     private Button btnSelectDate, btnScanQR;
 
-    private final int studentId = 1; // Replace with real logged-in student ID
+
+    private  int studentId ;
 
     // QR Scan Launcher
     private final ActivityResultLauncher<ScanOptions> qrLauncher = registerForActivityResult(
@@ -57,7 +57,11 @@ public class StudentAttendanceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_attendance, container, false);
-
+        if (getArguments() != null) {
+            studentId = getArguments().getInt("student_id", -1);
+        } else {
+            studentId = -1; // fallback
+        }
         // Initialize views
         txtDay = view.findViewById(R.id.txtDay);
         txtStatus = view.findViewById(R.id.txtStatus);
@@ -96,7 +100,7 @@ public class StudentAttendanceFragment extends Fragment {
     }
 
     private void fetchAttendance(String selectedDate) {
-        String url = MainActivity.baseUrl+"get_attendance.php?student_id=" + studentId + "&date=" + selectedDate;
+        String url = LoginActivity.baseUrl+"get_attendance.php?student_id=" + studentId + "&date=" + selectedDate;
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
@@ -118,7 +122,7 @@ public class StudentAttendanceFragment extends Fragment {
     }
 
     private void submitAttendance(String sessionId) {
-        String url = MainActivity.baseUrl+"mark_attendance.php?student_id=" + studentId + "&session_id=" + sessionId;
+        String url = LoginActivity.baseUrl+"mark_attendance.php?student_id=" + studentId + "&session_id=" + sessionId;
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 

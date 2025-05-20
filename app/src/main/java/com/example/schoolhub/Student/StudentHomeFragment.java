@@ -12,8 +12,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,13 +26,18 @@ import java.util.Locale;
 public class StudentHomeFragment extends Fragment {
 
     private TextView txtGreeting, txtUpcoming, txtEvent, txtSnapshot;
-    private final int studentId = 1;
+    private  int studentId ;
+
     private LinearLayout llUpcoming, llEvent, llSnapshot;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_home, container, false);
-
+        if (getArguments() != null) {
+            studentId = getArguments().getInt("student_id", -1);
+        } else {
+            studentId = -1; // fallback
+        }
         txtGreeting = view.findViewById(R.id.txtGreeting);
         txtUpcoming = view.findViewById(R.id.txtUpcoming);
         txtEvent = view.findViewById(R.id.txtEvent);
@@ -60,7 +65,7 @@ public class StudentHomeFragment extends Fragment {
     }
 
     private void setGreeting() {
-        String url = MainActivity.baseUrl+"get_student_name.php?user_id=" + studentId;
+        String url = LoginActivity.baseUrl+"get_student_name.php?user_id=" + studentId;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
@@ -79,7 +84,7 @@ public class StudentHomeFragment extends Fragment {
     }
 
     private void fetchDashboardData() {
-        String url = MainActivity.baseUrl+"get_dashboard_data.php?student_id=" + studentId;
+        String url = LoginActivity.baseUrl+"get_dashboard_data.php?student_id=" + studentId;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {

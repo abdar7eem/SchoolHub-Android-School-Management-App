@@ -1,0 +1,95 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ebeff2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Logo -->
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="48dp"
+            android:src="@drawable/logo4"
+            android:contentDescription="Logo" />
+
+        <!-- App Title -->
+        <TextView
+            android:id="@+id/appTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SchoolHub"
+            android:textSize="28sp"
+            android:textColor="#990100"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <!-- Card Container -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_rounded_background"
+            android:elevation="8dp"
+            android:layout_marginTop="32dp"
+            android:padding="24dp"
+            android:layout_marginBottom="32dp"
+            android:clipToOutline="true">
+
+            <!-- Username -->
+            <EditText
+                android:id="@+id/etLoginUsername"
+                android:hint="Username"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:padding="12dp"
+                android:background="@drawable/edittext_rounded_border"
+                android:textColor="#000000"
+                android:textColorHint="#990100"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Password -->
+            <EditText
+                android:id="@+id/etLoginPassword"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:padding="12dp"
+                android:background="@drawable/edittext_rounded_border"
+                android:textColor="#000000"
+                android:textColorHint="#990100"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Remember Me -->
+            <CheckBox
+                android:id="@+id/checkRemember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#990100"
+                android:text="Remember Me"
+                android:textColor="#333333"
+                android:textSize="14sp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Login Button -->
+            <Button
+                android:id="@+id/btnLogin"
+                android:text="LOGIN"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:backgroundTint="#990100"
+                android:textColor="#ffffff"
+                android:elevation="2dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

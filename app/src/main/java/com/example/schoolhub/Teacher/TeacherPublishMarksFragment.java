@@ -16,6 +16,7 @@ import com.example.schoolhub.Model.ClassInfo;
 import com.example.schoolhub.Model.StudentGrade;
 import com.example.schoolhub.Model.SubjectInfo;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Teacher.Adapter.TeacherPublishMarksAdabter;
 
 import org.json.*;
@@ -37,7 +38,7 @@ public class TeacherPublishMarksFragment extends Fragment {
     int selectedSubjectId;
     String selectedMarkType;
 
-    String baseUrl = "http://192.168.3.246/SchoolHub/";
+    String baseUrl = LoginActivity.baseUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

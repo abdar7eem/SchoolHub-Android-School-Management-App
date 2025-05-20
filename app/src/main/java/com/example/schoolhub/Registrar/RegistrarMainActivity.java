@@ -1,5 +1,6 @@
 package com.example.schoolhub.Registrar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
+import com.example.schoolhub.Teacher.TeacherMainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -28,7 +31,8 @@ public class RegistrarMainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private Toolbar toolbar;
 
-    int RegistrarId=3;
+    private int userId;
+    private int registrarId;
 
     private TextView txtName, txtEmail;
 
@@ -39,88 +43,136 @@ public class RegistrarMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_main);
 
-        // Initialize views
+        userId = getIntent().getIntExtra("user_id", -1);
+
         drawerLayout = findViewById(R.id.registrarDrawerLayout);
         toolbar = findViewById(R.id.registrarToolbar);
         navigationView = findViewById(R.id.registrarNavView);
         registrarBottomNav = findViewById(R.id.registrarBottomNav);
 
-        // Set toolbar as the action bar
         setSupportActionBar(toolbar);
 
         View headerView = navigationView.getHeaderView(0);
         txtName = headerView.findViewById(R.id.txtName);
         txtEmail = headerView.findViewById(R.id.txtEmail);
-        loadHeaderData();
 
-        // Set up drawer toggle
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar,
-                R.string.open_nav, R.string.close_nav
-        );
+        fetchRegistrarId(userId);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        // Load default fragment
-        if (savedInstanceState == null) {
-            loadFragment(new RegistrarHomeFregment());
-            registrarBottomNav.setSelectedItemId(R.id.registrar_nav_home);
-        }
-
-         //Bottom Navigation logic
         registrarBottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
-            int id = item.getItemId();
-
-            if (id == R.id.registrar_nav_home) {
-                selectedFragment = new RegistrarHomeFregment();
-            } else if (id == R.id.registrar_nav_Add) {
-                selectedFragment = new RegistrarAddStudentFregment();
-            } else if (id == R.id.registrar_nav_schedual) {
-                selectedFragment = new RegistrarScheduleFregment();
+            Fragment f = getRegistrarFragment(item.getItemId());
+            if (f != null) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("registrar_id", registrarId);
+                f.setArguments(bundle);
+                return loadFragment(f);
             }
-
-            return loadFragment(selectedFragment);
+            return false;
         });
 
-        //Side Navigation logic (with if-else)
-       navigationView.setNavigationItemSelectedListener(item -> {
-            drawerLayout.closeDrawer(GravityCompat.START);
-
-            Fragment selectedFragment = null;
-            int id = item.getItemId();
-
-            if (id == R.id.nav_addClass) {
-                selectedFragment = new RegistrarAddClassFregment();
-            } else if (id == R.id.nav_addStudent) {
-                selectedFragment = new RegistrarAddStudentFregment();
-            } else if (id == R.id.nav_addSubject) {
-                selectedFragment = new RegistrarAddSubjectFregment();
-            } else if (id == R.id.nav_postEvent) {
-                selectedFragment = new RegistrarAddEventFregment();
-            } else if (id == R.id.nav_addTeacher) {
-                selectedFragment = new RegistrarAddTeacherFregment();
-            }else if(id== R.id.nav_settings){
-                selectedFragment = new RegistrarSettingsFregment();
-
-            } else if (id == R.id.nav_logout) {
-                finish(); // close the activity (logout)
-                return true;
+        navigationView.setNavigationItemSelectedListener(item -> {
+            Fragment f = getRegistrarFragment(item.getItemId());
+            if (f != null) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("registrar_id", registrarId);
+                f.setArguments(bundle);
+                loadFragment(f);
             }
-
-            return loadFragment(selectedFragment);
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
         });
     }
 
-    private boolean loadFragment(Fragment fragment) {
-        if (fragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.registrarFragmentContainer, fragment)
-                    .commit();
-            return true;
+    private Fragment getRegistrarFragment(int id) {
+        if (id == R.id.registrar_nav_home) {
+            return new RegistrarHomeFregment();
+        } else if (id == R.id.registrar_nav_Add) {
+            return new RegistrarAddStudentFregment();
+        } else if (id == R.id.registrar_nav_schedual) {
+            return new RegistrarScheduleFregment();
+        } else if (id == R.id.nav_addClass) {
+            return new RegistrarAddClassFregment();
+        } else if (id == R.id.nav_addStudent) {
+            return new RegistrarAddStudentFregment();
+        } else if (id == R.id.nav_addSubject) {
+            return new RegistrarAddSubjectFregment();
+        } else if (id == R.id.nav_postEvent) {
+            return new RegistrarAddEventFregment();
+        } else if (id == R.id.nav_addTeacher) {
+            return new RegistrarAddTeacherFregment();
+        } else if (id == R.id.nav_settings) {
+            return new RegistrarSettingsFregment();
         }
-        return false;
+        else if (id == R.id.nav_logout) {
+            // Clear saved user session
+            getSharedPreferences("userData", MODE_PRIVATE)
+                    .edit()
+                    .clear()
+                    .apply();
+
+            // Redirect to login screen
+            Intent intent = new Intent(RegistrarMainActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // clear back stack
+            startActivity(intent);
+
+            finish(); // finish current activity
+            return null;
+        }
+
+
+
+        else {
+            return null;
+        }
+    }
+
+
+    private void fetchRegistrarId(int userId) {
+        String url = baseUrl + "get_user_role_id.php?user_id=" + userId;
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        if (response.has("role_id")) {
+                            registrarId = response.getInt("role_id");
+                            Fragment f = new RegistrarHomeFregment();
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("registrar_id", registrarId);
+                            f.setArguments(bundle);
+                            loadFragment(f);
+                            registrarBottomNav.setSelectedItemId(R.id.registrar_nav_home);
+                            loadHeaderData(registrarId);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> error.printStackTrace()
+        );
+        Volley.newRequestQueue(this).add(req);
+    }
+
+    private boolean loadFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.registrarFragmentContainer, fragment).commit();
+        return true;
+    }
+
+    private void loadHeaderData(int registrarId) {
+        String url = baseUrl + "get_user_nav.php?id=" + registrarId;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        txtName.setText(response.getString("name"));
+                        txtEmail.setText(response.getString("email"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> error.printStackTrace()
+        );
+        Volley.newRequestQueue(this).add(request);
     }
 
     @Override
@@ -130,28 +182,5 @@ public class RegistrarMainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
-    }
-
-    private void loadHeaderData() {
-        String url = baseUrl + "get_user_nav.php?id=" + RegistrarId;
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                response -> {
-                    Log.d("TeacherMainActivity", "Header data loaded: " + response.toString() + "");
-                    try {
-                        String name = response.getString("name");
-                        String email = response.getString("email");
-
-                        txtName.setText(name);
-                        txtEmail.setText(email);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                },
-                error -> Log.e("TeacherMainActivity", "Header data load error", error)
-        );
-
-        Volley.newRequestQueue(this).add(request);
     }
 }

@@ -11,10 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import androidx.annotation.RequiresPermission;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
@@ -23,9 +21,9 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.NotificationItem;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Student.Adapter.NotificationAdapter;
 
 import org.json.JSONException;
@@ -41,7 +39,9 @@ public class StudentNotificationFragment extends Fragment {
     private ListView lstBooks;
     private NotificationAdapter adapter;
     private List<NotificationItem> notificationList;
-    private final int studentId = 1; // Replace with actual logged-in student id
+    Bundle bundle = new Bundle();
+
+    private  int studentId ;
 
     private final String CHANNEL_ID = "schoolhub_notifications";
 
@@ -49,7 +49,11 @@ public class StudentNotificationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_notification, container, false);
-
+        if (getArguments() != null) {
+            studentId = getArguments().getInt("student_id", -1);
+        } else {
+            studentId = -1; // fallback
+        }
         lstBooks = view.findViewById(R.id.lstBooks);
         notificationList = new ArrayList<>();
         adapter = new NotificationAdapter(getContext(), notificationList);
@@ -76,7 +80,7 @@ public class StudentNotificationFragment extends Fragment {
     }
 
     private void fetchNotifications(String filter) {
-        String url = MainActivity.baseUrl + "get_notifications.php?user_id=" + studentId + "&filter=" + filter;
+        String url = LoginActivity.baseUrl + "get_notifications.php?user_id=" + studentId + "&filter=" + filter;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -132,7 +136,7 @@ public class StudentNotificationFragment extends Fragment {
     }
 
     public void sendNotificationToServerAndDevice(String title, String message, int recipientId, int senderId) {
-        String url = MainActivity.baseUrl+"send_notification.php";
+        String url = LoginActivity.baseUrl+"send_notification.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {

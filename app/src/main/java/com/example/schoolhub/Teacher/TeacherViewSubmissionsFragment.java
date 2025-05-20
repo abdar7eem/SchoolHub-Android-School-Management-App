@@ -20,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.Submission;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Teacher.Adapter.TeacherSubmissionAdapter;
 
 import org.json.JSONArray;
@@ -40,7 +41,7 @@ public class TeacherViewSubmissionsFragment extends Fragment {
     private List<Integer> classIds = new ArrayList<>();
 
     private final int teacherId = 1;
-    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
+    private final String baseUrl = LoginActivity.baseUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

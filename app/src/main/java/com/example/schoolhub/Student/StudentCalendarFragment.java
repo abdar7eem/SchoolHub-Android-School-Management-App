@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.CalendarEvent;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Student.Adapter.CalendarEventAdapter;
 
 import org.json.JSONException;
@@ -28,13 +28,22 @@ public class StudentCalendarFragment extends Fragment {
     private CalendarEventAdapter adapter;
     private List<CalendarEvent> eventList;
 
-    private int classId = 1, userId=1; // Replace with actual class_id for the logged-in student
+    private int classId ;
+
+
+    private  int studentId;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_calendar, container, false);
-
+        if (getArguments() != null) {
+            studentId = getArguments().getInt("student_id", -1);
+            classId = getArguments().getInt("class_id", 1); // Default to 1 if not provided
+        } else {
+            studentId = -1; // fallback
+        }
         lstBooks = view.findViewById(R.id.lstBooks);
         eventList = new ArrayList<>();
         adapter = new CalendarEventAdapter(getContext(), eventList);
@@ -46,7 +55,7 @@ public class StudentCalendarFragment extends Fragment {
     }
 
     private void fetchEvents() {
-        String url = MainActivity.baseUrl+"get_calendar_events.php?class_id=" + classId + "&student_id=" + userId;
+        String url = LoginActivity.baseUrl+"get_calendar_events.php?class_id=" + classId + "&student_id=" + studentId;
 
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,

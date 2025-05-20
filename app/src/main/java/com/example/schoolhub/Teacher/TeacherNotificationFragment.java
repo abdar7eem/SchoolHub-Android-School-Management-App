@@ -23,6 +23,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.NotificationItem;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Student.Adapter.NotificationAdapter;
 
 import org.json.JSONArray;
@@ -39,7 +40,9 @@ public class TeacherNotificationFragment extends Fragment {
     private ListView lstBooks;
     private NotificationAdapter adapter;
     private List<NotificationItem> notificationList;
-    private final int teacherId = 1; // Replace with actual logged-in teacher ID
+
+    Bundle bundle = new Bundle();
+    private final int teacherId =  bundle.getInt ("teacher_id");
     private final String CHANNEL_ID = "schoolhub_notifications";
 
     @Override
@@ -70,7 +73,7 @@ public class TeacherNotificationFragment extends Fragment {
     }
 
     private void fetchNotifications(String filter) {
-        String url = "http://192.168.3.246/SchoolHub/get_notifications.php?user_id=" + teacherId + "&filter=" + filter;
+        String url = LoginActivity.baseUrl+"get_notifications.php?user_id=" + teacherId + "&filter=" + filter;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -123,7 +126,7 @@ public class TeacherNotificationFragment extends Fragment {
     }
 
     public void sendNotificationToServerAndDevice(String title, String message, int recipientId, int senderId) {
-        String url = "http://192.168.3.246/SchoolHub/send_notification.php";
+        String url = LoginActivity.baseUrl +"send_notification.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> showLocalPopupNotification(title, message),

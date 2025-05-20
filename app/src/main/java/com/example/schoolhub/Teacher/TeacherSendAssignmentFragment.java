@@ -22,6 +22,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +39,7 @@ public class TeacherSendAssignmentFragment extends Fragment {
     Uri fileUri;
     String fileName;
 
-    String baseUrl = "http://192.168.3.246/SchoolHub/";
+    String baseUrl = LoginActivity.baseUrl;
     int teacherId = 1; // Replace with real teacher ID
 
     List<ClassInfo> classList = new ArrayList<>();

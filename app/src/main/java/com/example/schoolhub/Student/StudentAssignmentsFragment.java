@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.Assignment;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Student.Adapter.AssignmentAdapter;
 
 import org.json.JSONException;
@@ -37,8 +38,9 @@ public class StudentAssignmentsFragment extends Fragment {
     private AssignmentAdapter adapter;
     private List<Assignment> assignmentList = new ArrayList<>();
 
-    private final int studentId = 4;
-    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
+
+    private  int studentId ;
+    private final String baseUrl = LoginActivity.baseUrl;
 
     private Button btnPending, btnSubmitted, btnGraded;
     private int pendingAssignmentId = -1;
@@ -49,7 +51,11 @@ public class StudentAssignmentsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_assignments, container, false);
-
+        if (getArguments() != null) {
+            studentId = getArguments().getInt("student_id", -1);
+        } else {
+            studentId = -1; // fallback
+        }
         lstBooks = view.findViewById(R.id.lstBooks);
         btnPending = view.findViewById(R.id.btnPending);
         btnSubmitted = view.findViewById(R.id.btnSubmitted);

@@ -15,6 +15,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.ClassInfo;
 import com.example.schoolhub.Model.SubjectInfo;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +32,7 @@ public class TeacherLeaderBoardFragment extends Fragment {
 
     private final int teacherId = 1; // Replace with actual teacher ID
     private int selectedClassId, selectedSubjectId;
-    private final String baseUrl = "http://192.168.3.246/SchoolHub/"; // ✅ Base URL is already here
+    private final String baseUrl = LoginActivity.baseUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

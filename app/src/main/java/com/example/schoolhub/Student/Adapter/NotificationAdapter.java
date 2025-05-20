@@ -16,6 +16,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.NotificationItem;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,6 @@ import java.util.Map;
 
 public class NotificationAdapter extends ArrayAdapter<NotificationItem> {
     private Context context;
-    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
 
     public NotificationAdapter(Context context, List<NotificationItem> list) {
         super(context, 0, list);
@@ -71,7 +71,7 @@ public class NotificationAdapter extends ArrayAdapter<NotificationItem> {
     }
 
     private void markAsRead(int id, View dotView) {
-        String url = baseUrl + "mark_notification_read.php";
+        String url = LoginActivity.baseUrl + "mark_notification_read.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> dotView.setBackgroundResource(R.drawable.dot_green),
