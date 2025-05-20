@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.EventBoardItem;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Student.Adapter.EventBoardAdapter;
 
 import org.json.JSONArray;
@@ -33,13 +33,18 @@ public class StudentEventFragment extends Fragment {
     private EventBoardAdapter adapter;
     private List<EventBoardItem> eventList;
     private Set<Integer> confirmedEventIds = new HashSet<>();
-    private final int studentId = 1;
+
+    private  int studentId ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_events, container, false);
-
+        if (getArguments() != null) {
+            studentId = getArguments().getInt("student_id", -1);
+        } else {
+            studentId = -1; // fallback
+        }
         lstBooks = view.findViewById(R.id.lstBooks);
         eventList = new ArrayList<>();
 
@@ -49,7 +54,7 @@ public class StudentEventFragment extends Fragment {
     }
 
     private void fetchConfirmedEventsThenLoad() {
-        String url = MainActivity.baseUrl+"check_event_confirmation.php?student_id=" + studentId;
+        String url = LoginActivity.baseUrl+"check_event_confirmation.php?student_id=" + studentId;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -83,7 +88,7 @@ public class StudentEventFragment extends Fragment {
     }
 
     private void fetchEvents() {
-        String url = MainActivity.baseUrl+"get_event_board.php";
+        String url = LoginActivity.baseUrl+"get_event_board.php";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {

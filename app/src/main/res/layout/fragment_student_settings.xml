@@ -8,9 +8,7 @@
     android:background="#E8ECEF"
     tools:context=".Student.StudentSettingsFragment">
 
-    <!-- Settings Icon -->
 
-    <!-- Title -->
 
     <ImageView
         android:id="@+id/imgSetting"
@@ -77,9 +75,7 @@
                 <ImageView
                     android:id="@+id/imgAvatar"
                     android:layout_width="67dp"
-
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="35dp"
                     android:src="@drawable/avatar2" />
 
                 <LinearLayout
@@ -166,6 +162,7 @@
                         android:layout_height="37dp"
                         android:backgroundTint="#A9ADB0"
                         android:text="About Us"
+                        android:layout_gravity="center_horizontal"
                         app:icon="@drawable/aboutus" />
                 </LinearLayout>
             </LinearLayout>

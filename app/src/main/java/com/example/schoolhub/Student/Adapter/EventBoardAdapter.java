@@ -13,14 +13,10 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.EventBoardItem;
 import com.example.schoolhub.Model.NotificationHelper;
 import com.example.schoolhub.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import java.util.HashSet;
 import java.util.List;
@@ -65,7 +61,7 @@ public class EventBoardAdapter extends ArrayAdapter<EventBoardItem> {
             }
         } else {
             // Check from server if this student already added this event
-            String checkUrl = MainActivity.baseUrl+"check_event_confirmation.php?event_id=" + event.id + "&student_id=" + studentId;
+            String checkUrl = LoginActivity.baseUrl+"check_event_confirmation.php?event_id=" + event.id + "&student_id=" + studentId;
 
             JsonArrayRequest checkRequest = new JsonArrayRequest(Request.Method.GET, checkUrl, null,
                     response -> {
@@ -99,7 +95,7 @@ public class EventBoardAdapter extends ArrayAdapter<EventBoardItem> {
          ;
 
         btn.setOnClickListener(v -> {
-            String url = MainActivity.baseUrl+"calendar_event_confirmations.php" +
+            String url = LoginActivity.baseUrl+"calendar_event_confirmations.php" +
                     "?event_id=" + event.id + "&student_id=" + studentId;
 
             StringRequest request = new StringRequest(Request.Method.GET, url,

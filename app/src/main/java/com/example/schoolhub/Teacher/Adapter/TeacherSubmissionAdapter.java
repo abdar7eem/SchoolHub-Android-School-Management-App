@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.schoolhub.Model.Submission;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class TeacherSubmissionAdapter extends RecyclerView.Adapter<TeacherSubmis
 
     private final Context context;
     private final List<Submission> submissionList;
-    private final String baseUrl = "http://192.168.3.246/SchoolHub/"; // Adjust to your actual base URL
+    private final String baseUrl = LoginActivity.baseUrl; // Adjust to your actual base URL
 
     public TeacherSubmissionAdapter(Context context, List<Submission> submissionList) {
         this.context = context;

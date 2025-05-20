@@ -14,9 +14,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.MarkItem;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Student.Adapter.MarkAdapter;
 
 import org.json.JSONException;
@@ -30,11 +30,16 @@ public class StudentMarksFragment extends Fragment {
     ListView lstMarks;
     ArrayList<MarkItem> markList;
     MarkAdapter adapter;
+    private  int studentId ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_marks, container, false);
-
+        if (getArguments() != null) {
+            studentId = getArguments().getInt("student_id", -1);
+        } else {
+            studentId = -1; // fallback
+        }
         lstMarks = view.findViewById(R.id.lstBooks);
         markList = new ArrayList<>();
         adapter = new MarkAdapter(requireContext(), markList);
@@ -45,7 +50,7 @@ public class StudentMarksFragment extends Fragment {
     }
 
     private void loadMarks() {
-        String url = MainActivity.baseUrl+"get_student_marks.php?student_id=1";
+        String url = LoginActivity.baseUrl+"get_student_marks.php?student_id="+studentId;
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 

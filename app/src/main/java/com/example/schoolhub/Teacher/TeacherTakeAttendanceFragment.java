@@ -26,6 +26,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.ClassInfo;
 import com.example.schoolhub.Model.Student;
 import com.example.schoolhub.R;
@@ -56,7 +57,7 @@ public class TeacherTakeAttendanceFragment extends Fragment {
     private int selectedClassId = -1;
     private int teacherId = 1; // Replace with actual logged-in teacher ID
 
-    private final String BASE_URL = "http://192.168.3.246/SchoolHub/";
+    private final String BASE_URL = MainActivity.baseUrl;
 
     private TextView tvClass, tvRoom, tvDate, tvToday;
 

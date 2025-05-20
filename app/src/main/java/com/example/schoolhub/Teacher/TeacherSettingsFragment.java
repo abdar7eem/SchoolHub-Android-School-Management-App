@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Student.AboutUsFragment;
 import org.json.JSONException;
@@ -20,7 +21,7 @@ public class TeacherSettingsFragment extends Fragment {
 
     private TextView tvTeacherName, tvAge, tvPhone;
     private Button btnAboutUs, btnLogout;
-
+    private final String baseUrl = MainActivity.baseUrl;
     private final int teacherId = 1;
 
     @Override
@@ -53,7 +54,7 @@ public class TeacherSettingsFragment extends Fragment {
     }
 
     private void fetchTeacherInfo() {
-        String url = "http://192.168.3.246/SchoolHub/get_teacher_profile.php?teacher_id=" + teacherId;
+        String url = baseUrl + "get_teacher_profile.php?teacher_id=" + teacherId;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {

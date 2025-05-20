@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.*;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.ClassInfo;
 import com.example.schoolhub.Model.StudentGrade;
 import com.example.schoolhub.Model.SubjectInfo;
@@ -36,8 +37,7 @@ public class TeacherPublishMarksFragment extends Fragment {
     int selectedClassId;
     int selectedSubjectId;
     String selectedMarkType;
-
-    String baseUrl = "http://192.168.3.246/SchoolHub/";
+    private final String baseUrl = MainActivity.baseUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

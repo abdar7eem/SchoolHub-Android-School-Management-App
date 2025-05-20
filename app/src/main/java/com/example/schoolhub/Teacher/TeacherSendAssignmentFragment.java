@@ -21,6 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 
 import org.json.JSONException;
@@ -38,14 +39,14 @@ public class TeacherSendAssignmentFragment extends Fragment {
     Uri fileUri;
     String fileName;
 
-    String baseUrl = "http://192.168.3.246/SchoolHub/";
+    String baseUrl = MainActivity.baseUrl;
     int teacherId = 1; // Replace with real teacher ID
 
     List<ClassInfo> classList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_teacher_send_assignment, container, false);
+        View view = inflater.inflate(R.layout.fragment_teacher_sent_assignment, container, false);
 
         spnSubjects = view.findViewById(R.id.spnSubjects);
         spnClasses = view.findViewById(R.id.spnClasses);

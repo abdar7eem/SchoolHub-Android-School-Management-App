@@ -12,6 +12,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.google.android.material.card.MaterialCardView;
 
 import org.json.JSONArray;
@@ -27,13 +28,19 @@ public class TeacherHomeFragment extends Fragment {
     private TextView tvUserName, tvToday, tvSchedule, tvNotification, tvSubmissions;
     private MaterialCardView cardSchedule, cardNotification, cardSubmissions;
 
-    private final int teacherId = 1;
-    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
+
+    private int teacherId ;
+
+    private final String baseUrl = LoginActivity.baseUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_teacher_home, container, false);
-
+        if (getArguments() != null) {
+            teacherId = getArguments().getInt("teacher_id", -1);
+        } else {
+            teacherId = -1; // fallback
+        }
         tvUserName = view.findViewById(R.id.tvUserName);
         tvToday = view.findViewById(R.id.tvToday);
         tvSchedule = view.findViewById(R.id.tvSchedule);

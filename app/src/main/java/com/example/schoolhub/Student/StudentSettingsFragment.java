@@ -14,8 +14,8 @@ import androidx.fragment.app.Fragment;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import org.json.JSONException;
 
@@ -26,14 +26,20 @@ public class StudentSettingsFragment extends Fragment {
 
 
 
-    private final int studentId = 1; // Replace with actual logged-in student ID
+    Bundle bundle = new Bundle();
+
+    private  int studentId ;
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_settings, container, false);
-
+        if (getArguments() != null) {
+            studentId = getArguments().getInt("student_id", -1);
+        } else {
+            studentId = -1; // fallback
+        }
         tvStudentName = view.findViewById(R.id.tvStudentName);
         tvGrade = view.findViewById(R.id.tvGrade);
         tvAge = view.findViewById(R.id.tvAge);
@@ -61,7 +67,7 @@ public class StudentSettingsFragment extends Fragment {
     }
 
     private void fetchStudentInfo() {
-        String url = MainActivity.baseUrl+"get_student_profile.php?student_id=" + studentId;
+        String url = LoginActivity.baseUrl+"get_student_profile.php?student_id=" + studentId;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
