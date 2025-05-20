@@ -10,6 +10,7 @@ import android.widget.*;
 
 import androidx.annotation.NonNull;
 
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.Assignment;
 import com.example.schoolhub.R;
 
@@ -21,7 +22,7 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
     private final List<Assignment> assignmentList;
     private final FileSelectCallback callback;
 
-    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
+    private final String baseUrl = MainActivity.baseUrl;
     private final String[] backgroundColors = {
             "#AEFFA4", "#FBFF85", "#EB6C6E", "#98E3FF", "#FFB3D1",
             "#C3F5D9", "#FFE29A", "#D6C7FF", "#AED9FF", "#FFD6A5"

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.google.android.material.card.MaterialCardView;
 
@@ -28,7 +29,7 @@ public class TeacherHomeFragment extends Fragment {
     private MaterialCardView cardSchedule, cardNotification, cardSubmissions;
 
     private final int teacherId = 1;
-    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
+    private final String baseUrl = MainActivity.baseUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

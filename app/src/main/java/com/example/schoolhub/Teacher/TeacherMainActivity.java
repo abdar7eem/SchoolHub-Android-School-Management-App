@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -31,7 +32,7 @@ public class TeacherMainActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private final int teacherId = 1;
-    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
+    private final String baseUrl = MainActivity.baseUrl;
 
     private TextView txtName, txtEmail;
 

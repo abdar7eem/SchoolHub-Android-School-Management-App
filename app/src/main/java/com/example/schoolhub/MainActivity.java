@@ -22,13 +22,13 @@ import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final     String baseUrl = "http://192.168.3.246/SchoolHub/";
+    public static final String baseUrl = "http://192.168.3.246/SchoolHub/";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startActivity(new Intent(this, StudentMainActivity.class));
+        startActivity(new Intent(this, TeacherMainActivity.class));
         finish(); // Prevent back navigation to this splash
     }
 

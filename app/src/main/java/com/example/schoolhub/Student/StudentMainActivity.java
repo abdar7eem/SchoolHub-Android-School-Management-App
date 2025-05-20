@@ -179,7 +179,7 @@ public class StudentMainActivity extends AppCompatActivity {
 
 
     private void checkUnreadNotifications() {
-        String url = "http://192.168.1.8/SchoolHub/get_notifications.php?user_id=1&filter=unread";
+        String url = MainActivity.baseUrl+"get_notifications.php?user_id=1&filter=unread";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {

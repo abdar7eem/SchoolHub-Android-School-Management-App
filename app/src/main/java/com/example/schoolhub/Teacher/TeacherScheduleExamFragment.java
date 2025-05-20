@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.*;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.ClassInfo;
 import com.example.schoolhub.Model.SubjectInfo;
 import com.example.schoolhub.R;
@@ -28,7 +29,7 @@ public class TeacherScheduleExamFragment extends Fragment {
     EditText etDate, etLocation, etExamTitle;
     Button btnScheduleExam, btnConflictStatus;
     int selectedClassId, selectedSubjectId;
-    String baseUrl = "http://192.168.3.246/SchoolHub/";
+    private final String baseUrl = MainActivity.baseUrl;
     int teacherId = 1;
 
     @Override

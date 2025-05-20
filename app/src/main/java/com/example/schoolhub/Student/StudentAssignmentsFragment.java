@@ -20,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.Assignment;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Student.Adapter.AssignmentAdapter;
@@ -38,7 +39,7 @@ public class StudentAssignmentsFragment extends Fragment {
     private List<Assignment> assignmentList = new ArrayList<>();
 
     private final int studentId = 4;
-    private final String baseUrl = "http://192.168.3.246/SchoolHub/";
+    private final String baseUrl = MainActivity.baseUrl;
 
     private Button btnPending, btnSubmitted, btnGraded;
     private int pendingAssignmentId = -1;
