@@ -27,10 +27,12 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
             "#C3F5D9", "#FFE29A", "#D6C7FF", "#AED9FF", "#FFD6A5"
     };
 
+    // Callback interface for submission button
     public interface FileSelectCallback {
         void onSubmitClick(int assignmentId, Button button);
     }
 
+    // Constructor
     public AssignmentAdapter(Context context, List<Assignment> assignmentList, FileSelectCallback callback) {
         super(context, 0, assignmentList);
         this.context = context;
@@ -48,10 +50,12 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
 
         Assignment assignment = assignmentList.get(position);
 
+        // Set background color for visual variety
         int colorIndex = position % backgroundColors.length;
         int color = Color.parseColor(backgroundColors[colorIndex]);
         view.setBackgroundColor(color);
 
+        // UI elements
         TextView txtTitle = view.findViewById(R.id.txtTitle);
         TextView txtSubject = view.findViewById(R.id.txtSubject);
         TextView txtTeacher = view.findViewById(R.id.txtTeacher);
@@ -61,12 +65,14 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
         Button btnDownload = view.findViewById(R.id.btnDownload);
         Button btnSubmit = view.findViewById(R.id.btnSubmit);
 
+        // Populate fields
         txtTitle.setText("Title: " + assignment.getTitle());
         txtSubject.setText("Subject: " + assignment.getSubjectName());
         txtTeacher.setText("Teacher: " + assignment.getTeacherName());
         txtDue.setText("Due: " + assignment.getDueDate());
         txtStatus.setText("Status: " + assignment.getStatus());
 
+        // File download logic
         btnDownload.setOnClickListener(v -> {
             String path = assignment.getAttachmentPath();
             if (path != null && !path.trim().isEmpty()) {
@@ -83,13 +89,15 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
             }
         });
 
+        // Submit button click
         btnSubmit.setOnClickListener(v -> {
+            Log.d("AssignmentAdapter", "Submitting assignment ID = " + assignment.getId());
             if (callback != null) {
                 callback.onSubmitClick(assignment.getId(), btnSubmit);
             }
         });
 
-        // Expand/collapse section
+        // Expand/collapse assignment card
         expandableLayout.setVisibility(View.GONE);
         view.setOnClickListener(v -> {
             expandableLayout.setVisibility(

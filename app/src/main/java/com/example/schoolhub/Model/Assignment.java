@@ -10,13 +10,14 @@ public class Assignment {
 
     private String  attachmentPath;
 
-    public Assignment(int id,String title, String subject, String teacher, String dueDate, String status, String attachmentPath ) {
+    public Assignment(int id, String title, String subject, String teacher, String due, String status, String attachment) {
+        this.id = id;
         this.title = title;
         this.subjectName = subject;
         this.teacherName = teacher;
-        this.dueDate = dueDate;
+        this.dueDate = due;
         this.status = status;
-        this.attachmentPath = attachmentPath;
+        this.attachmentPath = attachment;
     }
 
     public String getAttachmentPath() {

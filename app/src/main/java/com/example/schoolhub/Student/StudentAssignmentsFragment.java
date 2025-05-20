@@ -132,7 +132,7 @@ public class StudentAssignmentsFragment extends Fragment {
             pendingSubmitButton = button;
 
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("*/*");
+            intent.setType("/");
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             filePickerLauncher.launch(Intent.createChooser(intent, "Select file to submit"));
         });
@@ -161,7 +161,7 @@ public class StudentAssignmentsFragment extends Fragment {
             inputStream.read(fileBytes);
             inputStream.close();
 
-            String base64File = Base64.encodeToString(fileBytes, Base64.DEFAULT);
+            String base64File = Base64.encodeToString(fileBytes, Base64.NO_WRAP); // Use NO_WRAP for safer transport
             String fileName = getFileName(fileUri);
             String url = baseUrl + "student_submit_assignment.php";
 
@@ -169,7 +169,7 @@ public class StudentAssignmentsFragment extends Fragment {
                     response -> {
                         Toast.makeText(getContext(), "Submission successful", Toast.LENGTH_SHORT).show();
                         fetchAssignmentsFromDB();
-                        Log.d("SubmitAssignment", response.toString());
+                        Log.d("SubmitAssignment", response);
                     },
                     error -> {
                         error.printStackTrace();
@@ -182,7 +182,17 @@ public class StudentAssignmentsFragment extends Fragment {
                     params.put("student_id", String.valueOf(studentId));
                     params.put("file", base64File);
                     params.put("filename", fileName);
+
+                    Log.d("ass_id", String.valueOf(assignmentId));
+                    Log.d("studentId", String.valueOf(studentId));
+                    Log.d("file_preview", base64File.length() > 100 ? base64File.substring(0, 100) : base64File);
+                    Log.d("filename", fileName);
                     return params;
+                }
+
+                @Override
+                public String getBodyContentType() {
+                    return "application/x-www-form-urlencoded; charset=UTF-8";
                 }
             };
 
