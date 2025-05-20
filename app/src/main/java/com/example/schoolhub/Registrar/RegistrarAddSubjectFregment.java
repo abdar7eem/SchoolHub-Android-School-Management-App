@@ -79,9 +79,7 @@ public class RegistrarAddSubjectFregment extends Fragment {
             TeacherInfo selectedTeacher = (TeacherInfo) spnTeacher.getSelectedItem();
             int teacherId = selectedTeacher.getId();
 
-        Toast.makeText(requireContext(),
-                "Selected Teacher: " + selectedTeacher.getName() + ", ID: " + teacherId,
-                Toast.LENGTH_LONG).show();
+
 
             String url = "http://192.168.56.1/schoolhub/add_subject.php";
 
@@ -179,9 +177,7 @@ public class RegistrarAddSubjectFregment extends Fragment {
                             JSONObject obj = array.getJSONObject(i);
                             int id = obj.getInt("teacher_id");
                             String name = obj.getString("teacher_name");
-                            Toast.makeText(requireContext(),
-                                    "Loaded Teacher: " + name + ", ID: " + id,
-                                    Toast.LENGTH_SHORT).show();
+
 
                             teacherList.add(new TeacherInfo(id, name));
                         }
