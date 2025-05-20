@@ -20,9 +20,9 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.Assignment;
 import com.example.schoolhub.R;
-import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Student.Adapter.AssignmentAdapter;
 
 import org.json.JSONException;
@@ -38,9 +38,8 @@ public class StudentAssignmentsFragment extends Fragment {
     private AssignmentAdapter adapter;
     private List<Assignment> assignmentList = new ArrayList<>();
 
-
-    private  int studentId ;
-    private final String baseUrl = LoginActivity.baseUrl;
+    private final int studentId = 4;
+    private final String baseUrl = MainActivity.baseUrl;
 
     private Button btnPending, btnSubmitted, btnGraded;
     private int pendingAssignmentId = -1;
@@ -51,11 +50,7 @@ public class StudentAssignmentsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_assignments, container, false);
-        if (getArguments() != null) {
-            studentId = getArguments().getInt("student_id", -1);
-        } else {
-            studentId = -1; // fallback
-        }
+
         lstBooks = view.findViewById(R.id.lstBooks);
         btnPending = view.findViewById(R.id.btnPending);
         btnSubmitted = view.findViewById(R.id.btnSubmitted);
@@ -138,7 +133,7 @@ public class StudentAssignmentsFragment extends Fragment {
             pendingSubmitButton = button;
 
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("*/*");
+            intent.setType("/");
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             filePickerLauncher.launch(Intent.createChooser(intent, "Select file to submit"));
         });
@@ -167,7 +162,7 @@ public class StudentAssignmentsFragment extends Fragment {
             inputStream.read(fileBytes);
             inputStream.close();
 
-            String base64File = Base64.encodeToString(fileBytes, Base64.DEFAULT);
+            String base64File = Base64.encodeToString(fileBytes, Base64.NO_WRAP); // Use NO_WRAP for safer transport
             String fileName = getFileName(fileUri);
             String url = baseUrl + "student_submit_assignment.php";
 
@@ -175,7 +170,7 @@ public class StudentAssignmentsFragment extends Fragment {
                     response -> {
                         Toast.makeText(getContext(), "Submission successful", Toast.LENGTH_SHORT).show();
                         fetchAssignmentsFromDB();
-                        Log.d("SubmitAssignment", response.toString());
+                        Log.d("SubmitAssignment", response);
                     },
                     error -> {
                         error.printStackTrace();
@@ -188,7 +183,17 @@ public class StudentAssignmentsFragment extends Fragment {
                     params.put("student_id", String.valueOf(studentId));
                     params.put("file", base64File);
                     params.put("filename", fileName);
+
+                    Log.d("ass_id", String.valueOf(assignmentId));
+                    Log.d("studentId", String.valueOf(studentId));
+                    Log.d("file_preview", base64File.length() > 100 ? base64File.substring(0, 100) : base64File);
+                    Log.d("filename", fileName);
                     return params;
+                }
+
+                @Override
+                public String getBodyContentType() {
+                    return "application/x-www-form-urlencoded; charset=UTF-8";
                 }
             };
 

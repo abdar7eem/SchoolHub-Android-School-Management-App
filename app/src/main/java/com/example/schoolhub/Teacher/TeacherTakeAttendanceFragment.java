@@ -26,10 +26,10 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.ClassInfo;
 import com.example.schoolhub.Model.Student;
 import com.example.schoolhub.R;
-import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Teacher.Adapter.TeacherAttendanceAdapter;
 import com.google.zxing.BarcodeFormat;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
@@ -57,7 +57,7 @@ public class TeacherTakeAttendanceFragment extends Fragment {
     private int selectedClassId = -1;
     private int teacherId = 1; // Replace with actual logged-in teacher ID
 
-    private final String BASE_URL = LoginActivity.baseUrl;
+    private final String BASE_URL = MainActivity.baseUrl;
 
     private TextView tvClass, tvRoom, tvDate, tvToday;
 

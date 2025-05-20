@@ -22,6 +22,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.Schedule;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Student.Adapter.ScheduleAdapter;
@@ -42,7 +43,7 @@ public class TeacherScheduleFragment extends Fragment {
     private TextView tvScheduleDay;
     private List<Schedule> scheduleList = new ArrayList<>();
     private TeacherSchedualAdapter adapter;
-
+    private final String baseUrl = MainActivity.baseUrl;
     private View rootView;
 
     @Override
@@ -67,7 +68,7 @@ public class TeacherScheduleFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchSchedule() {
         String teacherId = "1";
-        String url = "http://192.168.3.246/SchoolHub/get_teacher_schedule.php?id=" + teacherId;
+        String url = baseUrl + "get_teacher_schedule.php?id=" + teacherId;
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
