@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.*;
-import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.ClassInfo;
 import com.example.schoolhub.Model.StudentGrade;
 import com.example.schoolhub.Model.SubjectInfo;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Teacher.Adapter.TeacherPublishMarksAdabter;
 
 import org.json.*;
@@ -37,7 +37,7 @@ public class TeacherPublishMarksFragment extends Fragment {
     int selectedClassId;
     int selectedSubjectId;
     String selectedMarkType;
-    private final String baseUrl = MainActivity.baseUrl;
+    private final String baseUrl = LoginActivity.baseUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

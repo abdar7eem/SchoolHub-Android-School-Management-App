@@ -20,9 +20,9 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.Assignment;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Student.Adapter.AssignmentAdapter;
 
 import org.json.JSONException;
@@ -39,7 +39,7 @@ public class StudentAssignmentsFragment extends Fragment {
     private List<Assignment> assignmentList = new ArrayList<>();
 
     private final int studentId = 4;
-    private final String baseUrl = MainActivity.baseUrl;
+    private final String baseUrl = LoginActivity.baseUrl;
 
     private Button btnPending, btnSubmitted, btnGraded;
     private int pendingAssignmentId = -1;

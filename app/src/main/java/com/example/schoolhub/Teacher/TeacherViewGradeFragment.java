@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.*;
-import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.ClassInfo;
 import com.example.schoolhub.Model.SubjectInfo;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import org.json.*;
 
@@ -25,7 +25,7 @@ public class TeacherViewGradeFragment extends Fragment {
     int teacherId = 1;
     int selectedClassId;
     int selectedSubjectId;
-    String baseUrl = MainActivity.baseUrl;
+    String baseUrl = LoginActivity.baseUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
