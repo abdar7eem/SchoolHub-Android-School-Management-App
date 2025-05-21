@@ -20,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.InfoClass;
 import com.example.schoolhub.Model.TeacherInfo;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,8 +81,7 @@ public class RegistrarAddSubjectFregment extends Fragment {
             int teacherId = selectedTeacher.getId();
 
 
-
-            String url = "http://192.168.56.1/schoolhub/add_subject.php";
+        String url = LoginActivity.baseUrl+"add_subject.php";
 
             StringRequest request = new StringRequest(Request.Method.POST, url,
                     response -> Toast.makeText(requireContext(), "Subject added!", Toast.LENGTH_SHORT).show(),
@@ -103,7 +103,7 @@ public class RegistrarAddSubjectFregment extends Fragment {
     }
 
     private void LoadClasses() {
-        String url = "http://192.168.56.1/schoolhub/get_classes.php";
+        String url = LoginActivity.baseUrl+"get_classes.php";
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
@@ -166,7 +166,8 @@ public class RegistrarAddSubjectFregment extends Fragment {
         builder.show();
     }
     private void LoadTeachers() {
-        String url = "http://192.168.56.1/schoolhub/get_All_Teachers.php";
+        String url = LoginActivity.baseUrl+"get_All_Teachers.php";
+
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {

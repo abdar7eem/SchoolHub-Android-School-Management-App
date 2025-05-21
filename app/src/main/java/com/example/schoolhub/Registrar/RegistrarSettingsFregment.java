@@ -15,6 +15,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import org.json.JSONException;
 
@@ -22,13 +23,18 @@ public class RegistrarSettingsFregment extends Fragment {
 
     TextView tvRegistrarName,tvAge,tvId;
     Button btnAboutUs,btnLogout;
-   int  RegistrarID=3 ; //Change it to the real id :)
+   int  RegistrarID; ; //Change it to the real id :)
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_registrar_settings_fregment, container, false);
+        if (getArguments() != null) {
+            RegistrarID = getArguments().getInt("registrar_id", -1);
+        } else {
+            RegistrarID = -1; // fallback
+        }
 
         tvRegistrarName=view.findViewById(R.id.tvRegistrarName);
         tvAge=view.findViewById(R.id.tvAge);
@@ -53,7 +59,8 @@ public class RegistrarSettingsFregment extends Fragment {
         return view;
     }
     void getRegistrarData(){
-          String url = "http://192.168.56.1/schoolhub/get_profile.php?id="+RegistrarID; // Replace with your actual PHP URL
+        String url = LoginActivity.baseUrl+"get_profile.php?id="+RegistrarID;
+
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 

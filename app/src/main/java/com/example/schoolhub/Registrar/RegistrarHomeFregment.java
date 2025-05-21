@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +28,8 @@ import org.json.JSONObject;
 public class RegistrarHomeFregment extends Fragment {
 
 
-    int userid=3;
+    int  RegistrarID; ; //Change it to the real id :)
+
     TextView tvSubjectNumber,tvStudentNumbers,tvClassesNumber,tvTeachersNumber,tvEvents,tvUserName,tvToday,tvEventThree,tvEventTwo,tvEventOne;
     LinearLayout AlertsConatiner,EventsConatiner;
     @Override
@@ -43,6 +45,12 @@ public class RegistrarHomeFregment extends Fragment {
         tvUserName=view.findViewById(R.id.tvUserName);
         tvToday=view.findViewById(R.id.tvToday);
 
+        if (getArguments() != null) {
+            RegistrarID = getArguments().getInt("registrar_id", -1);
+        } else {
+            RegistrarID = -1; // fallback
+        }
+
         AlertsConatiner = view.findViewById(R.id.AlertsConatiner);
         EventsConatiner =view.findViewById(R.id.EventsConatiner);
 
@@ -56,7 +64,7 @@ public class RegistrarHomeFregment extends Fragment {
     }
 
     private void getNumbers() {
-        String url = "http://192.168.56.1/schoolhub/get_numbers.php?user_id=" + userid;
+        String url = LoginActivity.baseUrl+"get_numbers.php?user_id=" + RegistrarID;
 
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
@@ -96,7 +104,8 @@ public class RegistrarHomeFregment extends Fragment {
         Volley.newRequestQueue(requireContext()).add(request);
     }
     private void getEvents() {
-        String url = "http://192.168.56.1/schoolhub/get_event_board.php";
+        String url = LoginActivity.baseUrl+"get_event_board.php";
+
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
@@ -150,7 +159,7 @@ public class RegistrarHomeFregment extends Fragment {
         Volley.newRequestQueue(requireContext()).add(request);
     }
     private void getalert() {
-        String url = "http://192.168.56.1/schoolhub/schedule_alert.php";
+        String url = LoginActivity.baseUrl+"schedule_alert.php";
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {

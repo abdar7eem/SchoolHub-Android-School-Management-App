@@ -29,6 +29,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.InfoClass;
 import com.example.schoolhub.Model.SubjectInfo;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -110,7 +111,8 @@ public class RegistrarScheduleFregment extends Fragment {
     }
 
     private void loadClasses() {
-        String url = "http://192.168.56.1/schoolhub/get_classes.php";
+        String url = LoginActivity.baseUrl+"get_classes.php";
+
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
@@ -191,7 +193,7 @@ public class RegistrarScheduleFregment extends Fragment {
         builder.show();
     }
     private void loadSubjects(int classId) {
-        String url = "http://192.168.56.1/schoolhub/get_subjects_class.php?class_id=" + classId;
+        String url = LoginActivity.baseUrl+"get_subjects_class.php?class_id=" + classId;
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
@@ -237,7 +239,7 @@ public class RegistrarScheduleFregment extends Fragment {
             return;
         }
 
-        String url = "http://192.168.56.1/schoolhub/check_conflict.php";
+        String url = LoginActivity.baseUrl+"check_conflict.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
@@ -283,7 +285,8 @@ public class RegistrarScheduleFregment extends Fragment {
             return;
         }
 
-        String url = "http://192.168.56.1/schoolhub/add_schedule.php";
+        String url = LoginActivity.baseUrl+"add_schedule.php";
+
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
@@ -397,20 +400,10 @@ public class RegistrarScheduleFregment extends Fragment {
         return tv;
     }
 
-//    private int getSubjectColor(String subject) {
-//        switch (subject.toLowerCase()) {
-//            case "math": return Color.BLUE;
-//            case "english": return Color.RED;
-//            case "arabic": return Color.CYAN;
-//            case "sport": return Color.GREEN;
-//            case "history": return Color.MAGENTA;
-//            case "science": return Color.rgb(128, 0, 128); // purple
-//            case "art": return Color.rgb(255, 140, 0); // orange
-//            default: return Color.DKGRAY;
-//        }
-//    }
+
     private void loadScheduleForClass(int classId) {
-        String url = "http://192.168.56.1/schoolhub/get_class_schedule.php?class_id=" + classId;
+        String url = LoginActivity.baseUrl+"get_class_schedule.php?class_id=" + classId;
+
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {

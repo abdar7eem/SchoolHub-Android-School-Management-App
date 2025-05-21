@@ -18,7 +18,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Registration.LoginActivity;
-import com.example.schoolhub.Teacher.TeacherMainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -66,7 +65,7 @@ public class RegistrarMainActivity extends AppCompatActivity {
             Fragment f = getRegistrarFragment(item.getItemId());
             if (f != null) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("registrar_id", registrarId);
+                bundle.putInt("registrar_id", userId);
                 f.setArguments(bundle);
                 return loadFragment(f);
             }
@@ -77,7 +76,7 @@ public class RegistrarMainActivity extends AppCompatActivity {
             Fragment f = getRegistrarFragment(item.getItemId());
             if (f != null) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("registrar_id", registrarId);
+                bundle.putInt("registrar_id", userId);
                 f.setArguments(bundle);
                 loadFragment(f);
             }
@@ -139,11 +138,13 @@ public class RegistrarMainActivity extends AppCompatActivity {
                             registrarId = response.getInt("role_id");
                             Fragment f = new RegistrarHomeFregment();
                             Bundle bundle = new Bundle();
-                            bundle.putInt("registrar_id", registrarId);
+                            bundle.putInt("registrar_id", userId);
                             f.setArguments(bundle);
                             loadFragment(f);
                             registrarBottomNav.setSelectedItemId(R.id.registrar_nav_home);
-                            loadHeaderData(registrarId);
+                            loadHeaderData(userId);
+                            Log.e("3alawi",String.valueOf(userId));
+
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -160,7 +161,8 @@ public class RegistrarMainActivity extends AppCompatActivity {
     }
 
     private void loadHeaderData(int registrarId) {
-        String url = baseUrl + "get_user_nav.php?id=" + registrarId;
+        String url = baseUrl + "get_user_nav.php?id=" + userId;
+        Log.e("3alawi",String.valueOf(userId));
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {

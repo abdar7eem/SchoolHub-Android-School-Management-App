@@ -1,9 +1,9 @@
 package com.example.schoolhub.Registrar;
-import android.util.Log;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.InfoClass;
 import com.example.schoolhub.Model.SubjectInfo;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -38,7 +39,6 @@ import java.util.Map;
 
 
 public class RegistrarAddTeacherFregment extends Fragment {
-    private final String URL = "http://192.168.56.1/schoolhub/Add_teacher.php"; // Replace with your actual PHP URL
     EditText edtTeacherName, edtEmail, edtPhone, edtClass, edtPassword, edtConfirmPassword,edtDateOfBirth;
     Spinner spnSubjects,spnClasses;
     List<InfoClass> classList = new ArrayList<>();
@@ -98,7 +98,9 @@ public class RegistrarAddTeacherFregment extends Fragment {
     }
 
     private void AddTeacher() {
-        StringRequest request = new StringRequest(Request.Method.POST, URL,
+        String url = LoginActivity.baseUrl+"Add_teacher.php";
+
+        StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     Toast.makeText(requireContext(), "Teacher Added Successfully", Toast.LENGTH_SHORT).show();
                 },
@@ -129,7 +131,8 @@ public class RegistrarAddTeacherFregment extends Fragment {
         Volley.newRequestQueue(requireContext()).add(request);
     }
     private void LoadSubjects() {
-        String url = "http://192.168.56.1/schoolhub/get_subjects.php";
+
+        String url = LoginActivity.baseUrl+"get_subjects.php";
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
@@ -174,7 +177,7 @@ public class RegistrarAddTeacherFregment extends Fragment {
         Volley.newRequestQueue(getContext()).add(request);
     }
     private void LoadClasses() {
-        String url = "http://192.168.56.1/schoolhub/get_classes.php";
+        String url = LoginActivity.baseUrl+"get_classes.php";
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
