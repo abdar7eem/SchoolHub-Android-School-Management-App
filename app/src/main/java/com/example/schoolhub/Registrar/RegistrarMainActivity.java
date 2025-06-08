@@ -2,6 +2,7 @@ package com.example.schoolhub.Registrar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -34,7 +35,7 @@ public class RegistrarMainActivity extends AppCompatActivity {
 
     private TextView txtName, txtEmail;
 
-    private final String baseUrl = "http://192.168.56.1/schoolhub/";
+    private final String baseUrl = LoginActivity.baseUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +51,9 @@ public class RegistrarMainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        View headerView = navigationView.getHeaderView(0);
-        txtName = headerView.findViewById(R.id.txtName);
-        txtEmail = headerView.findViewById(R.id.txtEmail);
+
+        txtName = navigationView.getHeaderView(0).findViewById(R.id.txtName);
+        txtEmail = navigationView.getHeaderView(0).findViewById(R.id.txtEmail);
 
         fetchRegistrarId(userId);
 
@@ -141,8 +142,7 @@ public class RegistrarMainActivity extends AppCompatActivity {
                             f.setArguments(bundle);
                             loadFragment(f);
                             registrarBottomNav.setSelectedItemId(R.id.registrar_nav_home);
-                            loadHeaderData(userId);
-                            Log.e("3alawi",String.valueOf(userId));
+                            loadHeaderData();
 
                         }
                     } catch (JSONException e) {
@@ -159,22 +159,28 @@ public class RegistrarMainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void loadHeaderData(int registrarId) {
+    private void loadHeaderData() {
         String url = baseUrl + "get_user_nav.php?id=" + userId;
-        Log.e("3alawi",String.valueOf(userId));
+        Log.e("loadHeaderData URL", url);
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
+                        Log.d("loadHeaderData", "Response: " + response.toString());
                         txtName.setText(response.getString("name"));
                         txtEmail.setText(response.getString("email"));
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        Log.e("loadHeaderData", "JSON parsing error", e);
                     }
                 },
-                error -> error.printStackTrace()
+                error -> {
+                    Log.e("loadHeaderData", "Volley error", error);
+                }
         );
+
         Volley.newRequestQueue(this).add(request);
     }
+
 
     @Override
     public void onBackPressed() {

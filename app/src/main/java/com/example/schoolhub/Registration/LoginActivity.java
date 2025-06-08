@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPrefs;
 
-    public static final     String baseUrl = "http://172.20.10.2/SchoolHub/";
+    public static final     String baseUrl = "http://192.168.88.6/SchoolHub/";
 
 
 
