@@ -20,10 +20,6 @@ import com.example.schoolhub.Model.TeacherInfo;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Registration.LoginActivity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,10 +46,8 @@ public class RegistrarAddClassFregment extends Fragment {
         edtGrade=view.findViewById(R.id.edtGrade);
         edtSection=view.findViewById(R.id.edtSection);
         spnAcademicStage=view.findViewById(R.id.spnAcademicStage);
-        spnHomeromTeacher=view.findViewById(R.id.spnHomeromTeacher);
         btnAddClass=view.findViewById(R.id.btnAddClass);
 
-        LoadTeachers();
 
         btnAddClass.setOnClickListener(e->{
             if(edtGrade.getText().toString().trim().isEmpty()||
@@ -74,39 +68,7 @@ public class RegistrarAddClassFregment extends Fragment {
 
         return view;
     }
-    private void LoadTeachers() {
-        String url = LoginActivity.baseUrl+"get_available_teachers.php";
 
-        StringRequest request = new StringRequest(Request.Method.GET, url,
-                response -> {
-                    try {
-                        JSONArray array = new JSONArray(response);
-                        teacherList.clear();
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject obj = array.getJSONObject(i);
-                            int id = obj.getInt("teacher_id");
-                            String name = obj.getString("teacher_name");
-                            teacherList.add(new TeacherInfo(id, name));
-                        }
-
-                        ArrayAdapter<TeacherInfo> adapter = new ArrayAdapter<>(
-                                requireContext(), android.R.layout.simple_spinner_item, teacherList);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spnHomeromTeacher.setAdapter(adapter);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(requireContext(), "Parsing error", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                error -> {
-                    error.printStackTrace();
-                    Toast.makeText(requireContext(), "Failed to load teachers", Toast.LENGTH_SHORT).show();
-                }
-        );
-
-        Volley.newRequestQueue(requireContext()).add(request);
-    }
     private void AddClass() {
         String url = LoginActivity.baseUrl+"Add_class.php";
 
@@ -116,7 +78,6 @@ public class RegistrarAddClassFregment extends Fragment {
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     Toast.makeText(getContext(), "Class added successfully!", Toast.LENGTH_SHORT).show();
-                    LoadTeachers(); // refresh the spinner
 
                 },
                 error -> {
@@ -128,7 +89,6 @@ public class RegistrarAddClassFregment extends Fragment {
                 params.put("academic_stage", spnAcademicStage.getSelectedItem().toString().trim());
                 params.put("grade", edtGrade.getText().toString().trim());
                 params.put("section", edtSection.getText().toString().trim());
-                params.put("homeroom_teacher_name",spnHomeromTeacher.getSelectedItem().toString().trim() );
                 return params;
             }
         };

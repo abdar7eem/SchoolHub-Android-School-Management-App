@@ -3,7 +3,6 @@ package com.example.schoolhub.Registrar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -102,7 +101,10 @@ public class RegistrarMainActivity extends AppCompatActivity {
             return new RegistrarAddEventFregment();
         } else if (id == R.id.nav_addTeacher) {
             return new RegistrarAddTeacherFregment();
-        } else if (id == R.id.nav_settings) {
+        }else if (id == R.id.nav_assignTeacher) {
+            return new RegistrarAssignTeacherFregment();
+        }
+        else if (id == R.id.nav_settings) {
             return new RegistrarSettingsFregment();
         }
         else if (id == R.id.nav_logout) {

@@ -17,7 +17,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Class"
+        android:text="Assign Teacher"
         android:textColor="#800000"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -43,23 +43,18 @@
         app:layout_constraintTop_toBottomOf="@id/title">
 
         <!-- Input Fields -->
+
         <Spinner
-            android:id="@+id/spnAcademicStage"
+            android:id="@+id/spnClass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Class Name" />
 
-        <EditText
-            android:id="@+id/edtGrade"
+        <Spinner
+            android:id="@+id/spnHomeromTeacher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Grade" />
-        <EditText
-            android:id="@+id/edtSection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Section"/>
-
+            android:hint="Homeroom Teacher" />
 
 
 
@@ -70,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:backgroundTint="#800000"
-            android:text="Add Class"
+            android:text="Assign Teacher"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 

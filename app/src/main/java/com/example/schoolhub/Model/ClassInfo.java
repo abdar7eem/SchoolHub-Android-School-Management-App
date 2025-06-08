@@ -1,7 +1,5 @@
 package com.example.schoolhub.Model;
 
-import java.security.Timestamp;
-
 public class ClassInfo {
     int id;
     String name;
@@ -13,6 +11,10 @@ public class ClassInfo {
         this.name = name;
         this.room = room;
         this.subject = subject;
+    }
+    public ClassInfo(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public int getId() {
