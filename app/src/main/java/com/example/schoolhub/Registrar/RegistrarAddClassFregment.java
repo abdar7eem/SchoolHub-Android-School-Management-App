@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.TeacherInfo;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,7 +75,7 @@ public class RegistrarAddClassFregment extends Fragment {
         return view;
     }
     private void LoadTeachers() {
-        String url = "http://192.168.56.1/schoolhub/get_available_teachers.php";
+        String url = LoginActivity.baseUrl+"get_available_teachers.php";
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
@@ -107,7 +108,8 @@ public class RegistrarAddClassFregment extends Fragment {
         Volley.newRequestQueue(requireContext()).add(request);
     }
     private void AddClass() {
-        String url = "http://192.168.56.1/schoolhub/add_class.php"; // Change to your actual URL
+        String url = LoginActivity.baseUrl+"add_class.php";
+
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 

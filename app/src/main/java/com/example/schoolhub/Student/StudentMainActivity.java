@@ -30,7 +30,6 @@ public class StudentMainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private Toolbar toolbar;
     private TextView txtName, txtEmail;
-
     private int userId;
     private int studentId,classId;
 
@@ -42,7 +41,6 @@ public class StudentMainActivity extends AppCompatActivity {
         userId = getIntent().getIntExtra("user_id", -1);
 
 
-
         drawerLayout = findViewById(R.id.studentDrawerLayout);
         toolbar = findViewById(R.id.studentToolbar);
         navigationView = findViewById(R.id.studentNavView);
@@ -52,7 +50,7 @@ public class StudentMainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        fetchStudentId(userId); // retrieve studentId
+        fetchStudentId(userId);
         checkUnreadNotifications();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
@@ -117,7 +115,7 @@ public class StudentMainActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // clear back stack
             startActivity(intent);
 
-            finish(); // finish current activity
+            finish();
             return null;
         }
 
@@ -126,7 +124,6 @@ public class StudentMainActivity extends AppCompatActivity {
             return null;
         }
     }
-
 
     private void fetchStudentId(int userId) {
         String url = LoginActivity.baseUrl + "get_user_role_id.php?user_id=" + userId;

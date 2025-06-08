@@ -19,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -91,7 +92,7 @@ public class RegistrarAddEventFregment extends Fragment {
         return view ;
     }
     private void PostEvent() {
-        String url = "http://192.168.56.1/schoolhub/Post_event.php"; // Replace with your server URL
+        String url = LoginActivity.baseUrl+"Post_event.php";
 
         String eventType = spnType.getSelectedItem().toString();
         Log.e("spnType", eventType);

@@ -21,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.InfoClass;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +37,6 @@ import java.util.Map;
 
 
 public class RegistrarAddStudentFregment extends Fragment {
-    private final String URL = "http://192.168.56.1/schoolhub/Add_user.php"; // Replace with your actual PHP URL
     EditText edtStudentName,edtParent, edtDateOfBirth, edtEmail, edtPhone, edtClass, edtPassword, edtConfirmPassword;
     TextView txtStatusMessage;
     Spinner spnClasses;
@@ -93,7 +93,9 @@ public class RegistrarAddStudentFregment extends Fragment {
 
     private void sendUserDataToServer() {
         try {
-            StringRequest request = new StringRequest(Request.Method.POST, URL,
+            String url = LoginActivity.baseUrl+"Add_user.php";
+
+            StringRequest request = new StringRequest(Request.Method.POST, url,
                     response -> Toast.makeText(getContext(), "User Added Successfully", Toast.LENGTH_SHORT).show(),
                     error -> Toast.makeText(getContext(), "Couldnt Add user", Toast.LENGTH_SHORT).show()) {
 
@@ -136,7 +138,7 @@ public class RegistrarAddStudentFregment extends Fragment {
     }
 
     private void loadClasses() {
-        String url = "http://192.168.56.1/schoolhub/get_classes.php";
+        String url = LoginActivity.baseUrl+"get_classes.php";
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
