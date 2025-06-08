@@ -161,7 +161,7 @@ public class StudentMainActivity extends AppCompatActivity {
     }
 
     private void loadHeaderData(int studentId) {
-        String url = LoginActivity.baseUrl + "get_user_nav.php?id=" + studentId;
+        String url = LoginActivity.baseUrl + "get_user_nav.php?id=" + userId;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {

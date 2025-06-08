@@ -12,8 +12,8 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Student.AboutUsFragment;
 import org.json.JSONException;
 
@@ -21,7 +21,7 @@ public class TeacherSettingsFragment extends Fragment {
 
     private TextView tvTeacherName, tvAge, tvPhone;
     private Button btnAboutUs, btnLogout;
-    private final String baseUrl = MainActivity.baseUrl;
+    private final String baseUrl = LoginActivity.baseUrl;
     private final int teacherId = 1;
 
     @Override

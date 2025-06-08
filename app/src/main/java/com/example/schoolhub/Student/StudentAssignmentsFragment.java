@@ -20,9 +20,9 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.Model.Assignment;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 import com.example.schoolhub.Student.Adapter.AssignmentAdapter;
 
 import org.json.JSONException;
@@ -39,7 +39,7 @@ public class StudentAssignmentsFragment extends Fragment {
     private List<Assignment> assignmentList = new ArrayList<>();
 
     private final int studentId = 4;
-    private final String baseUrl = MainActivity.baseUrl;
+    private final String baseUrl = LoginActivity.baseUrl;
 
     private Button btnPending, btnSubmitted, btnGraded;
     private int pendingAssignmentId = -1;
@@ -77,7 +77,7 @@ public class StudentAssignmentsFragment extends Fragment {
             pendingSubmitButton = button;
 
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("*/*");
+            intent.setType("/");
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             filePickerLauncher.launch(Intent.createChooser(intent, "Select file to submit"));
         });
@@ -121,26 +121,47 @@ public class StudentAssignmentsFragment extends Fragment {
     }
 
     private void filterBy(String status, Button activeButton) {
-        List<Assignment> filtered = new ArrayList<>();
-        for (Assignment a : assignmentList) {
-            if (a.getStatus().equalsIgnoreCase(status)) {
-                filtered.add(a);
-            }
-        }
-
-        adapter = new AssignmentAdapter(requireActivity(), filtered, (assignmentId, button) -> {
-            pendingAssignmentId = assignmentId;
-            pendingSubmitButton = button;
-
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("/");
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            filePickerLauncher.launch(Intent.createChooser(intent, "Select file to submit"));
-        });
-
-        lstBooks.setAdapter(adapter);
         updateButtonColors(activeButton);
+
+        String url = baseUrl + "get_student_assignments.php?student_id=" + studentId + "&status=" + status;
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                response -> {
+                    assignmentList.clear();
+                    try {
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject obj = response.getJSONObject(i);
+                            int id = obj.getInt("id");
+                            String title = obj.getString("title");
+                            String subject = obj.getString("subject");
+                            String teacher = obj.getString("teacher_name");
+                            String due = obj.getString("due_date");
+                            String assignmentStatus = obj.optString("status", status);
+                            String attachment = obj.optString("attachment_path", "");
+                            assignmentList.add(new Assignment(id, title, subject, teacher, due, assignmentStatus, attachment));
+                        }
+                        adapter = new AssignmentAdapter(requireActivity(), assignmentList, (assignmentId, button) -> {
+                            pendingAssignmentId = assignmentId;
+                            pendingSubmitButton = button;
+
+                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                            intent.setType("*/*");
+                            intent.addCategory(Intent.CATEGORY_OPENABLE);
+                            filePickerLauncher.launch(Intent.createChooser(intent, "Select file to submit"));
+                        });
+                        lstBooks.setAdapter(adapter);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> {
+                    error.printStackTrace();
+                    Toast.makeText(requireContext(), "Error loading assignments", Toast.LENGTH_SHORT).show();
+                });
+
+        Volley.newRequestQueue(requireContext()).add(request);
     }
+
 
     private void updateButtonColors(Button selected) {
         Button[] buttons = {btnPending, btnSubmitted, btnGraded};

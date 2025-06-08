@@ -66,7 +66,7 @@ public class RegistrarMainActivity extends AppCompatActivity {
             Fragment f = getRegistrarFragment(item.getItemId());
             if (f != null) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("registrar_id", registrarId);
+                bundle.putInt("registrar_id", userId);
                 f.setArguments(bundle);
                 return loadFragment(f);
             }
@@ -77,7 +77,7 @@ public class RegistrarMainActivity extends AppCompatActivity {
             Fragment f = getRegistrarFragment(item.getItemId());
             if (f != null) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("registrar_id", registrarId);
+                bundle.putInt("registrar_id", userId);
                 f.setArguments(bundle);
                 loadFragment(f);
             }

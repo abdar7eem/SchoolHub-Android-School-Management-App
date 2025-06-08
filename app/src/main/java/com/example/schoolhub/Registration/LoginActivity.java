@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPrefs;
 
-    public static final     String baseUrl = "http://192.168.1.14/SchoolHub/";
+    public static final     String baseUrl = "http://172.20.10.2/SchoolHub/";
 
 
 
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String username, String password) {
-        StringRequest request = new StringRequest(Request.Method.POST, "http://192.168.1.14/SchoolHub/login.php",
+        StringRequest request = new StringRequest(Request.Method.POST, baseUrl+"login.php",
                 response -> {
                     try {
                         JSONObject obj = new JSONObject(response);
