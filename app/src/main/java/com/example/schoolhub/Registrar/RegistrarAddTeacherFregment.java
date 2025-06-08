@@ -40,7 +40,7 @@ import java.util.Map;
 
 public class RegistrarAddTeacherFregment extends Fragment {
     EditText edtTeacherName, edtEmail, edtPhone, edtClass, edtPassword, edtConfirmPassword,edtDateOfBirth;
-    Spinner spnSubjects,spnClasses;
+    Spinner spnClasses;
     List<InfoClass> classList = new ArrayList<>();
     List<SubjectInfo> subjectList = new ArrayList<>();
 
@@ -62,7 +62,6 @@ public class RegistrarAddTeacherFregment extends Fragment {
     edtDateOfBirth = view.findViewById(R.id.edtDateOfBirth);
         edtEmail = view.findViewById(R.id.edtEmail);
         edtPhone = view.findViewById(R.id.edtPhone);
-        spnSubjects = view.findViewById(R.id.spnSubjects);
         edtPassword = view.findViewById(R.id.edtPassword);
         edtConfirmPassword = view.findViewById(R.id.edtConfirmPassword);
         btnAddTeacher = view.findViewById(R.id.btnAddTeacher);
@@ -70,7 +69,6 @@ public class RegistrarAddTeacherFregment extends Fragment {
 
 
         LoadClasses();
-        LoadSubjects();
 
         edtDateOfBirth.setOnClickListener(v -> showDatePicker());
 
@@ -130,52 +128,7 @@ public class RegistrarAddTeacherFregment extends Fragment {
 
         Volley.newRequestQueue(requireContext()).add(request);
     }
-    private void LoadSubjects() {
 
-        String url = LoginActivity.baseUrl+"get_subjects.php";
-
-        StringRequest request = new StringRequest(Request.Method.GET, url,
-                response -> {
-                    try {
-                        JSONArray array = new JSONArray(response);
-                        subjectList.clear();
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject obj = array.getJSONObject(i);
-                            int id = obj.getInt("id");
-                            String name = obj.getString("name");
-                            subjectList.add(new SubjectInfo(id, name));
-                        }
-
-                        ArrayAdapter<SubjectInfo> adapter = new ArrayAdapter<>(
-                                getContext(), android.R.layout.simple_spinner_item, subjectList);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spnSubjects.setAdapter(adapter);
-                        spnSubjects.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                SubjectInfo selectedSubject = (SubjectInfo) parent.getItemAtPosition(position);
-                                ChoosenSubject= selectedSubject;
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-                                // Optional: Handle case when nothing is selected
-                            }
-                        });
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getContext(), "Parsing error", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                error -> {
-                    error.printStackTrace();
-                    Toast.makeText(getContext(), "Failed to load subjects", Toast.LENGTH_SHORT).show();
-                }
-        );
-
-        Volley.newRequestQueue(getContext()).add(request);
-    }
     private void LoadClasses() {
         String url = LoginActivity.baseUrl+"get_classes.php";
 

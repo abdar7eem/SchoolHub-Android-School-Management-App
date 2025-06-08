@@ -70,12 +70,11 @@ public class RegistrarAssignSubjectTeacherFregment extends Fragment {
     }
 
     private void AddSubject() {
-        String name = edtSubjectName.getText().toString().trim();
-        String code = edtCode.getText().toString().trim();
 
-        if (name.isEmpty() || selectedClassIds.isEmpty()) {
-            Toast.makeText(requireContext(), "Please enter subject name and select classes", Toast.LENGTH_SHORT).show();
-            return;
+        if(spnTeacher.getSelectedItem()==null||txtSelectSubjects.getText().toString()==null) {
+            Toast.makeText(getContext(), "Fill all fields", Toast.LENGTH_LONG).show();
+        return;
+
         }
 
         TeacherInfo selectedTeacher = (TeacherInfo) spnTeacher.getSelectedItem();
@@ -85,7 +84,7 @@ public class RegistrarAssignSubjectTeacherFregment extends Fragment {
         String url = LoginActivity.baseUrl+"Registrar_Assign_Subject.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
-                response -> Toast.makeText(requireContext(), "Subject added!", Toast.LENGTH_SHORT).show(),
+                response -> Toast.makeText(requireContext(), "Subject Assigned!!", Toast.LENGTH_SHORT).show(),
                 error -> Toast.makeText(requireContext(), "Error in volley : " + error.getMessage(), Toast.LENGTH_SHORT).show()
         ) {
             @Override
