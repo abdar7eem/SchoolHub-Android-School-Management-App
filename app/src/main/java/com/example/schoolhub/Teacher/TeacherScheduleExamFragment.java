@@ -30,7 +30,7 @@ public class TeacherScheduleExamFragment extends Fragment {
     Button btnScheduleExam, btnConflictStatus;
     int selectedClassId, selectedSubjectId;
     private final String baseUrl = LoginActivity.baseUrl;
-    int teacherId = 1;
+    int teacherId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +48,12 @@ public class TeacherScheduleExamFragment extends Fragment {
         btnScheduleExam = view.findViewById(R.id.btnScheduleExam);
         btnConflictStatus = view.findViewById(R.id.btnConflictStatus);
         etExamTitle = view.findViewById(R.id.etExamTitle);
+
+        if (getArguments() != null) {
+            teacherId = getArguments().getInt("teacher_id", -1);
+        } else {
+            teacherId = -1;
+        }
 
         loadClasses();
         populateTimeSpinners();

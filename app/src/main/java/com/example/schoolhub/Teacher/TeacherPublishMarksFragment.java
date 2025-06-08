@@ -33,7 +33,7 @@ public class TeacherPublishMarksFragment extends Fragment {
     List<StudentGrade> studentList = new ArrayList<>();
     TeacherPublishMarksAdabter adapter;
 
-    int teacherId = 1;
+    int teacherId;
     int selectedClassId;
     int selectedSubjectId;
     String selectedMarkType;
@@ -56,6 +56,12 @@ public class TeacherPublishMarksFragment extends Fragment {
         rvStudents.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TeacherPublishMarksAdabter(getContext(), studentList);
         rvStudents.setAdapter(adapter);
+
+        if (getArguments() != null) {
+            teacherId = getArguments().getInt("teacher_id", -1);
+        } else {
+            teacherId = -1; // fallback
+        }
 
         setupMarkTypeSpinner();
         loadClasses();

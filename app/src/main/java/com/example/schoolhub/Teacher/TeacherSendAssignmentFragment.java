@@ -38,9 +38,8 @@ public class TeacherSendAssignmentFragment extends Fragment {
     Button chooseFileButton, sendButton;
     Uri fileUri;
     String fileName;
-
     String baseUrl = LoginActivity.baseUrl;
-    int teacherId = 1; // Replace with real teacher ID
+    int teacherId ;
 
     List<ClassInfo> classList = new ArrayList<>();
 
@@ -56,6 +55,12 @@ public class TeacherSendAssignmentFragment extends Fragment {
         dueTimeInput = view.findViewById(R.id.dueTimeInput);
         chooseFileButton = view.findViewById(R.id.chooseFileButton);
         sendButton = view.findViewById(R.id.sendButton);
+
+        if (getArguments() != null) {
+            teacherId = getArguments().getInt("teacher_id", -1);
+        } else {
+            teacherId = -1;
+        }
 
         loadClasses();
 

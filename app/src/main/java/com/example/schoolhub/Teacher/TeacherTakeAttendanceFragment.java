@@ -55,7 +55,7 @@ public class TeacherTakeAttendanceFragment extends Fragment {
     private List<Student> studentList = new ArrayList<>();
     private List<ClassInfo> classList = new ArrayList<>();
     private int selectedClassId = -1;
-    private int teacherId = 1; // Replace with actual logged-in teacher ID
+    private int teacherId;
 
     private final String BASE_URL = LoginActivity.baseUrl;
 
@@ -64,6 +64,7 @@ public class TeacherTakeAttendanceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_teacher_take_attendance, container, false);
     }
 
@@ -86,6 +87,12 @@ public class TeacherTakeAttendanceFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TeacherAttendanceAdapter(studentList);
         recyclerView.setAdapter(adapter);
+
+        if (getArguments() != null) {
+            teacherId = getArguments().getInt("teacher_id", -1);
+        } else {
+            teacherId = -1;
+        }
 
         loadHomeroomClasses();
 
@@ -214,7 +221,7 @@ public class TeacherTakeAttendanceFragment extends Fragment {
             JSONObject obj = new JSONObject();
             try {
                 obj.put("student_id", s.getId());
-                obj.put("status", s.getStatus().toLowerCase()); // Must match enum
+                obj.put("status", s.getStatus().toLowerCase());
                 attendanceArray.put(obj);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -233,7 +240,10 @@ public class TeacherTakeAttendanceFragment extends Fragment {
         }
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestBody,
-                response -> Toast.makeText(getContext(), "Attendance saved", Toast.LENGTH_SHORT).show(),
+                response -> {
+                    Log.d("ATTENDANCE_RESPONSE", response.toString());
+                    Toast.makeText(getContext(), "Response: " + response.toString(), Toast.LENGTH_LONG).show();
+                },
                 error -> Toast.makeText(getContext(), "Failed to submit attendance", Toast.LENGTH_SHORT).show());
 
         Volley.newRequestQueue(requireContext()).add(request);

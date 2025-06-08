@@ -22,7 +22,7 @@ public class TeacherViewGradeFragment extends Fragment {
     Spinner spnClass, spnSubject;
     TextView tvClassAvgValue, tvTopStudentValue;
     TableLayout tableGrades;
-    int teacherId = 1;
+    int teacherId;
     int selectedClassId;
     int selectedSubjectId;
     String baseUrl = LoginActivity.baseUrl;
@@ -39,6 +39,12 @@ public class TeacherViewGradeFragment extends Fragment {
         tvClassAvgValue = view.findViewById(R.id.tvClassAvgValue);
         tvTopStudentValue = view.findViewById(R.id.tvTopStudentValue);
         tableGrades = view.findViewById(R.id.tableGrades);
+
+        if (getArguments() != null) {
+            teacherId = getArguments().getInt("teacher_id", -1);
+        } else {
+            teacherId = -1;
+        }
 
         loadClasses();
 
