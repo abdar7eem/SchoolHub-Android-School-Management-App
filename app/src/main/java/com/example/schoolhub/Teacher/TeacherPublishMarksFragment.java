@@ -48,7 +48,7 @@ public class TeacherPublishMarksFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         spnSubject = view.findViewById(R.id.spnSubject);
         spnClass = view.findViewById(R.id.spnClass);
-        spnMarkType = view.findViewById(R.id.spnTitle); // reused spinner ID
+        spnMarkType = view.findViewById(R.id.spnTitle); 
         etGradeValue = view.findViewById(R.id.etGradeValue);
         rvStudents = view.findViewById(R.id.rvStudents);
         btnSaveMarks = view.findViewById(R.id.btnSaveMarks);
