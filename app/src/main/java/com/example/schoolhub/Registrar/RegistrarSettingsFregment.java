@@ -1,6 +1,7 @@
 package com.example.schoolhub.Registrar;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,8 @@ public class RegistrarSettingsFregment extends Fragment {
         } else {
             RegistrarID = -1; // fallback
         }
+
+        Log.e("RegistrarID", String.valueOf(RegistrarID));
 
         tvRegistrarName=view.findViewById(R.id.tvRegistrarName);
         tvAge=view.findViewById(R.id.tvAge);
