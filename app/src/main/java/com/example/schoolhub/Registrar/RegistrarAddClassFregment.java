@@ -108,7 +108,7 @@ public class RegistrarAddClassFregment extends Fragment {
         Volley.newRequestQueue(requireContext()).add(request);
     }
     private void AddClass() {
-        String url = LoginActivity.baseUrl+"add_class.php";
+        String url = LoginActivity.baseUrl+"Add_class.php";
 
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());

@@ -48,7 +48,7 @@ public class RegistrarHomeFregment extends Fragment {
         if (getArguments() != null) {
             RegistrarID = getArguments().getInt("registrar_id", -1);
         } else {
-            RegistrarID = -1; // fallback
+            RegistrarID = 3; // fallback
         }
 
         AlertsConatiner = view.findViewById(R.id.AlertsConatiner);

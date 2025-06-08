@@ -81,7 +81,7 @@ public class RegistrarAddSubjectFregment extends Fragment {
             int teacherId = selectedTeacher.getId();
 
 
-        String url = LoginActivity.baseUrl+"add_subject.php";
+        String url = LoginActivity.baseUrl+"Add_subject.php";
 
             StringRequest request = new StringRequest(Request.Method.POST, url,
                     response -> Toast.makeText(requireContext(), "Subject added!", Toast.LENGTH_SHORT).show(),

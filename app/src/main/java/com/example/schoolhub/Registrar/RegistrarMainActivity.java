@@ -142,7 +142,7 @@ public class RegistrarMainActivity extends AppCompatActivity {
                             loadFragment(f);
                             registrarBottomNav.setSelectedItemId(R.id.registrar_nav_home);
                             loadHeaderData(userId);
-                            Log.e("3alawi",String.valueOf(userId));
+//                            Log.e("3alawi",String.valueOf(userId));
 
                         }
                     } catch (JSONException e) {
@@ -161,7 +161,7 @@ public class RegistrarMainActivity extends AppCompatActivity {
 
     private void loadHeaderData(int registrarId) {
         String url = baseUrl + "get_user_nav.php?id=" + userId;
-        Log.e("3alawi",String.valueOf(userId));
+//        Log.e("3alawi",String.valueOf(userId));
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
