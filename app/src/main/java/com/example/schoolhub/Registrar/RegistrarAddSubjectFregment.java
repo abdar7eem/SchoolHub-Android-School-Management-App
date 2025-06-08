@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +35,6 @@ public class RegistrarAddSubjectFregment extends Fragment {
     EditText edtCode,edtSubjectName;
     boolean[] selectedClassItems;
     List<Integer> selectedClassIds = new ArrayList<>();
-    Spinner spnTeacher;
 
     List<TeacherInfo> teacherList = new ArrayList<>();
 
@@ -55,9 +52,7 @@ public class RegistrarAddSubjectFregment extends Fragment {
         edtCode = view.findViewById(R.id.edtCode);
         edtSubjectName = view.findViewById(R.id.edtSubjectName);
         btnAddSubject = view.findViewById(R.id.btnAddSubject);
-        spnTeacher=view.findViewById(R.id.spnTeacher);
         LoadClasses();
-        LoadTeachers();
 
         btnAddSubject.setOnClickListener(e->{
 
@@ -72,13 +67,10 @@ public class RegistrarAddSubjectFregment extends Fragment {
             String name = edtSubjectName.getText().toString().trim();
             String code = edtCode.getText().toString().trim();
 
-            if (name.isEmpty() || selectedClassIds.isEmpty()) {
-                Toast.makeText(requireContext(), "Please enter subject name and select classes", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            TeacherInfo selectedTeacher = (TeacherInfo) spnTeacher.getSelectedItem();
-            int teacherId = selectedTeacher.getId();
+        if (name.isEmpty() || code.isEmpty() || selectedClassIds.isEmpty()) {
+            Toast.makeText(requireContext(), "Please enter subject name, code, and select classes", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
 
         String url = LoginActivity.baseUrl+"Add_subject.php";
@@ -92,7 +84,6 @@ public class RegistrarAddSubjectFregment extends Fragment {
                     Map<String, String> params = new HashMap<>();
                     params.put("subject_name", name);
                     params.put("subject_code", code);
-                    params.put("teacher_id", String.valueOf(teacherId));
                     params.put("class_ids", new JSONArray(selectedClassIds).toString()); // send as JSON array
                     return params;
                 }
@@ -165,40 +156,5 @@ public class RegistrarAddSubjectFregment extends Fragment {
         builder.setNegativeButton("Cancel", null);
         builder.show();
     }
-    private void LoadTeachers() {
-        String url = LoginActivity.baseUrl+"get_All_Teachers.php";
 
-
-        StringRequest request = new StringRequest(Request.Method.GET, url,
-                response -> {
-                    try {
-                        JSONArray array = new JSONArray(response);
-                        teacherList.clear();
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject obj = array.getJSONObject(i);
-                            int id = obj.getInt("teacher_id");
-                            String name = obj.getString("teacher_name");
-
-
-                            teacherList.add(new TeacherInfo(id, name));
-                        }
-
-                        ArrayAdapter<TeacherInfo> adapter = new ArrayAdapter<>(
-                                requireContext(), android.R.layout.simple_spinner_item, teacherList);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spnTeacher.setAdapter(adapter);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(requireContext(), "Parsing error", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                error -> {
-                    error.printStackTrace();
-                    Toast.makeText(requireContext(), "Failed to load teachers", Toast.LENGTH_SHORT).show();
-                }
-        );
-
-        Volley.newRequestQueue(requireContext()).add(request);
-    }
 }

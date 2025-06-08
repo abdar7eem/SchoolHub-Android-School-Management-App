@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:gravity="center"
-        android:text="Add Subject"
+        android:text="Assign Subject"
         android:textColor="#8B0000"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -36,29 +36,19 @@
 
         <!-- Subject Name -->
 
-        <EditText
-            android:id="@+id/edtSubjectName"
+        <Spinner
+            android:id="@+id/spnTeacher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:background="@android:drawable/edit_text"
-            android:hint="Subject name" />
+            android:hint="Teacher" />
 
-        <!-- Subject Code -->
-        <EditText
-            android:id="@+id/edtCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:background="@android:drawable/edit_text"
-            android:hint="Subject code" />
 
         <!-- Grade Level -->
         <TextView
-            android:id="@+id/txtSelectClasses"
+            android:id="@+id/txtSelectSubjects"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Select Classes"
+            android:hint="Select Subjects"
             android:padding="12dp"
             android:focusable="false"
             android:clickable="true" />
@@ -70,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:backgroundTint="#8B0000"
-            android:text="Add Subject"
+            android:text="Asssign Subject"
             android:textColor="#FFFFFF" />
 
         <!-- Schedule Exam Button -->

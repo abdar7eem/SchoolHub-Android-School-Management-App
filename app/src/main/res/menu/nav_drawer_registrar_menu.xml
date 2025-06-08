@@ -29,6 +29,10 @@
         android:id="@+id/nav_assignTeacher"
         android:icon="@drawable/addteacher"
         android:title="Assign Teacher" />
+        <item
+            android:id="@+id/nav_assignSubject"
+            android:icon="@drawable/addsubject"
+            android:title="Assign Subject" />
 
 <!--        <item-->
 <!--            android:id="@+id/nav_event"-->

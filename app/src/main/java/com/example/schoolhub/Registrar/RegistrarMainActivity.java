@@ -103,6 +103,8 @@ public class RegistrarMainActivity extends AppCompatActivity {
             return new RegistrarAddTeacherFregment();
         }else if (id == R.id.nav_assignTeacher) {
             return new RegistrarAssignTeacherFregment();
+        }else if (id == R.id.nav_assignSubject) {
+            return new RegistrarAssignSubjectTeacherFregment();
         }
         else if (id == R.id.nav_settings) {
             return new RegistrarSettingsFregment();
