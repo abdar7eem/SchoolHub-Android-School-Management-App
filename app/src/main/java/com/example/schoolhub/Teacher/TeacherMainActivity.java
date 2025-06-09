@@ -72,6 +72,7 @@ public class TeacherMainActivity extends AppCompatActivity {
             if (f != null) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("teacher_id", teacherId);
+                bundle.putInt("user_id", userId);
                 f.setArguments(bundle);
                 return loadFragment(f);
             }
@@ -84,8 +85,8 @@ public class TeacherMainActivity extends AppCompatActivity {
             Fragment f = getTeacherFragment(item.getItemId());
             if (f != null) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("teacher_id", teacherId);
                 f.setArguments(bundle);
+                bundle.putInt("teacher_id", teacherId);
                 loadFragment(f);
             }
             drawerLayout.closeDrawer(GravityCompat.START);

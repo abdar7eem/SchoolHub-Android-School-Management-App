@@ -46,6 +46,7 @@ public class TeacherScheduleFragment extends Fragment {
     private final String baseUrl = LoginActivity.baseUrl;
     private View rootView;
     private int teacherId;
+    private int userId;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -54,8 +55,10 @@ public class TeacherScheduleFragment extends Fragment {
 
         if (getArguments() != null) {
             teacherId = getArguments().getInt("teacher_id", -1);
+            userId = getArguments().getInt("user_id", -1);
         } else {
             teacherId = -1;
+            userId = -1;
         }
 
         initViews();
@@ -75,7 +78,8 @@ public class TeacherScheduleFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchSchedule() {
-        String url = baseUrl + "get_teacher_schedule.php?id=" + teacherId;
+        String url = baseUrl + "get_teacher_schedule.php?id=" + userId;
+        Log.d("User ID", String.valueOf(userId));
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
