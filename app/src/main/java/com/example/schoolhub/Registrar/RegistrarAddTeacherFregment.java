@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -104,7 +102,9 @@ public class RegistrarAddTeacherFregment extends Fragment {
                 },
                 error -> {
                     error.printStackTrace();
-                    Toast.makeText(requireContext(), "Couldn't Add Teacher", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Couldn't Add Teacher"+error.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                    Log.e("error ",error.getMessage().toString());
+
                 }) {
 
             @Override
@@ -116,7 +116,6 @@ public class RegistrarAddTeacherFregment extends Fragment {
                 params.put("role", "Teacher");
                 params.put("password", edtPassword.getText().toString().trim());
                 params.put("phone", edtPhone.getText().toString().trim());
-                params.put("subject_id",String.valueOf( ChoosenSubject.getId()));
 
 
                 String classIdsJson = new Gson().toJson(selectedClassIds);

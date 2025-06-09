@@ -92,7 +92,7 @@ public class RegistrarAddEventFregment extends Fragment {
         return view ;
     }
     private void PostEvent() {
-        String url = LoginActivity.baseUrl+"Post_event.php";
+        String url = LoginActivity.baseUrl+"Add_event.php";
 
         String eventType = spnType.getSelectedItem().toString();
         Log.e("spnType", eventType);
@@ -113,7 +113,8 @@ public class RegistrarAddEventFregment extends Fragment {
                 error -> {
                     Log.e("EVENT_ADD_ERROR", error.toString());
                     error.printStackTrace();
-                    Toast.makeText(getContext(), "Failed to add event.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "ERRORR"+error.getMessage(), Toast.LENGTH_SHORT).show();
+
                 }) {
 
             @Override
@@ -126,6 +127,16 @@ public class RegistrarAddEventFregment extends Fragment {
                 params.put("event_end_time", eventEndTime);
                 params.put("location", location);
                 params.put("event_description", description);
+                Log.e("spnType", eventType);
+
+                Log.e("event_date", eventDate);
+                Log.e("event_title", eventTitle);
+
+                Log.e("event_start_time", eventStartTime);
+                Log.e("event_end_time", eventEndTime);
+                Log.e("location", location);
+                Log.e("event_description", description);
+
                 return params;
             }
         };
