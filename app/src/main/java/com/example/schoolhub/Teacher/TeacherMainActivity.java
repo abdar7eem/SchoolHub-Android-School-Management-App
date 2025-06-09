@@ -55,15 +55,19 @@ public class TeacherMainActivity extends AppCompatActivity {
         txtName = headerView.findViewById(R.id.txtName);
         txtEmail = headerView.findViewById(R.id.txtEmail);
 
+        teacherBottomNav.setEnabled(false);
+        navigationView.setEnabled(false);
+
         fetchTeacherId(userId);
         checkUnreadNotifications();
 
-        // Drawer toggle
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         teacherBottomNav.setOnItemSelectedListener(item -> {
+            if (teacherId == 0) return false;
+
             Fragment f = getTeacherFragment(item.getItemId());
             if (f != null) {
                 Bundle bundle = new Bundle();
@@ -75,6 +79,8 @@ public class TeacherMainActivity extends AppCompatActivity {
         });
 
         navigationView.setNavigationItemSelectedListener(item -> {
+            if (teacherId == 0) return false;
+
             Fragment f = getTeacherFragment(item.getItemId());
             if (f != null) {
                 Bundle bundle = new Bundle();
@@ -96,7 +102,6 @@ public class TeacherMainActivity extends AppCompatActivity {
                         if (response.has("teacher_id")) {
                             teacherId = response.getInt("teacher_id");
 
-                            // Load default fragment
                             Fragment f = new TeacherHomeFragment();
                             Bundle bundle = new Bundle();
                             bundle.putInt("teacher_id", teacherId);
@@ -105,7 +110,10 @@ public class TeacherMainActivity extends AppCompatActivity {
                             loadFragment(f);
 
                             teacherBottomNav.setSelectedItemId(R.id.teacher_nav_home);
-                            loadHeaderData(userId);
+                            loadHeaderData(teacherId);
+
+                            teacherBottomNav.setEnabled(true);
+                            navigationView.setEnabled(true);
                         } else {
                             Log.e("fetchTeacherId", "No teacher_id in response: " + response.toString());
                         }
@@ -121,7 +129,6 @@ public class TeacherMainActivity extends AppCompatActivity {
 
         Volley.newRequestQueue(this).add(req);
     }
-
 
     private Fragment getTeacherFragment(int id) {
         if (id == R.id.teacher_nav_home) {
@@ -147,36 +154,32 @@ public class TeacherMainActivity extends AppCompatActivity {
         } else if (id == R.id.teacher_nav_sittings) {
             return new TeacherSettingsFragment();
         } else if (id == R.id.teacher_nav_logout) {
-            // Clear saved user session
-            getSharedPreferences("userData", MODE_PRIVATE)
-                    .edit()
-                    .clear()
-                    .apply();
-
-            // Redirect to login screen
+            getSharedPreferences("userData", MODE_PRIVATE).edit().clear().apply();
             Intent intent = new Intent(TeacherMainActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // clear back stack
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-
-            finish(); // finish current activity
+            finish();
             return null;
-        }
-        else {
+        } else {
             return null;
         }
     }
-
 
 
     private boolean loadFragment(Fragment fragment) {
-        if (fragment != null) {
-            checkUnreadNotifications();
-            getSupportFragmentManager().beginTransaction().replace(R.id.teacherFragmentContainer, fragment).commit();
-            return true;
+        if (fragment != null && !isFinishing() && !isDestroyed()) {
+            try {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.teacherFragmentContainer, fragment)
+                        .commitAllowingStateLoss();
+                return true;
+            } catch (IllegalStateException e) {
+                Log.e("FragmentLoad", "State loss exception: " + e.getMessage());
+            }
         }
         return false;
     }
-
 
     private void loadHeaderData(int teacherId) {
         String url = LoginActivity.baseUrl + "get_user_nav.php?id=" + teacherId;
