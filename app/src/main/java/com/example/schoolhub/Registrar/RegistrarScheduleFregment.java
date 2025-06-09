@@ -230,9 +230,17 @@ public class RegistrarScheduleFregment extends Fragment {
 
     private void checkScheduleConflict() {
         InfoClass selectedClass = (InfoClass) spnClasses.getSelectedItem();
+        Log.e("class name ", selectedClass.getName()+selectedClass.getId());
+
         SubjectInfo selectedSubject = (SubjectInfo) spnSubject.getSelectedItem();
-        String startTime = spnStartTime.getSelectedItem().toString();
+
+        Log.e("Subject name ", selectedSubject.getName()+selectedClass.getId());
+
+        String startTime = convertTime(spnStartTime.getSelectedItem().toString());
+        Log.e("start time", startTime);
+
         String day = txtSelectDays.getText().toString().trim();
+        Log.e("days", day);
 
         if (selectedClass == null || selectedSubject == null || day.isEmpty()) {
             Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
@@ -246,6 +254,8 @@ public class RegistrarScheduleFregment extends Fragment {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         String status = jsonObject.getString("status");
+
+                        Log.e("status ", status);
 
                         if ("conflict".equals(status)) {
                             btnCheckConflict.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
@@ -483,6 +493,16 @@ public class RegistrarScheduleFregment extends Fragment {
             return time; // fallback to original if error
         }
     }
-
+    private String convertTime(String time) {
+        try {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("H:mm", Locale.getDefault());
+            SimpleDateFormat sqlFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+            Date date = inputFormat.parse(time);
+            return sqlFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "00:00:00"; // Fallback if error
+        }
+    }
 
 }

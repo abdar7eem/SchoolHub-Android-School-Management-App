@@ -3,6 +3,7 @@ package com.example.schoolhub.Registrar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -50,11 +51,12 @@ public class RegistrarMainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-
-        txtName = navigationView.getHeaderView(0).findViewById(R.id.txtName);
-        txtEmail = navigationView.getHeaderView(0).findViewById(R.id.txtEmail);
-
+        View headerView = navigationView.getHeaderView(0);
+        txtName = headerView.findViewById(R.id.txtName);
+        txtEmail = headerView.findViewById(R.id.txtEmail);
+        Log.e("loadHeaderData", String.valueOf(userId));
         fetchRegistrarId(userId);
+        Log.e("loadHeaderData", String.valueOf(userId));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
@@ -146,7 +148,10 @@ public class RegistrarMainActivity extends AppCompatActivity {
                             f.setArguments(bundle);
                             loadFragment(f);
                             registrarBottomNav.setSelectedItemId(R.id.registrar_nav_home);
+
                             loadHeaderData();
+                            Log.e("loadHeaderData", "error no enter");
+
 
                         }
                     } catch (JSONException e) {
@@ -164,8 +169,10 @@ public class RegistrarMainActivity extends AppCompatActivity {
     }
 
     private void loadHeaderData() {
-        String url = baseUrl + "get_user_nav.php?id=" + userId;
+        String url = baseUrl + "get_user_nav.php?id=" + registrarId;
         Log.e("loadHeaderData URL", url);
+        Log.e("id", String.valueOf(registrarId));
+
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
