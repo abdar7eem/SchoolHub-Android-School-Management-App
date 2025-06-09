@@ -46,14 +46,14 @@
             <!-- Username -->
             <EditText
                 android:id="@+id/etLoginUsername"
-                android:hint="Username"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:padding="12dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/edittext_rounded_border"
+                android:hint="Email"
+                android:padding="12dp"
                 android:textColor="#000000"
-                android:textColorHint="#990100"
-                android:layout_marginBottom="16dp" />
+                android:textColorHint="#990100" />
 
             <!-- Password -->
             <EditText

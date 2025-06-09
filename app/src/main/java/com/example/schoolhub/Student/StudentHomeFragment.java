@@ -59,6 +59,10 @@ public class StudentHomeFragment extends Fragment {
 
     private void openFragment(Fragment fragment) {
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putInt("student_id", studentId);
+        fragment.setArguments(bundle);
+
         transaction.replace(R.id.studentFragmentContainer, fragment);
         transaction.addToBackStack(null);
         transaction.commit();

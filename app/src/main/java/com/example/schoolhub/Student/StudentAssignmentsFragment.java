@@ -58,21 +58,22 @@ public class StudentAssignmentsFragment extends Fragment {
 
         if (getArguments() != null) {
             studentId = getArguments().getInt("student_id", -1);
+        } else {
+            studentId = -1;
         }
 
-        // File picker result handler
         filePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         Uri fileUri = result.getData().getData();
-                        if (fileUri != null) {
-                            String fileName = getFileName(fileUri);
-                            if (pendingSubmitButton != null) {
-                                pendingSubmitButton.setText(fileName);
-                            }
-                            uploadFileToServer(fileUri, pendingAssignmentId, studentId);
+                        String fileName = getFileName(fileUri);
+
+                        if (pendingSubmitButton != null) {
+                            pendingSubmitButton.setText(fileName);
                         }
+
+                        uploadFileToServer(fileUri, pendingAssignmentId, studentId);
                     }
                 }
         );
@@ -82,7 +83,7 @@ public class StudentAssignmentsFragment extends Fragment {
             pendingSubmitButton = button;
 
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("*/*"); // ✅ FIXED: valid wildcard MIME type
+            intent.setType("*");
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             filePickerLauncher.launch(Intent.createChooser(intent, "Select file to submit"));
         });
@@ -108,10 +109,13 @@ public class StudentAssignmentsFragment extends Fragment {
                             JSONObject obj = response.getJSONObject(i);
                             int id = obj.getInt("id");
                             String title = obj.getString("title");
+                            String subject = obj.optString("subject", "-");
+                            String teacher = obj.optString("teacher_name", "-");
+
                             String due = obj.getString("due_date");
                             String status = obj.optString("status", "Pending");
                             String attachment = obj.optString("attachment_path", "");
-                            assignmentList.add(new Assignment(id, title, "-", "-", due, status, attachment));
+                            assignmentList.add(new Assignment(id, title, subject , teacher, due, status, attachment));
                         }
                         adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
@@ -125,6 +129,7 @@ public class StudentAssignmentsFragment extends Fragment {
     }
 
     private void filterBy(String status, Button activeButton) {
+
         updateButtonColors(activeButton);
 
         String url = baseUrl + "get_student_assignments.php?student_id=" + studentId + "&status=" + status;
@@ -138,21 +143,22 @@ public class StudentAssignmentsFragment extends Fragment {
                             int id = obj.getInt("id");
                             String title = obj.getString("title");
                             String due = obj.getString("due_date");
+                            String subject = obj.optString("subject", "-");
+                            String teacher = obj.optString("teacher_name", "-");
+
                             String assignmentStatus = obj.optString("status", status);
                             String attachment = obj.optString("attachment_path", "");
-                            assignmentList.add(new Assignment(id, title, "-", "-", due, assignmentStatus, attachment));
+                            assignmentList.add(new Assignment(id, title, subject, teacher, due, assignmentStatus, attachment));
                         }
-
                         adapter = new AssignmentAdapter(requireActivity(), assignmentList, (assignmentId, button) -> {
                             pendingAssignmentId = assignmentId;
                             pendingSubmitButton = button;
 
                             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                            intent.setType("*/*"); // ✅ FIXED
+                            intent.setType("*");
                             intent.addCategory(Intent.CATEGORY_OPENABLE);
                             filePickerLauncher.launch(Intent.createChooser(intent, "Select file to submit"));
                         });
-
                         lstBooks.setAdapter(adapter);
                     } catch (JSONException e) {
                         e.printStackTrace();
