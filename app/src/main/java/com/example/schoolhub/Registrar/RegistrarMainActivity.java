@@ -3,7 +3,6 @@ package com.example.schoolhub.Registrar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -31,7 +30,6 @@ public class RegistrarMainActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private int userId;
-    private int registrarId;
 
     private TextView txtName, txtEmail;
 
@@ -51,12 +49,11 @@ public class RegistrarMainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        View headerView = navigationView.getHeaderView(0);
-        txtName = headerView.findViewById(R.id.txtName);
-        txtEmail = headerView.findViewById(R.id.txtEmail);
-        Log.e("loadHeaderData", String.valueOf(userId));
-        fetchRegistrarId(userId);
-        Log.e("loadHeaderData", String.valueOf(userId));
+        txtName = navigationView.getHeaderView(0).findViewById(R.id.txtName);
+        txtEmail = navigationView.getHeaderView(0).findViewById(R.id.txtEmail);
+
+        loadInitialFragment();
+        loadHeaderData(userId);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
@@ -66,7 +63,7 @@ public class RegistrarMainActivity extends AppCompatActivity {
             Fragment f = getRegistrarFragment(item.getItemId());
             if (f != null) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("registrar_id", userId);
+                bundle.putInt("user_id", userId);
                 f.setArguments(bundle);
                 return loadFragment(f);
             }
@@ -77,13 +74,22 @@ public class RegistrarMainActivity extends AppCompatActivity {
             Fragment f = getRegistrarFragment(item.getItemId());
             if (f != null) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("registrar_id", userId);
+                bundle.putInt("user_id", userId);
                 f.setArguments(bundle);
                 loadFragment(f);
             }
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
+    }
+
+    private void loadInitialFragment() {
+        Fragment f = new RegistrarHomeFregment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("registrar_id", userId);
+        f.setArguments(bundle);
+        loadFragment(f);
+        registrarBottomNav.setSelectedItemId(R.id.registrar_nav_home);
     }
 
     private Fragment getRegistrarFragment(int id) {
@@ -103,95 +109,52 @@ public class RegistrarMainActivity extends AppCompatActivity {
             return new RegistrarAddEventFregment();
         } else if (id == R.id.nav_addTeacher) {
             return new RegistrarAddTeacherFregment();
-        }else if (id == R.id.nav_assignTeacher) {
+        } else if (id == R.id.nav_assignTeacher) {
             return new RegistrarAssignTeacherFregment();
-        }else if (id == R.id.nav_assignSubject) {
+        } else if (id == R.id.nav_assignSubject) {
             return new RegistrarAssignSubjectTeacherFregment();
-        }
-        else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_settings) {
             return new RegistrarSettingsFregment();
-        }
-        else if (id == R.id.nav_logout) {
-            // Clear saved user session
-            getSharedPreferences("userData", MODE_PRIVATE)
-                    .edit()
-                    .clear()
-                    .apply();
-
-            // Redirect to login screen
+        } else if (id == R.id.nav_logout) {
+            getSharedPreferences("userData", MODE_PRIVATE).edit().clear().apply();
             Intent intent = new Intent(RegistrarMainActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // clear back stack
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-
-            finish(); // finish current activity
+            finish();
+            return null;
+        } else {
             return null;
         }
-
-
-
-        else {
-            return null;
-        }
-    }
-
-
-    private void fetchRegistrarId(int userId) {
-        String url = baseUrl + "get_user_role_id.php?user_id=" + userId;
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url, null,
-                response -> {
-                    try {
-                        if (response.has("role_id")) {
-                            registrarId = response.getInt("role_id");
-                            Fragment f = new RegistrarHomeFregment();
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("registrar_id", userId);
-                            f.setArguments(bundle);
-                            loadFragment(f);
-                            registrarBottomNav.setSelectedItemId(R.id.registrar_nav_home);
-
-                            loadHeaderData();
-                            Log.e("loadHeaderData", "error no enter");
-
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                },
-                error -> error.printStackTrace()
-        );
-        Volley.newRequestQueue(this).add(req);
     }
 
     private boolean loadFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.registrarFragmentContainer, fragment).commit();
-        return true;
+        if (fragment != null && !isFinishing() && !isDestroyed()) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.registrarFragmentContainer, fragment)
+                    .commitAllowingStateLoss();
+            return true;
+        }
+        return false;
     }
 
-    private void loadHeaderData() {
-        String url = baseUrl + "get_user_nav.php?id=" + registrarId;
-        Log.e("loadHeaderData URL", url);
-        Log.e("id", String.valueOf(registrarId));
-
+    private void loadHeaderData(int userId) {
+        String url = baseUrl + "get_user_nav.php?id=" + userId;
+        Log.d("loadHeaderData", "URL: " + url);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
-                        Log.d("loadHeaderData", "Response: " + response.toString());
                         txtName.setText(response.getString("name"));
                         txtEmail.setText(response.getString("email"));
                     } catch (JSONException e) {
-                        Log.e("loadHeaderData", "JSON parsing error", e);
+                        Log.e("loadHeaderData", "JSON error", e);
                     }
                 },
-                error -> {
-                    Log.e("loadHeaderData", "Volley error", error);
-                }
+                error -> Log.e("loadHeaderData", "Volley error", error)
         );
 
         Volley.newRequestQueue(this).add(request);
     }
-
 
     @Override
     public void onBackPressed() {
