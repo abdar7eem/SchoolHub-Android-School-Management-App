@@ -1,6 +1,7 @@
 package com.example.schoolhub.Registrar;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,6 @@ public class RegistrarAssignTeacherFregment extends Fragment {
     EditText edtGrade,edtSection;
     Spinner spnClass,spnHomeromTeacher;
     Button btnAddClass;
-    String[] stages = {"Primary", "Middle", "Secondary", "High School"};
 
     List<TeacherInfo> teacherList = new ArrayList<>();
 
@@ -61,13 +61,6 @@ public class RegistrarAssignTeacherFregment extends Fragment {
             }
         });
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                getContext(),
-                android.R.layout.simple_spinner_item,
-                stages
-        );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnClass.setAdapter(adapter);
 
         return view;
     }
@@ -105,38 +98,41 @@ public class RegistrarAssignTeacherFregment extends Fragment {
         Volley.newRequestQueue(requireContext()).add(request);
     }
     private void AddClass() {
-        String url = LoginActivity.baseUrl+"Registrar_Assign_Teacher.php";
+        if (spnClass.getSelectedItem() == null || spnHomeromTeacher.getSelectedItem() == null) {
+            Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        int classId = ((ClassInfo) spnClass.getSelectedItem()).getId();
+        int teacherId = ((TeacherInfo) spnHomeromTeacher.getSelectedItem()).getId();
 
+        String url = LoginActivity.baseUrl + "Registrar_Assign_Teacher.php";
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
-                    Toast.makeText(getContext(), "Class added successfully!", Toast.LENGTH_SHORT).show();
-                    LoadTeachers(); // refresh the spinner
-
+                    Toast.makeText(getContext(), "Class assigned successfully!", Toast.LENGTH_SHORT).show();
+                    LoadTeachers(); // Refresh spinner
                 },
                 error -> {
-            if(spnClass.getSelectedItem()==null||spnHomeromTeacher.getSelectedItem()==null){
-                Toast.makeText(getContext(), "Fill all fields" , Toast.LENGTH_LONG).show();
-
-
-            }
-            else {
-                Toast.makeText(getContext(), "Error in volley request : " + error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-                }) {
+                    Log.e("AddClassError", "Volley Error: " + error.getMessage());
+                    Toast.makeText(getContext(), "Error in request: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+        ) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("class_id", String.valueOf(((ClassInfo)spnClass.getSelectedItem()).getId()));
-                params.put("homeroom_teacher_id",String.valueOf(((TeacherInfo)spnHomeromTeacher.getSelectedItem()).getId()));
+                params.put("class_id", String.valueOf(classId));
+                params.put("homeroom_teacher_id", String.valueOf(teacherId));
+
+                Log.d("AddClassParams", "class_id: " +String.valueOf(classId) + ", homeroom_teacher_id: " + teacherId);
                 return params;
             }
         };
 
         queue.add(request);
     }
+
 
     private void loadClasses() {
         String url = LoginActivity.baseUrl + "Registrar_get_free_classes.php";
@@ -151,6 +147,9 @@ public class RegistrarAssignTeacherFregment extends Fragment {
                             JSONObject obj = array.getJSONObject(i);
                             int id = obj.getInt("id");
                             String name = obj.getString("class_name");
+                            Log.e("ID", String.valueOf(id));
+                            Log.e("name", name);
+
                             classList.add(new ClassInfo(id,name));
                         }
 

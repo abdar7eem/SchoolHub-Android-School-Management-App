@@ -230,9 +230,17 @@ public class RegistrarScheduleFregment extends Fragment {
 
     private void checkScheduleConflict() {
         InfoClass selectedClass = (InfoClass) spnClasses.getSelectedItem();
+        Log.e("class name ", selectedClass.getName()+selectedClass.getId());
+
         SubjectInfo selectedSubject = (SubjectInfo) spnSubject.getSelectedItem();
-        String startTime = spnStartTime.getSelectedItem().toString();
+
+        Log.e("Subject name ", selectedSubject.getName()+selectedClass.getId());
+
+        String startTime = convertTime(spnStartTime.getSelectedItem().toString());
+        Log.e("start time", startTime);
+
         String day = txtSelectDays.getText().toString().trim();
+        Log.e("days", day);
 
         if (selectedClass == null || selectedSubject == null || day.isEmpty()) {
             Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
@@ -246,6 +254,8 @@ public class RegistrarScheduleFregment extends Fragment {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         String status = jsonObject.getString("status");
+
+                        Log.e("status ", status);
 
                         if ("conflict".equals(status)) {
                             btnCheckConflict.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
@@ -374,6 +384,8 @@ public class RegistrarScheduleFregment extends Fragment {
         tv.setTypeface(null, Typeface.BOLD);
         tv.setGravity(Gravity.CENTER);
         tv.setPadding(16, 8, 16, 8);
+        tv.setMinWidth(100); // or any dp value converted via TypedValue
+
         return tv;
     }
 
@@ -390,13 +402,12 @@ public class RegistrarScheduleFregment extends Fragment {
 
     private TextView createSubjectCell(String text) {
         TextView tv = new TextView(requireContext());
-        tv.setText(text);
+        tv.setText(TextUtils.isEmpty(text) ? " " : text); // Force space if empty
         tv.setGravity(Gravity.CENTER);
         tv.setPadding(12, 8, 12, 8);
         tv.setBackgroundColor(Color.WHITE);
         tv.setTextColor(Color.BLACK);
-        tv.setBackgroundResource(R.drawable.cell_border); // ✅ border added
-
+        tv.setBackgroundResource(R.drawable.cell_border); // Keep border for empty too
         return tv;
     }
 
@@ -421,26 +432,23 @@ public class RegistrarScheduleFregment extends Fragment {
                             String subject = obj.getString("name");
 
                             time=formatTime(time);
-                            Log.d("Schedule Post", subject);
-                            Log.d("Schedule time", time);
-                            Log.d("Schedule day", day);
+                            Log.e("Schedule Post", subject);
+                            Log.e("Schedule time", time);
+                            Log.e("Schedule day", day);
 
 
                             String lesson = convertTimeToLessonNumber(time);
-                            Log.d("Schedule Post", lesson);
+                            Log.e("Schedule Post", lesson);
 
                             if (!scheduleData.containsKey(day)) {
                                 scheduleData.put(day, new HashMap<>());
-                                Log.d("Schedule Post", "4");
 
                             }
                             scheduleData.get(day).put(lesson, subject);
-                            Log.d("Schedule Post", "5");
 
                         }
 
                         buildScheduleTable();
-                        Log.d("Schedule Post", "6");
 
                     } catch (JSONException e) {
                         Toast.makeText(getContext(), e.getMessage().toString(), Toast.LENGTH_SHORT).show();
@@ -483,6 +491,16 @@ public class RegistrarScheduleFregment extends Fragment {
             return time; // fallback to original if error
         }
     }
-
+    private String convertTime(String time) {
+        try {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("H:mm", Locale.getDefault());
+            SimpleDateFormat sqlFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+            Date date = inputFormat.parse(time);
+            return sqlFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "00:00:00"; // Fallback if error
+        }
+    }
 
 }
