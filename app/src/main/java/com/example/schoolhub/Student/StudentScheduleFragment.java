@@ -64,7 +64,8 @@ public class StudentScheduleFragment extends Fragment {
 
         dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnDay.setAdapter(dayAdapter);
-
+        spnDay
+.setSelection(1); // Default to Saturday
         spnDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

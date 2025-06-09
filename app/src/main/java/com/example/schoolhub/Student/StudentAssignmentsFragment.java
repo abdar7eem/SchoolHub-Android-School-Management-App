@@ -38,7 +38,7 @@ public class StudentAssignmentsFragment extends Fragment {
     private AssignmentAdapter adapter;
     private List<Assignment> assignmentList = new ArrayList<>();
 
-    private final int studentId = 4;
+    private int studentId;
     private final String baseUrl = LoginActivity.baseUrl;
 
     private Button btnPending, btnSubmitted, btnGraded;
@@ -55,6 +55,12 @@ public class StudentAssignmentsFragment extends Fragment {
         btnPending = view.findViewById(R.id.btnPending);
         btnSubmitted = view.findViewById(R.id.btnSubmitted);
         btnGraded = view.findViewById(R.id.btnGraded);
+
+        if (getArguments() != null) {
+            studentId = getArguments().getInt("student_id", -1);
+        } else {
+            studentId = -1;
+        }
 
         filePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -77,7 +83,7 @@ public class StudentAssignmentsFragment extends Fragment {
             pendingSubmitButton = button;
 
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("/");
+            intent.setType("*");
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             filePickerLauncher.launch(Intent.createChooser(intent, "Select file to submit"));
         });
@@ -103,24 +109,27 @@ public class StudentAssignmentsFragment extends Fragment {
                             JSONObject obj = response.getJSONObject(i);
                             int id = obj.getInt("id");
                             String title = obj.getString("title");
-                            String subject = obj.getString("subject");
-                            String teacher = obj.getString("teacher_name");
+                            String subject = obj.optString("subject", "-");
+                            String teacher = obj.optString("teacher_name", "-");
+
                             String due = obj.getString("due_date");
                             String status = obj.optString("status", "Pending");
                             String attachment = obj.optString("attachment_path", "");
-                            assignmentList.add(new Assignment(id, title, subject, teacher, due, status, attachment));
+                            assignmentList.add(new Assignment(id, title, subject , teacher, due, status, attachment));
                         }
                         adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },
-                error -> error.printStackTrace());
+                error -> error.printStackTrace()
+        );
 
         Volley.newRequestQueue(requireContext()).add(request);
     }
 
     private void filterBy(String status, Button activeButton) {
+
         updateButtonColors(activeButton);
 
         String url = baseUrl + "get_student_assignments.php?student_id=" + studentId + "&status=" + status;
@@ -133,9 +142,10 @@ public class StudentAssignmentsFragment extends Fragment {
                             JSONObject obj = response.getJSONObject(i);
                             int id = obj.getInt("id");
                             String title = obj.getString("title");
-                            String subject = obj.getString("subject");
-                            String teacher = obj.getString("teacher_name");
                             String due = obj.getString("due_date");
+                            String subject = obj.optString("subject", "-");
+                            String teacher = obj.optString("teacher_name", "-");
+
                             String assignmentStatus = obj.optString("status", status);
                             String attachment = obj.optString("attachment_path", "");
                             assignmentList.add(new Assignment(id, title, subject, teacher, due, assignmentStatus, attachment));
@@ -145,7 +155,7 @@ public class StudentAssignmentsFragment extends Fragment {
                             pendingSubmitButton = button;
 
                             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                            intent.setType("*/*");
+                            intent.setType("*");
                             intent.addCategory(Intent.CATEGORY_OPENABLE);
                             filePickerLauncher.launch(Intent.createChooser(intent, "Select file to submit"));
                         });
@@ -154,14 +164,11 @@ public class StudentAssignmentsFragment extends Fragment {
                         e.printStackTrace();
                     }
                 },
-                error -> {
-                    error.printStackTrace();
-                    Toast.makeText(requireContext(), "Error loading assignments", Toast.LENGTH_SHORT).show();
-                });
+                error -> Toast.makeText(requireContext(), "Error loading assignments", Toast.LENGTH_SHORT).show()
+        );
 
         Volley.newRequestQueue(requireContext()).add(request);
     }
-
 
     private void updateButtonColors(Button selected) {
         Button[] buttons = {btnPending, btnSubmitted, btnGraded};
@@ -183,7 +190,7 @@ public class StudentAssignmentsFragment extends Fragment {
             inputStream.read(fileBytes);
             inputStream.close();
 
-            String base64File = Base64.encodeToString(fileBytes, Base64.NO_WRAP); // Use NO_WRAP for safer transport
+            String base64File = Base64.encodeToString(fileBytes, Base64.NO_WRAP);
             String fileName = getFileName(fileUri);
             String url = baseUrl + "student_submit_assignment.php";
 
@@ -191,12 +198,9 @@ public class StudentAssignmentsFragment extends Fragment {
                     response -> {
                         Toast.makeText(getContext(), "Submission successful", Toast.LENGTH_SHORT).show();
                         fetchAssignmentsFromDB();
-                        Log.d("SubmitAssignment", response);
                     },
-                    error -> {
-                        error.printStackTrace();
-                        Toast.makeText(getContext(), "Upload failed: " + error.getMessage(), Toast.LENGTH_LONG).show();
-                    }) {
+                    error -> Toast.makeText(getContext(), "Upload failed: " + error.getMessage(), Toast.LENGTH_LONG).show()
+            ) {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
@@ -204,11 +208,6 @@ public class StudentAssignmentsFragment extends Fragment {
                     params.put("student_id", String.valueOf(studentId));
                     params.put("file", base64File);
                     params.put("filename", fileName);
-
-                    Log.d("ass_id", String.valueOf(assignmentId));
-                    Log.d("studentId", String.valueOf(studentId));
-                    Log.d("file_preview", base64File.length() > 100 ? base64File.substring(0, 100) : base64File);
-                    Log.d("filename", fileName);
                     return params;
                 }
 
