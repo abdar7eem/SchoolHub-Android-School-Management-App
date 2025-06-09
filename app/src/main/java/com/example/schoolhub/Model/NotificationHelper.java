@@ -14,6 +14,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import android.Manifest;
 import com.example.schoolhub.R;
+import com.example.schoolhub.Registration.LoginActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,23 +23,28 @@ public class NotificationHelper {
 
     private static final String CHANNEL_ID = "schoolhub_notifications";
 
-    public static void sendNotification(Context context, String title, String message, int recipientId, int senderId) {
-        String url = "http://192.168.3.246/SchoolHub/send_notification.php";
+    public static void sendNotification(Context context, String title, String message,
+                                        String mode, int senderId, int subjectId, int targetId) {
+        String url = LoginActivity.baseUrl + "send_notification.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     showLocalPopupNotification(context, title, message);
                 },
-                error -> {
-                    Log.e("NotificationHelper", "Failed to send: " + error.getMessage());
-                }) {
+                error -> Log.e("NotificationHelper", "Failed to send: " + error.getMessage())) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("title", title);
                 params.put("message", message);
-                params.put("recipient_id", String.valueOf(recipientId));
                 params.put("sender_id", String.valueOf(senderId));
+
+                if ("student".equals(mode)) {
+                    params.put("recipient_id", String.valueOf(targetId));
+                } else if ("class".equals(mode)) {
+                    params.put("class_id", String.valueOf(targetId));
+                }
+
                 return params;
             }
         };

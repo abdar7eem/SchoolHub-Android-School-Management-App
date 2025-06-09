@@ -27,6 +27,8 @@ public class StudentHomeFragment extends Fragment {
 
     private TextView txtGreeting, txtUpcoming, txtEvent, txtSnapshot;
     private  int studentId ;
+    private int userId;
+
 
     private LinearLayout llUpcoming, llEvent, llSnapshot;
 
@@ -35,8 +37,10 @@ public class StudentHomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_student_home, container, false);
         if (getArguments() != null) {
             studentId = getArguments().getInt("student_id", -1);
+            userId = getArguments().getInt("user_id", -1);
+
         } else {
-            studentId = -1; // fallback
+            studentId = -1;
         }
         txtGreeting = view.findViewById(R.id.txtGreeting);
         txtUpcoming = view.findViewById(R.id.txtUpcoming);
@@ -69,7 +73,7 @@ public class StudentHomeFragment extends Fragment {
     }
 
     private void setGreeting() {
-        String url = LoginActivity.baseUrl+"get_student_name.php?user_id=" + studentId;
+        String url = LoginActivity.baseUrl + "get_student_name.php?user_id=" + userId;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
