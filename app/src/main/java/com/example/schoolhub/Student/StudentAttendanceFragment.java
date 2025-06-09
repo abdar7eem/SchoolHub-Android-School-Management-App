@@ -3,6 +3,7 @@ package com.example.schoolhub.Student;
 import android.app.DatePickerDialog;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,9 +128,13 @@ public class StudentAttendanceFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
-                response -> Toast.makeText(requireContext(), "Attendance: " + response, Toast.LENGTH_SHORT).show(),
+                response -> {
+                    Toast.makeText(requireContext(), "Attendance: " + response, Toast.LENGTH_SHORT).show();
+                    Log.e("QRRRRRRRR", response.toString());
+                },
                 error -> {
                     error.printStackTrace();
+                    Log.e("QRRRRRRRR", error.toString());
                     Toast.makeText(requireContext(), "Failed to submit attendance", Toast.LENGTH_SHORT).show();
                 });
 
