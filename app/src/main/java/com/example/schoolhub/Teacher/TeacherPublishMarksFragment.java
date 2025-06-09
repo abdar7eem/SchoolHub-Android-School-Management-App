@@ -33,7 +33,7 @@ public class TeacherPublishMarksFragment extends Fragment {
     List<StudentGrade> studentList = new ArrayList<>();
     TeacherPublishMarksAdabter adapter;
 
-    int teacherId = 1;
+    int teacherId;
     int selectedClassId;
     int selectedSubjectId;
     String selectedMarkType;
@@ -48,7 +48,7 @@ public class TeacherPublishMarksFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         spnSubject = view.findViewById(R.id.spnSubject);
         spnClass = view.findViewById(R.id.spnClass);
-        spnMarkType = view.findViewById(R.id.spnTitle); // reused spinner ID
+        spnMarkType = view.findViewById(R.id.spnTitle); 
         etGradeValue = view.findViewById(R.id.etGradeValue);
         rvStudents = view.findViewById(R.id.rvStudents);
         btnSaveMarks = view.findViewById(R.id.btnSaveMarks);
@@ -56,6 +56,12 @@ public class TeacherPublishMarksFragment extends Fragment {
         rvStudents.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TeacherPublishMarksAdabter(getContext(), studentList);
         rvStudents.setAdapter(adapter);
+
+        if (getArguments() != null) {
+            teacherId = getArguments().getInt("teacher_id", -1);
+        } else {
+            teacherId = -1; // fallback
+        }
 
         setupMarkTypeSpinner();
         loadClasses();

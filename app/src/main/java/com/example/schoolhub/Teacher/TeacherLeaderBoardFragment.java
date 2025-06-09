@@ -30,7 +30,7 @@ public class TeacherLeaderBoardFragment extends Fragment {
     private Spinner spnClass, spnSubject;
     private TextView tv1Student, tv1Grade, tv2Student, tv2Grade, tv3Student, tv3Grade;
 
-    private final int teacherId = 1; // Replace with actual teacher ID
+    private int teacherId;
     private int selectedClassId, selectedSubjectId;
     private final String baseUrl = LoginActivity.baseUrl;
 
@@ -41,6 +41,12 @@ public class TeacherLeaderBoardFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        if (getArguments() != null) {
+            teacherId = getArguments().getInt("teacher_id", -1);
+        } else {
+            teacherId = -1;
+        }
         spnClass = view.findViewById(R.id.spnClass);
         spnSubject = view.findViewById(R.id.spnSubject);
 

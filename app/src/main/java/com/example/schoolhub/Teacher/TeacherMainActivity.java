@@ -44,7 +44,6 @@ public class TeacherMainActivity extends AppCompatActivity {
 
         userId = getIntent().getIntExtra("user_id", -1);
 
-        // Initialize UI
         drawerLayout = findViewById(R.id.teacherDrawerLayout);
         toolbar = findViewById(R.id.teacherToolbar);
         navigationView = findViewById(R.id.teacherNavView);
@@ -89,22 +88,26 @@ public class TeacherMainActivity extends AppCompatActivity {
     }
 
     private void fetchTeacherId(int userId) {
-        String url = LoginActivity.baseUrl + "get_user_role_id.php?user_id=" + userId;
+        String url = LoginActivity.baseUrl + "get_teacher_id.php?user_id=" + userId;
+
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
-                        if (response.has("role_id")) {
-                            teacherId = response.getInt("role_id");
+                        if (response.has("teacher_id")) {
+                            teacherId = response.getInt("teacher_id");
 
-                            // Load default fragment with teacherId
+                            // Load default fragment
                             Fragment f = new TeacherHomeFragment();
                             Bundle bundle = new Bundle();
                             bundle.putInt("teacher_id", teacherId);
+                            bundle.putInt("user_id", userId);
                             f.setArguments(bundle);
                             loadFragment(f);
-                            teacherBottomNav.setSelectedItemId(R.id.teacher_nav_home);
 
-                            loadHeaderData(teacherId);
+                            teacherBottomNav.setSelectedItemId(R.id.teacher_nav_home);
+                            loadHeaderData(userId);
+                        } else {
+                            Log.e("fetchTeacherId", "No teacher_id in response: " + response.toString());
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -115,8 +118,10 @@ public class TeacherMainActivity extends AppCompatActivity {
                     Log.e("TeacherMainActivity", "Error fetching teacher_id");
                 }
         );
+
         Volley.newRequestQueue(this).add(req);
     }
+
 
     private Fragment getTeacherFragment(int id) {
         if (id == R.id.teacher_nav_home) {

@@ -22,7 +22,7 @@ public class TeacherSettingsFragment extends Fragment {
     private TextView tvTeacherName, tvAge, tvPhone;
     private Button btnAboutUs, btnLogout;
     private final String baseUrl = LoginActivity.baseUrl;
-    private final int teacherId = 1;
+    private int teacherId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +34,12 @@ public class TeacherSettingsFragment extends Fragment {
         tvPhone = view.findViewById(R.id.tvPhone);
         btnAboutUs = view.findViewById(R.id.btnAboutUs);
         btnLogout = view.findViewById(R.id.btnLogout);
+
+        if (getArguments() != null) {
+            teacherId = getArguments().getInt("teacher_id", -1);
+        } else {
+            teacherId = -1;
+        }
 
         fetchTeacherInfo();
 

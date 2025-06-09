@@ -40,7 +40,7 @@ public class TeacherViewSubmissionsFragment extends Fragment {
     private TeacherSubmissionAdapter adapter;
     private List<Integer> classIds = new ArrayList<>();
 
-    private final int teacherId = 1;
+    private int teacherId;
     private final String baseUrl = LoginActivity.baseUrl;
 
     @Override
@@ -53,6 +53,12 @@ public class TeacherViewSubmissionsFragment extends Fragment {
         rvSubmissions.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TeacherSubmissionAdapter(getContext(), submissionList);
         rvSubmissions.setAdapter(adapter);
+
+        if (getArguments() != null) {
+            teacherId = getArguments().getInt("teacher_id", -1);
+        } else {
+            teacherId = -1;
+        }
 
         loadClasses();
 
@@ -139,7 +145,7 @@ public class TeacherViewSubmissionsFragment extends Fragment {
                 },
                 error -> {
                     Log.e("VolleyError", error.toString());
-                    Toast.makeText(getContext(), "Failed to load submissions", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "No submissions", Toast.LENGTH_SHORT).show();
                 });
 
         Volley.newRequestQueue(requireContext()).add(request);

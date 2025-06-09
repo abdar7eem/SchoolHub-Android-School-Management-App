@@ -1,6 +1,7 @@
 package com.example.schoolhub.Teacher;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class TeacherHomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_teacher_home, container, false);
         if (getArguments() != null) {
             teacherId = getArguments().getInt("teacher_id", -1);
+            Log.d("IDDDDDDDDDDDDDDDD: ", String.valueOf(teacherId));
         } else {
             teacherId = -1; // fallback
         }

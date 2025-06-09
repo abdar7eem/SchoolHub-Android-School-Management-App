@@ -40,7 +40,7 @@ public class TeacherNotificationFragment extends Fragment {
     private ListView lstBooks;
     private NotificationAdapter adapter;
     private List<NotificationItem> notificationList;
-    private final int teacherId = 1; // Replace with actual logged-in teacher ID
+    private int teacherId; // Replace with actual logged-in teacher ID
     private final String baseUrl = LoginActivity.baseUrl;
     private final String CHANNEL_ID = "schoolhub_notifications";
 
@@ -48,6 +48,12 @@ public class TeacherNotificationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_teacher_notification, container, false);
+
+        if (getArguments() != null) {
+            teacherId = getArguments().getInt("teacher_id", -1);
+        } else {
+            teacherId = -1; // fallback
+        }
 
         lstBooks = view.findViewById(R.id.lstBooks);
         notificationList = new ArrayList<>();
