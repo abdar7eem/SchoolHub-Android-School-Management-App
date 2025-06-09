@@ -50,6 +50,8 @@ public class RegistrarHomeFregment extends Fragment {
         } else {
             RegistrarID = -1; // fallback
         }
+        Log.e("RegistrarID", String.valueOf(RegistrarID));
+
 
         AlertsConatiner = view.findViewById(R.id.AlertsConatiner);
         EventsConatiner =view.findViewById(R.id.EventsConatiner);
