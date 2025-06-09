@@ -1,6 +1,9 @@
 package com.example.schoolhub.Student;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -8,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -41,6 +45,7 @@ public class StudentMainActivity extends AppCompatActivity {
         userId = getIntent().getIntExtra("user_id", -1);
 
 
+
         drawerLayout = findViewById(R.id.studentDrawerLayout);
         toolbar = findViewById(R.id.studentToolbar);
         navigationView = findViewById(R.id.studentNavView);
@@ -52,6 +57,9 @@ public class StudentMainActivity extends AppCompatActivity {
 
         fetchStudentId(userId);
         checkUnreadNotifications();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.dark_red));
+        }
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
@@ -62,6 +70,10 @@ public class StudentMainActivity extends AppCompatActivity {
             if (f != null) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("student_id", studentId);
+                bundle.putInt("student_id", studentId);
+                bundle.putInt("class_id", classId);
+                bundle.putInt("user_id", userId);
+
                 f.setArguments(bundle);
                 return loadFragment(f);
             }
@@ -174,7 +186,7 @@ public class StudentMainActivity extends AppCompatActivity {
     }
 
     private void checkUnreadNotifications() {
-        String url = LoginActivity.baseUrl + "get_notifications.php?user_id=" + userId + "&filter=unread";
+        String url = LoginActivity.baseUrl + "get_notifications.php?user_id=" + studentId  + "&filter=unread";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
                     boolean hasUnread = response.length() > 0;

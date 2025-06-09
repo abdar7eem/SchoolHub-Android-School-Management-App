@@ -40,6 +40,8 @@
             android:id="@+id/spnTeacher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+
             android:hint="Teacher" />
 
 
@@ -48,6 +50,7 @@
             android:id="@+id/txtSelectSubjects"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/spinner_background"
             android:hint="Select Subjects"
             android:padding="12dp"
             android:focusable="false"

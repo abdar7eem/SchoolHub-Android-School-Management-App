@@ -41,15 +41,14 @@
         android:id="@+id/tagline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Furniture is the final touch to home.
-"
+        android:layout_marginTop="6dp"
+        android:fontFamily="sans-serif-light"
+        android:text="SchoolHub is your gateway to success."
         android:textColor="#B92F2F"
         android:textSize="16sp"
-        android:fontFamily="sans-serif-light"
-        app:layout_constraintTop_toBottomOf="@id/appName"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="6dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appName" />
 
     <!-- Optional ProgressBar -->
     <ProgressBar

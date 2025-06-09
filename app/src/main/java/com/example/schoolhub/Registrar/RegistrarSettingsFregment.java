@@ -64,6 +64,7 @@ public class RegistrarSettingsFregment extends Fragment {
     void getRegistrarData(){
         String url = LoginActivity.baseUrl+"get_profile.php?id="+RegistrarID;
 
+        Log.e("RegId", String.valueOf(RegistrarID));
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 

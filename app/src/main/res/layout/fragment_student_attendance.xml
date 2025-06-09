@@ -125,8 +125,9 @@
 
     <Button
         android:id="@+id/btnScanQR"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="207dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#990201"
         android:fontFamily="@font/aldrich"
         android:gravity="center_vertical"
@@ -134,7 +135,6 @@
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"
         app:icon="@drawable/qr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

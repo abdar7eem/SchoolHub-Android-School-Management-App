@@ -21,6 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.schoolhub.Model.NotificationHelper;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Registration.LoginActivity;
 
@@ -235,7 +236,21 @@ public class TeacherSendAssignmentFragment extends Fragment {
             String fileBase64 = Base64.encodeToString(fileBytes, Base64.DEFAULT);
 
             StringRequest request = new StringRequest(Request.Method.POST, baseUrl + "teacher_upload_assignment.php",
-                    response -> Toast.makeText(getContext(), "Assignment sent successfully", Toast.LENGTH_SHORT).show(),
+                    response -> {
+
+
+                        NotificationHelper.sendNotification(
+                                getContext(),
+                                "New Assignment",
+                                "Assignment: " + titleInput.getText().toString(),
+                                "class", // or "student"
+                                teacherId,
+                                -1,
+                                ((ClassInfo) spnClasses.getSelectedItem()).id
+                        );
+
+                        Toast.makeText(getContext(), "Assignment sent successfully", Toast.LENGTH_SHORT).show();
+                    },
                     error -> Toast.makeText(getContext(), "Upload Failed", Toast.LENGTH_SHORT).show()) {
 
                 @Override

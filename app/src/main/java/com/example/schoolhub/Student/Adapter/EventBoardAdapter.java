@@ -104,9 +104,12 @@ public class EventBoardAdapter extends ArrayAdapter<EventBoardItem> {
                                 getContext(),
                                 "Event Added",
                                 "You have successfully added " + event.title + " to your calendar.",
-                                studentId,
-                                2
+                                "student",        // mode
+                                studentId,        // sender_id
+                                -1,               // subject_id (optional, use -1 if not used)
+                                studentId         // recipient_id
                         );
+
 
                         Toast.makeText(getContext(), "Event added to calendar!", Toast.LENGTH_SHORT).show();
                         btn.setEnabled(false);

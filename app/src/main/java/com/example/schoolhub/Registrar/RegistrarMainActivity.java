@@ -1,6 +1,7 @@
 package com.example.schoolhub.Registrar;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -46,6 +48,9 @@ public class RegistrarMainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.registrarToolbar);
         navigationView = findViewById(R.id.registrarNavView);
         registrarBottomNav = findViewById(R.id.registrarBottomNav);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.dark_red));
+        }
 
         setSupportActionBar(toolbar);
 

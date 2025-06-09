@@ -29,6 +29,7 @@
             android:id="@+id/spnType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
             android:hint="Event Type" />
         <EditText
             android:id="@+id/edtEventTiltle"
