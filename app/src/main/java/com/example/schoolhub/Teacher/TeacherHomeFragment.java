@@ -28,10 +28,8 @@ public class TeacherHomeFragment extends Fragment {
 
     private TextView tvUserName, tvToday, tvSchedule, tvNotification, tvSubmissions;
     private MaterialCardView cardSchedule, cardNotification, cardSubmissions;
-
-
     private int teacherId ;
-
+    private int userId;
     private final String baseUrl = LoginActivity.baseUrl;
 
     @Override
@@ -39,9 +37,9 @@ public class TeacherHomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_teacher_home, container, false);
         if (getArguments() != null) {
             teacherId = getArguments().getInt("teacher_id", -1);
-            Log.d("IDDDDDDDDDDDDDDDD: ", String.valueOf(teacherId));
+            userId = getArguments().getInt("user_id", -1);
         } else {
-            teacherId = -1; // fallback
+            teacherId = -1;
         }
         tvUserName = view.findViewById(R.id.tvUserName);
         tvToday = view.findViewById(R.id.tvToday);
@@ -67,6 +65,10 @@ public class TeacherHomeFragment extends Fragment {
     }
 
     private void loadFragment(Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("teacher_id", teacherId);
+        bundle.putInt("user_id", userId);
+        fragment.setArguments(bundle);
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.teacherFragmentContainer, fragment)
@@ -136,6 +138,7 @@ public class TeacherHomeFragment extends Fragment {
                                     .append(" – “").append(obj.getString("title"))
                                     .append("”  -").append(obj.getString("time_ago")).append("\n");
                         }
+
                         tvSubmissions.setText(sbSub.toString().trim());
 
                     } catch (JSONException e) {

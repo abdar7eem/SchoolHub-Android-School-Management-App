@@ -93,6 +93,13 @@
             </LinearLayout>
 
             <!-- Schedule Table (use RecyclerView or TableLayout dynamically later) -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:scrollbars="horizontal">
+
+
             <TableLayout
                 android:id="@+id/tableSchedule"
                 android:layout_width="match_parent"
@@ -101,6 +108,9 @@
                 android:background="#CCCCCC"
                 android:padding="4dp"
                 android:layout_margin="8dp"/>
+
+            </HorizontalScrollView>
+
 
         </LinearLayout>
 

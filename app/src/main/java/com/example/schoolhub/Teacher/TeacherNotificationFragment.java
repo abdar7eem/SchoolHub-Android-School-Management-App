@@ -52,7 +52,7 @@ public class TeacherNotificationFragment extends Fragment {
         if (getArguments() != null) {
             teacherId = getArguments().getInt("teacher_id", -1);
         } else {
-            teacherId = -1; // fallback
+            teacherId = -1;
         }
 
         lstBooks = view.findViewById(R.id.lstBooks);
