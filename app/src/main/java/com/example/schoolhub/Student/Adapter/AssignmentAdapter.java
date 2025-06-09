@@ -85,7 +85,7 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
                 Toast.makeText(context, "No file available", Toast.LENGTH_SHORT).show();
             }
         });
-
+//
         btnSubmit.setOnClickListener(v -> {
             Log.d("AssignmentAdapter", "Submitting assignment ID = " + assignment.getId());
             if (callback != null) {
