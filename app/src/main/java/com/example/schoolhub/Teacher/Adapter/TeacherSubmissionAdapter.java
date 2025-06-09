@@ -23,7 +23,7 @@ public class TeacherSubmissionAdapter extends RecyclerView.Adapter<TeacherSubmis
 
     private final Context context;
     private final List<Submission> submissionList;
-    private final String baseUrl = LoginActivity.baseUrl; // Adjust to your actual base URL
+    private final String baseUrl = LoginActivity.baseUrl;
 
     public TeacherSubmissionAdapter(Context context, List<Submission> submissionList) {
         this.context = context;
@@ -46,18 +46,22 @@ public class TeacherSubmissionAdapter extends RecyclerView.Adapter<TeacherSubmis
         holder.tvSubmissionDate.setText(submission.getSubmissionDate());
 
         String fileUrl = submission.getFileUrl();
-        if (fileUrl != null && !fileUrl.isEmpty()) {
-            String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
-            holder.tvFileName.setText(fileName);
-        } else {
-            holder.tvFileName.setText("No file");
+        String fileName = "No file";
+        String fullViewUrl = null;
+
+        if (fileUrl != null && !fileUrl.trim().isEmpty()) {
+            fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+            fullViewUrl = baseUrl + "view_file.php?file=" + fileName;
         }
 
+        holder.tvFileName.setText(fileName);
+
+        String finalViewUrl = fullViewUrl; // for lambda
         holder.btnViewFile.setOnClickListener(v -> {
-            if (fileUrl != null && !fileUrl.isEmpty()) {
+            if (finalViewUrl != null) {
                 try {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(Uri.parse(fileUrl.startsWith("http") ? fileUrl : baseUrl + fileUrl), "*/*");
+                    intent.setDataAndType(Uri.parse(finalViewUrl), "*/*");
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     context.startActivity(intent);
                 } catch (Exception e) {
@@ -76,7 +80,7 @@ public class TeacherSubmissionAdapter extends RecyclerView.Adapter<TeacherSubmis
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvSubject, tvSubmissionDate, tvFileName;
-        Button btnViewFile, btnEnterGrade;
+        Button btnViewFile;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

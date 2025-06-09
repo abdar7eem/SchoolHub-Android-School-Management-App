@@ -61,7 +61,7 @@ public class StudentAttendanceFragment extends Fragment {
         if (getArguments() != null) {
             studentId = getArguments().getInt("student_id", -1);
         } else {
-            studentId = -1; // fallback
+            studentId = -1;
         }
         // Initialize views
         txtDay = view.findViewById(R.id.txtDay);

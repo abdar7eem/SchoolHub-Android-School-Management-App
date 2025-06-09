@@ -83,7 +83,7 @@ public class StudentAssignmentsFragment extends Fragment {
             pendingSubmitButton = button;
 
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("*");
+            intent.setType("*/*");
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             filePickerLauncher.launch(Intent.createChooser(intent, "Select file to submit"));
         });
@@ -99,7 +99,7 @@ public class StudentAssignmentsFragment extends Fragment {
     }
 
     private void fetchAssignmentsFromDB() {
-        String url = baseUrl + "get_student_assignments.php?student_id=" + studentId;
+        String url = baseUrl + "get_assignment_details.php?student_id=" + studentId;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -111,11 +111,18 @@ public class StudentAssignmentsFragment extends Fragment {
                             String title = obj.getString("title");
                             String subject = obj.optString("subject", "-");
                             String teacher = obj.optString("teacher_name", "-");
-
                             String due = obj.getString("due_date");
-                            String status = obj.optString("status", "Pending");
+                            String status = "Pending";
                             String attachment = obj.optString("attachment_path", "");
-                            assignmentList.add(new Assignment(id, title, subject , teacher, due, status, attachment));
+                            int classId = obj.getInt("class_id");
+                            int teacherId = obj.getInt("teacher_id");
+                            int subjectId = obj.getInt("subject_id");
+
+                            Assignment a = new Assignment(id, title, subject, teacher, due, status, attachment);
+                            a.setClassId(classId);
+                            a.setTeacherId(teacherId);
+                            a.setSubjectId(subjectId);
+                            assignmentList.add(a);
                         }
                         adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
@@ -129,9 +136,7 @@ public class StudentAssignmentsFragment extends Fragment {
     }
 
     private void filterBy(String status, Button activeButton) {
-
         updateButtonColors(activeButton);
-
         String url = baseUrl + "get_student_assignments.php?student_id=" + studentId + "&status=" + status;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -145,7 +150,6 @@ public class StudentAssignmentsFragment extends Fragment {
                             String due = obj.getString("due_date");
                             String subject = obj.optString("subject", "-");
                             String teacher = obj.optString("teacher_name", "-");
-
                             String assignmentStatus = obj.optString("status", status);
                             String attachment = obj.optString("attachment_path", "");
                             assignmentList.add(new Assignment(id, title, subject, teacher, due, assignmentStatus, attachment));
@@ -153,9 +157,8 @@ public class StudentAssignmentsFragment extends Fragment {
                         adapter = new AssignmentAdapter(requireActivity(), assignmentList, (assignmentId, button) -> {
                             pendingAssignmentId = assignmentId;
                             pendingSubmitButton = button;
-
                             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                            intent.setType("*");
+                            intent.setType("*/*");
                             intent.addCategory(Intent.CATEGORY_OPENABLE);
                             filePickerLauncher.launch(Intent.createChooser(intent, "Select file to submit"));
                         });
@@ -210,7 +213,7 @@ public class StudentAssignmentsFragment extends Fragment {
                     params.put("filename", fileName);
                     return params;
                 }
-//
+
                 @Override
                 public String getBodyContentType() {
                     return "application/x-www-form-urlencoded; charset=UTF-8";
