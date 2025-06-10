@@ -8,8 +8,12 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.util.Base64;
 import android.util.Log;
-import android.view.*;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -28,24 +32,27 @@ import com.example.schoolhub.Student.Adapter.AssignmentAdapter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.io.IOException;
-import java.util.*;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class StudentAssignmentsFragment extends Fragment {
 
     private ListView lstBooks;
     private AssignmentAdapter adapter;
     private List<Assignment> assignmentList = new ArrayList<>();
-
     private int studentId;
     private final String baseUrl = LoginActivity.baseUrl;
-
-    private Button btnPending, btnSubmitted, btnGraded;
+    private Button btnPending, btnSubmitted;
     private int pendingAssignmentId = -1;
     private Button pendingSubmitButton = null;
-
     private ActivityResultLauncher<Intent> filePickerLauncher;
+    private int classId;
+    private int teacherId;
+    private int subjectId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,7 +61,6 @@ public class StudentAssignmentsFragment extends Fragment {
         lstBooks = view.findViewById(R.id.lstBooks);
         btnPending = view.findViewById(R.id.btnPending);
         btnSubmitted = view.findViewById(R.id.btnSubmitted);
-        btnGraded = view.findViewById(R.id.btnGraded);
 
         if (getArguments() != null) {
             studentId = getArguments().getInt("student_id", -1);
@@ -91,9 +97,12 @@ public class StudentAssignmentsFragment extends Fragment {
         lstBooks.setAdapter(adapter);
         fetchAssignmentsFromDB();
 
+
         btnPending.setOnClickListener(v -> filterBy("Pending", btnPending));
-        btnSubmitted.setOnClickListener(v -> filterBy("Submitted", btnSubmitted));
-        btnGraded.setOnClickListener(v -> filterBy("Graded", btnGraded));
+        btnSubmitted.setOnClickListener(v -> {filterBy("Submitted", btnSubmitted);
+
+
+        });
 
         return view;
     }
@@ -103,6 +112,7 @@ public class StudentAssignmentsFragment extends Fragment {
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
+                    Log.e("THE response", response.toString());
                     assignmentList.clear();
                     try {
                         for (int i = 0; i < response.length(); i++) {
@@ -114,9 +124,10 @@ public class StudentAssignmentsFragment extends Fragment {
                             String due = obj.getString("due_date");
                             String status = "Pending";
                             String attachment = obj.optString("attachment_path", "");
-                            int classId = obj.getInt("class_id");
-                            int teacherId = obj.getInt("teacher_id");
-                            int subjectId = obj.getInt("subject_id");
+                            classId = obj.getInt("class_id");
+                            teacherId = obj.getInt("teacher_id");
+                            subjectId = obj.getInt("subject_id");
+
 
                             Assignment a = new Assignment(id, title, subject, teacher, due, status, attachment);
                             a.setClassId(classId);
@@ -174,7 +185,7 @@ public class StudentAssignmentsFragment extends Fragment {
     }
 
     private void updateButtonColors(Button selected) {
-        Button[] buttons = {btnPending, btnSubmitted, btnGraded};
+        Button[] buttons = {btnPending, btnSubmitted};
         for (Button btn : buttons) {
             if (btn == selected) {
                 btn.setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.dark_red));
@@ -201,6 +212,7 @@ public class StudentAssignmentsFragment extends Fragment {
                     response -> {
                         Toast.makeText(getContext(), "Submission successful", Toast.LENGTH_SHORT).show();
                         fetchAssignmentsFromDB();
+                        Log.e("RESPONSE", response.toString());
                     },
                     error -> Toast.makeText(getContext(), "Upload failed: " + error.getMessage(), Toast.LENGTH_LONG).show()
             ) {
@@ -211,6 +223,14 @@ public class StudentAssignmentsFragment extends Fragment {
                     params.put("student_id", String.valueOf(studentId));
                     params.put("file", base64File);
                     params.put("filename", fileName);
+                    params.put("class_id", String.valueOf(classId));
+                    params.put("teacher_id", String.valueOf(teacherId));
+                    params.put("subject_id", String.valueOf(subjectId));
+
+                    Log.e("ClassId", String.valueOf(classId));
+                    Log.e("TeacherId", String.valueOf(teacherId));
+                    Log.e("SubjectId", String.valueOf(subjectId));
+
                     return params;
                 }
 

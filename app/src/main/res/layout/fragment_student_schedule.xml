@@ -27,8 +27,8 @@
 
     <TextView
         android:id="@+id/txtRoomNumber"
-        android:layout_width="153dp"
-        android:layout_height="37dp"
+        android:layout_width="163dp"
+        android:layout_height="39dp"
         android:layout_marginBottom="100dp"
         android:allowUndo="false"
         android:background="@drawable/search_background"
