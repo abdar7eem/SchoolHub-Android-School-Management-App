@@ -242,7 +242,7 @@ public class TeacherTakeAttendanceFragment extends Fragment {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestBody,
                 response -> {
                     Log.d("ATTENDANCE_RESPONSE", response.toString());
-                    Toast.makeText(getContext(), "Response: " + response.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Attendance submitted successfully", Toast.LENGTH_LONG).show();
                 },
                 error -> Toast.makeText(getContext(), "Failed to submit attendance", Toast.LENGTH_SHORT).show());
 

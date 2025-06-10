@@ -116,7 +116,7 @@ public class TeacherMainActivity extends AppCompatActivity {
                             loadFragment(f);
 
                             teacherBottomNav.setSelectedItemId(R.id.teacher_nav_home);
-                            loadHeaderData(teacherId);
+                            loadHeaderData(userId);
 
                             teacherBottomNav.setEnabled(true);
                             navigationView.setEnabled(true);

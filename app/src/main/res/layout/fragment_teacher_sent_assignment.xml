@@ -8,20 +8,21 @@
     android:padding="16dp">
 
     <!-- Title -->
+
+    <!-- Container Card -->
     <TextView
         android:id="@+id/sendAssignmentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="Send Assignment"
         android:textColor="#800000"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Container Card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardContainer"
         android:layout_width="0dp"
@@ -37,7 +38,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
             android:background="#D9D9D9"
             android:padding="20dp">
 
@@ -202,9 +202,8 @@
                 android:text="Choose File"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fileLabel" />
+                app:layout_constraintTop_toBottomOf="@id/fileLabel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -213,16 +212,16 @@
         android:id="@+id/sendButton"
         android:layout_width="152dp"
         android:layout_height="54dp"
+        android:layout_marginBottom="50dp"
         android:backgroundTint="#990100"
+        android:layout_marginTop="3dp"
         android:fontFamily="@font/alatsi"
         android:text="Send"
-        android:textColor="#FFFF"
+        android:textColor="#FFFFFF"
         android:textSize="17sp"
+        app:layout_constraintTop_toBottomOf="@id/cardContainer"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardContainer"
-        app:layout_constraintVertical_bias="0.23" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

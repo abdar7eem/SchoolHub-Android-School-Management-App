@@ -50,6 +50,7 @@ public class RegistrarHomeFregment extends Fragment {
         } else {
             RegistrarID = -1;
         }
+
         Log.e("RegistrarID", String.valueOf(RegistrarID));
 
 
@@ -71,6 +72,8 @@ public class RegistrarHomeFregment extends Fragment {
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
+                    if (!isAdded()) return;
+
                     try {
                         JSONObject json = new JSONObject(response);
 
@@ -99,9 +102,13 @@ public class RegistrarHomeFregment extends Fragment {
                     }
                 },
                 error -> {
-                    error.printStackTrace();
-                    Toast.makeText(requireContext(), "Failed to load system overview", Toast.LENGTH_SHORT).show();
+                    if (isAdded()) {
+
+                        error.printStackTrace();
+                        Toast.makeText(requireContext(), "Failed to load system overview", Toast.LENGTH_SHORT).show();
+                    }
                 });
+        request.setTag("HOME_REQUEST");
 
         Volley.newRequestQueue(requireContext()).add(request);
     }
@@ -111,6 +118,8 @@ public class RegistrarHomeFregment extends Fragment {
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
+                    if (!isAdded()) return;
+
                     try {
                         JSONArray array = new JSONArray(response);
                         if (array.length() == 0) {
@@ -155,8 +164,12 @@ public class RegistrarHomeFregment extends Fragment {
                     }
                 },
                 error -> {
-                    Toast.makeText(requireContext(), "Failed to load events", Toast.LENGTH_SHORT).show();
+                    if (isAdded()) {
+                        Toast.makeText(requireContext(), "Failed to load events", Toast.LENGTH_SHORT).show();
+                    }
                 });
+
+        request.setTag("HOME_REQUEST");
 
         Volley.newRequestQueue(requireContext()).add(request);
     }
@@ -165,6 +178,7 @@ public class RegistrarHomeFregment extends Fragment {
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
+                    if (!isAdded()) return;
                     try {
                         JSONObject json = new JSONObject(response);
 
@@ -212,13 +226,21 @@ public class RegistrarHomeFregment extends Fragment {
                     }
                 },
                 error -> {
-                    error.printStackTrace();
-                    Toast.makeText(requireContext(), "Failed to load alerts", Toast.LENGTH_SHORT).show();
+                    if (isAdded()) {
+
+                        error.printStackTrace();
+                        Toast.makeText(requireContext(), "Failed to load alerts", Toast.LENGTH_SHORT).show();
+                    }
                 });
+        request.setTag("HOME_REQUEST");
 
         Volley.newRequestQueue(requireContext()).add(request);
     }
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        Volley.newRequestQueue(requireContext()).cancelAll("HOME_REQUEST");
+    }
 
 }
