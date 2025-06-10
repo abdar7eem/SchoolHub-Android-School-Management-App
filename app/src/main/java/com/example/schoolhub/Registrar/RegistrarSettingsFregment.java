@@ -32,7 +32,7 @@ public class RegistrarSettingsFregment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_registrar_settings_fregment, container, false);
         if (getArguments() != null) {
-            RegistrarID = getArguments().getInt("registrar_id", -1);
+            RegistrarID = getArguments().getInt("user_id", -1);
         } else {
             RegistrarID = -1; // fallback
         }
