@@ -56,6 +56,8 @@ public class StudentMarksFragment extends Fragment {
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
+                    if (!isAdded()) return;
+
                     markList.clear();
                     for (int i = 0; i < response.length(); i++) {
                         try {
@@ -71,9 +73,11 @@ public class StudentMarksFragment extends Fragment {
                     adapter.notifyDataSetChanged();
                 },
                 error -> {
-                    error.printStackTrace();
-                    Toast.makeText(getContext(), "Failed to load marks", Toast.LENGTH_SHORT).show();
-                });
+                    if (isAdded()) {
+                        Toast.makeText(requireContext(), "Network error", Toast.LENGTH_LONG).show();
+                    }
+                }   );
+        request.setTag("SCHEDULE_REQUEST"); // Unique tag
 
         queue.add(request);
     }

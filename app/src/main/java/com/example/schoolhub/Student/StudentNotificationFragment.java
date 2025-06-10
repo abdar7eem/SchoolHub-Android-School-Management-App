@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -85,6 +86,8 @@ public class StudentNotificationFragment extends Fragment {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
                     notificationList.clear();
+                    if (!isAdded()) return;
+
                     try {
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject obj = response.getJSONObject(i);
@@ -110,6 +113,12 @@ public class StudentNotificationFragment extends Fragment {
                     }
                 },
                 error -> {
+
+                        if (isAdded()) {
+                            Toast.makeText(requireContext(), "Network error", Toast.LENGTH_LONG).show();
+                        }
+
+
                     error.printStackTrace();
                     Log.e("Notification", "Error fetching notifications: " + error.getMessage());
                 });
@@ -155,6 +164,7 @@ public class StudentNotificationFragment extends Fragment {
                 return params;
             }
         };
+        request.setTag("SCHEDULE_REQUEST"); // Unique tag
 
         Volley.newRequestQueue(requireContext()).add(request);
     }
@@ -179,6 +189,11 @@ public class StudentNotificationFragment extends Fragment {
 
         NotificationManagerCompat manager = NotificationManagerCompat.from(requireContext());
         manager.notify((int) System.currentTimeMillis(), builder.build());
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        Volley.newRequestQueue(requireContext()).cancelAll("SCHEDULE_REQUEST");
     }
 
 }

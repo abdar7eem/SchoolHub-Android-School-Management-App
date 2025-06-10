@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -77,6 +79,8 @@ public class StudentHomeFragment extends Fragment {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
+                    if (!isAdded()) return;
+
                     try {
                         String name = response.getString("name");
                         String date = new SimpleDateFormat("EEEE, MMM d, yyyy", Locale.getDefault()).format(new Date());
@@ -85,8 +89,13 @@ public class StudentHomeFragment extends Fragment {
                         e.printStackTrace();
                     }
                 },
-                error -> error.printStackTrace()
+                error -> {
+                    if (isAdded()) {
+                        Toast.makeText(requireContext(), "Network error", Toast.LENGTH_LONG).show();
+                    }
+                }
         );
+        request.setTag("SCHEDULE_REQUEST"); // Unique tag
 
         Volley.newRequestQueue(requireContext()).add(request);
     }
@@ -97,6 +106,8 @@ public class StudentHomeFragment extends Fragment {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
+                        if (!isAdded()) return;
+
                         if (response.has("schedule")) {
                             JSONArray schedule = response.getJSONArray("schedule");
                             StringBuilder sbSchedule = new StringBuilder();
@@ -131,9 +142,20 @@ public class StudentHomeFragment extends Fragment {
                         e.printStackTrace();
                     }
                 },
-                error -> error.printStackTrace()
-        );
+                error -> {
+                    if (isAdded()) {
+                        Toast.makeText(requireContext(), "Network error", Toast.LENGTH_LONG).show();
+                    }
+                }        );
+        request.setTag("SCHEDULE_REQUEST"); // Unique tag
 
         Volley.newRequestQueue(requireContext()).add(request);
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Volley.newRequestQueue(requireContext()).cancelAll("SCHEDULE_REQUEST");
+    }
+
 }
