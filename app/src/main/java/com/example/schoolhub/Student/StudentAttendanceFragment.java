@@ -42,9 +42,17 @@ public class StudentAttendanceFragment extends Fragment {
             result -> {
                 if (result.getContents() != null) {
                     String contents = result.getContents();
+                    Log.d("QR_CONTENTS", contents); // Optional: for debugging
+
                     if (contents.contains("session_id=")) {
-                        String sessionId = Uri.parse(contents).getQueryParameter("session_id");
-                        submitAttendance(sessionId);
+                        Uri uri = Uri.parse(contents);
+                        String sessionId = uri.getQueryParameter("session_id");
+
+                        if (sessionId != null && !sessionId.isEmpty()) {
+                            submitAttendance(sessionId);
+                        } else {
+                            Toast.makeText(requireContext(), "QR code missing session_id", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(requireContext(), "Invalid QR code", Toast.LENGTH_SHORT).show();
                     }
@@ -53,6 +61,7 @@ public class StudentAttendanceFragment extends Fragment {
                 }
             }
     );
+
 //
 
     @Override
@@ -130,7 +139,7 @@ public class StudentAttendanceFragment extends Fragment {
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
                     Toast.makeText(requireContext(), "Attendance: " + response, Toast.LENGTH_SHORT).show();
-                    Log.e("QRRRRRRRR", response.toString());
+                    Log.e("AEW WWE RAW ", sessionId);
                 },
                 error -> {
                     error.printStackTrace();
