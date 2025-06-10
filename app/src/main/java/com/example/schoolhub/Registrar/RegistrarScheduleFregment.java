@@ -306,6 +306,9 @@ public class RegistrarScheduleFregment extends Fragment {
                             int insertedCount = jsonObject.optInt("inserted", selectedDayList.size());
                             Toast.makeText(getContext(), "Schedule added for " + insertedCount + " day(s)", Toast.LENGTH_SHORT).show();
                             loadScheduleForClass(selectedClass.getId());
+                            btnCheckConflict.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                            btnCheckConflict.setText("CheckConflict");
+                            btnAddSchedule.setEnabled(false);
 
                         } else {
                             Toast.makeText(getContext(), "Insert failed", Toast.LENGTH_SHORT).show();
