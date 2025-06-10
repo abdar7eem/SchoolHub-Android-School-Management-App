@@ -67,6 +67,13 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
         txtTeacher.setText("Teacher: " + assignment.getTeacherName());
         txtDue.setText("Due: " + assignment.getDueDate());
         txtStatus.setText("Status: " + assignment.getStatus());
+        // Show or hide the Submit button based on status
+        if ("Pending".equalsIgnoreCase(assignment.getStatus())) {
+            btnSubmit.setVisibility(View.VISIBLE);
+        } else {
+            btnSubmit.setVisibility(View.GONE);
+        }
+
 
         // 🔧 Fixed: Use PHP script to serve the file
         btnDownload.setOnClickListener(v -> {
