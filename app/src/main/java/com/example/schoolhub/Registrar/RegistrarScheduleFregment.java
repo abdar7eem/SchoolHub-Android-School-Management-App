@@ -119,6 +119,7 @@ public class RegistrarScheduleFregment extends Fragment {
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
                     try {
+                        if (!isAdded()) return;
                         JSONArray jsonArray = new JSONArray(response);
                         List<InfoClass> Classes = new ArrayList<>();
 
@@ -160,6 +161,7 @@ public class RegistrarScheduleFregment extends Fragment {
                 },
                 error -> Toast.makeText(getContext(), "Failed to load classes", Toast.LENGTH_SHORT).show()
         );
+        request.setTag("SCHEDULE_REQUEST");
 
         queue.add(request);
     }
@@ -200,6 +202,7 @@ public class RegistrarScheduleFregment extends Fragment {
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
                     try {
+                        if (!isAdded()) return;
                         JSONArray jsonArray = new JSONArray(response);
                         List<SubjectInfo> subjects = new ArrayList<>();
 
@@ -224,7 +227,7 @@ public class RegistrarScheduleFregment extends Fragment {
                 },
                 error -> Toast.makeText(requireContext(), "Failed to load subjects", Toast.LENGTH_SHORT).show()
         );
-
+        request.setTag("SCHEDULE_REQUEST");
         queue.add(request);
     }
 
@@ -251,6 +254,7 @@ public class RegistrarScheduleFregment extends Fragment {
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
+                    if (!isAdded()) return;
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         String status = jsonObject.getString("status");
@@ -281,7 +285,7 @@ public class RegistrarScheduleFregment extends Fragment {
                 return params;
             }
         };
-
+        request.setTag("SCHEDULE_REQUEST");
         Volley.newRequestQueue(requireContext()).add(request);
     }
 
@@ -300,6 +304,7 @@ public class RegistrarScheduleFregment extends Fragment {
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
+                    if (!isAdded()) return;
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         if ("success".equals(jsonObject.getString("status"))) {
@@ -349,7 +354,7 @@ public class RegistrarScheduleFregment extends Fragment {
                 return params;
             }
         };
-
+        request.setTag("SCHEDULE_REQUEST");
         Volley.newRequestQueue(requireContext()).add(request);
     }
     private void buildScheduleTable() {
@@ -450,7 +455,7 @@ public class RegistrarScheduleFregment extends Fragment {
                             scheduleData.get(day).put(lesson, subject);
 
                         }
-
+                        if (!isAdded()) return;
                         buildScheduleTable();
 
                     } catch (JSONException e) {
@@ -468,7 +473,7 @@ public class RegistrarScheduleFregment extends Fragment {
                     Toast.makeText(getContext(), "Network error: " + message, Toast.LENGTH_LONG).show();
                 }
         );
-
+        request.setTag("SCHEDULE_REQUEST");
         Volley.newRequestQueue(requireContext()).add(request);
     }
     private String convertTimeToLessonNumber(String time) {
@@ -504,6 +509,11 @@ public class RegistrarScheduleFregment extends Fragment {
             e.printStackTrace();
             return "00:00:00"; // Fallback if error
         }
+    }
+
+    public void onStop() {
+        super.onStop();
+        Volley.newRequestQueue(requireContext()).cancelAll("SCHEDULE_REQUEST");
     }
 
 }

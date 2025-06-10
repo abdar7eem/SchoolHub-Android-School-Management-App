@@ -55,7 +55,9 @@ public class RegistrarMainActivity extends AppCompatActivity {
         txtName = navigationView.getHeaderView(0).findViewById(R.id.txtName);
         txtEmail = navigationView.getHeaderView(0).findViewById(R.id.txtEmail);
 
-        loadInitialFragment();
+        if (savedInstanceState == null) {
+            loadInitialFragment();
+        }
         loadHeaderData(userId);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
@@ -130,14 +132,23 @@ public class RegistrarMainActivity extends AppCompatActivity {
         }
     }
 
-    private boolean loadFragment(Fragment fragment) {
-        if (fragment != null && !isFinishing() && !isDestroyed()) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.registrarFragmentContainer, fragment)
-                    .commitAllowingStateLoss();
-            return true;
+    private boolean loadFragment(Fragment newFragment) {
+        if (newFragment == null || isFinishing() || isDestroyed()) return false;
+
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.registrarFragmentContainer);
+
+        if (currentFragment != null && currentFragment.getClass().equals(newFragment.getClass())) {
+            // Prevent reloading the same fragment
+            Log.d("FragmentSwitch", "Same fragment already loaded: " + newFragment.getClass().getSimpleName());
+            return false;
         }
-        return false;
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.registrarFragmentContainer, newFragment)
+                .commitAllowingStateLoss();
+
+        return true;
     }
 
     private void loadHeaderData(int userId) {

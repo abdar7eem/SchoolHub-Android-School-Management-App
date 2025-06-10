@@ -144,6 +144,7 @@ public class RegistrarAddStudentFregment extends Fragment {
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
+                    if (!isAdded()) return;
                     try {
                         JSONArray jsonArray = new JSONArray(response);
                         List<InfoClass> Classes = new ArrayList<>();
