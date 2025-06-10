@@ -50,6 +50,7 @@ public class RegistrarHomeFregment extends Fragment {
         } else {
             RegistrarID = -1; // fallback
         }
+
         Log.e("RegistrarID", String.valueOf(RegistrarID));
 
 
