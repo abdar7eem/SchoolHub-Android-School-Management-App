@@ -44,6 +44,7 @@ public class StudentAssignmentsFragment extends Fragment {
     private Button btnPending, btnSubmitted, btnGraded;
     private int pendingAssignmentId = -1;
     private Button pendingSubmitButton = null;
+    private Assignment pendingAssignment = null;
 
     private ActivityResultLauncher<Intent> filePickerLauncher;
 
@@ -58,27 +59,29 @@ public class StudentAssignmentsFragment extends Fragment {
 
         if (getArguments() != null) {
             studentId = getArguments().getInt("student_id", -1);
-        } else {
-            studentId = -1;
         }
 
         filePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && pendingAssignment != null) {
                         Uri fileUri = result.getData().getData();
                         String fileName = getFileName(fileUri);
-
                         if (pendingSubmitButton != null) {
                             pendingSubmitButton.setText(fileName);
                         }
-
-                        uploadFileToServer(fileUri, pendingAssignmentId, studentId);
+                        uploadFileToServer(fileUri, pendingAssignment);
                     }
                 }
         );
 
         adapter = new AssignmentAdapter(requireActivity(), assignmentList, (assignmentId, button) -> {
+            for (Assignment a : assignmentList) {
+                if (a.getId() == assignmentId) {
+                    pendingAssignment = a;
+                    break;
+                }
+            }
             pendingAssignmentId = assignmentId;
             pendingSubmitButton = button;
 
@@ -152,9 +155,23 @@ public class StudentAssignmentsFragment extends Fragment {
                             String teacher = obj.optString("teacher_name", "-");
                             String assignmentStatus = obj.optString("status", status);
                             String attachment = obj.optString("attachment_path", "");
-                            assignmentList.add(new Assignment(id, title, subject, teacher, due, assignmentStatus, attachment));
+                            int classId = obj.getInt("class_id");
+                            int teacherId = obj.getInt("teacher_id");
+                            int subjectId = obj.getInt("subject_id");
+
+                            Assignment a = new Assignment(id, title, subject, teacher, due, assignmentStatus, attachment);
+                            a.setClassId(classId);
+                            a.setTeacherId(teacherId);
+                            a.setSubjectId(subjectId);
+                            assignmentList.add(a);
                         }
                         adapter = new AssignmentAdapter(requireActivity(), assignmentList, (assignmentId, button) -> {
+                            for (Assignment a : assignmentList) {
+                                if (a.getId() == assignmentId) {
+                                    pendingAssignment = a;
+                                    break;
+                                }
+                            }
                             pendingAssignmentId = assignmentId;
                             pendingSubmitButton = button;
                             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -186,7 +203,7 @@ public class StudentAssignmentsFragment extends Fragment {
         }
     }
 
-    private void uploadFileToServer(Uri fileUri, int assignmentId, int studentId) {
+    private void uploadFileToServer(Uri fileUri, Assignment assignment) {
         try {
             InputStream inputStream = requireContext().getContentResolver().openInputStream(fileUri);
             byte[] fileBytes = new byte[inputStream.available()];
@@ -207,8 +224,11 @@ public class StudentAssignmentsFragment extends Fragment {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
-                    params.put("assignment_id", String.valueOf(assignmentId));
+                    params.put("assignment_id", String.valueOf(assignment.getId()));
                     params.put("student_id", String.valueOf(studentId));
+                    params.put("teacher_id", String.valueOf(assignment.getTeacherId()));
+                    params.put("class_id", String.valueOf(assignment.getClassId()));
+                    params.put("subject_id", String.valueOf(assignment.getSubjectId()));
                     params.put("file", base64File);
                     params.put("filename", fileName);
                     return params;
