@@ -46,9 +46,9 @@ public class RegistrarHomeFregment extends Fragment {
         tvToday=view.findViewById(R.id.tvToday);
 
         if (getArguments() != null) {
-            RegistrarID = getArguments().getInt("registrar_id", -1);
+            RegistrarID = getArguments().getInt("user_id", -1);
         } else {
-            RegistrarID = -1; // fallback
+            RegistrarID = -1;
         }
 
         Log.e("RegistrarID", String.valueOf(RegistrarID));

@@ -30,11 +30,8 @@ public class RegistrarMainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-
     private int userId;
-
     private TextView txtName, txtEmail;
-
     private final String baseUrl = LoginActivity.baseUrl;
 
     @Override
@@ -43,6 +40,7 @@ public class RegistrarMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registrar_main);
 
         userId = getIntent().getIntExtra("user_id", -1);
+        Log.e("REGIDDDD:", String.valueOf(userId));
 
         drawerLayout = findViewById(R.id.registrarDrawerLayout);
         toolbar = findViewById(R.id.registrarToolbar);
@@ -91,7 +89,7 @@ public class RegistrarMainActivity extends AppCompatActivity {
     private void loadInitialFragment() {
         Fragment f = new RegistrarHomeFregment();
         Bundle bundle = new Bundle();
-        bundle.putInt("registrar_id", userId);
+        bundle.putInt("user_id", userId);
         f.setArguments(bundle);
         loadFragment(f);
         registrarBottomNav.setSelectedItemId(R.id.registrar_nav_home);
