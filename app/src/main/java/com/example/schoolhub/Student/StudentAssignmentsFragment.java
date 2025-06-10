@@ -46,7 +46,7 @@ public class StudentAssignmentsFragment extends Fragment {
     private List<Assignment> assignmentList = new ArrayList<>();
     private int studentId;
     private final String baseUrl = LoginActivity.baseUrl;
-    private Button btnPending, btnSubmitted, btnGraded;
+    private Button btnPending, btnSubmitted;
     private int pendingAssignmentId = -1;
     private Button pendingSubmitButton = null;
     private ActivityResultLauncher<Intent> filePickerLauncher;
@@ -61,7 +61,6 @@ public class StudentAssignmentsFragment extends Fragment {
         lstBooks = view.findViewById(R.id.lstBooks);
         btnPending = view.findViewById(R.id.btnPending);
         btnSubmitted = view.findViewById(R.id.btnSubmitted);
-        btnGraded = view.findViewById(R.id.btnGraded);
 
         if (getArguments() != null) {
             studentId = getArguments().getInt("student_id", -1);
@@ -100,8 +99,10 @@ public class StudentAssignmentsFragment extends Fragment {
 
 
         btnPending.setOnClickListener(v -> filterBy("Pending", btnPending));
-        btnSubmitted.setOnClickListener(v -> filterBy("Submitted", btnSubmitted));
-        btnGraded.setOnClickListener(v -> filterBy("Graded", btnGraded));
+        btnSubmitted.setOnClickListener(v -> {filterBy("Submitted", btnSubmitted);
+
+
+        });
 
         return view;
     }
@@ -184,7 +185,7 @@ public class StudentAssignmentsFragment extends Fragment {
     }
 
     private void updateButtonColors(Button selected) {
-        Button[] buttons = {btnPending, btnSubmitted, btnGraded};
+        Button[] buttons = {btnPending, btnSubmitted};
         for (Button btn : buttons) {
             if (btn == selected) {
                 btn.setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.dark_red));

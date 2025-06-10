@@ -16,33 +16,48 @@
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
         android:layout_marginEnd="108dp"
         android:fontFamily="@font/inknut_antiqua_light"
         android:text="Leaderboard"
         android:textColor="#800000"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imgLraderboard"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/imgLraderboard"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/imgLraderboard"
+        app:layout_constraintVertical_bias="0.533" />
 
     <ImageView
         android:id="@+id/imgLraderboard"
         android:layout_width="41dp"
         android:layout_height="38dp"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="100dp"
         android:src="@drawable/leaderboard2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.302"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvClassLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/inknut_antiqua"
+        android:text="Select Class:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLraderboard" />
 
     <Spinner
         android:id="@+id/spnSubject"
         android:layout_width="373dp"
         android:layout_height="40dp"
-        android:layout_marginTop="152dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/search_background"
         android:fontFamily="@font/inknut_antiqua"
         android:hint="Select Subject"
@@ -50,15 +65,16 @@
         android:spinnerMode="dropdown"
         android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvClassLabel" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="383dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="204dp"
+        android:layout_width="384dp"
+        android:layout_height="304dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="204dp"
 
 
         android:background="@drawable/search_background"
@@ -66,10 +82,10 @@
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintHorizontal_bias="0.74"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spnSubject"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.0">
 
         <!-- First Place Card -->
         <androidx.cardview.widget.CardView
