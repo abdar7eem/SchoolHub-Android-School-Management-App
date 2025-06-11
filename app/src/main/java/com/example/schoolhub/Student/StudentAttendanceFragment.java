@@ -134,7 +134,7 @@
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
                     params.put("student_id", String.valueOf(studentId));
-                    params.put("session_code", sessionCode);  // 🟢 Use session_code now
+                    params.put("session_code", sessionCode);
                     return params;
                 }
 
