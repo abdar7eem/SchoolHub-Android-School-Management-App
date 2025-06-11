@@ -34,8 +34,8 @@
         <Spinner
             android:id="@+id/spnClass"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/spinner_background"
+            android:layout_height="48dp"
+            android:background="@drawable/search_background"
             android:padding="8dp"
             android:layout_marginBottom="8dp" />
 
@@ -50,8 +50,8 @@
         <Spinner
             android:id="@+id/spnSubject"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/spinner_background"
+            android:layout_height="48dp"
+            android:background="@drawable/search_background"
             android:padding="8dp"
             android:layout_marginBottom="8dp" />
 
@@ -66,8 +66,8 @@
         <Spinner
             android:id="@+id/spnTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/spinner_background"
+            android:layout_height="48dp"
+            android:background="@drawable/search_background"
             android:padding="8dp"
             android:layout_marginBottom="8dp" />
 

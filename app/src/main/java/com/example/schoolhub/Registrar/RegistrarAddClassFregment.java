@@ -39,9 +39,9 @@ public class RegistrarAddClassFregment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_registrar_add_class, container, false);
-        spnAcademicStage = view.findViewById(R.id.spnAcademicStage); // make sure ID matches your XML
+        spnAcademicStage = view.findViewById(R.id.spnAcademicStage);
 
         edtGrade=view.findViewById(R.id.edtGrade);
         edtSection=view.findViewById(R.id.edtSection);

@@ -23,7 +23,6 @@ public class Assignment {
         this.attachmentPath = attachment;
     }
 
-    // Getters
     public int getId() { return id; }
     public String getTitle() { return title; }
     public String getSubjectName() { return subjectName; }
@@ -36,7 +35,6 @@ public class Assignment {
     public int getTeacherId() { return teacherId; }
     public int getSubjectId() { return subjectId; }
 
-    // Setters for additional IDs
     public void setClassId(int classId) {
         this.classId = classId;
     }
