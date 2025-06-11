@@ -13,7 +13,6 @@
         android:gravity="center_horizontal"
         android:paddingBottom="80dp">
 
-        <!-- Title -->
         <TextView
             android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
@@ -25,7 +24,6 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <!-- Greeting -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,7 +84,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Today's Schedule Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardSchedule"
             android:layout_width="match_parent"
@@ -122,7 +119,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Notifications Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardNotification"
             android:layout_width="match_parent"
@@ -158,9 +154,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Class Snapshot Card -->
 
-        <!-- Recent Submissions Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardSubmissions"
             android:layout_width="match_parent"

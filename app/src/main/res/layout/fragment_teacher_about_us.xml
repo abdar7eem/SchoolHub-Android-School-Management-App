@@ -13,7 +13,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Title Row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,10 +39,6 @@
                 android:fontFamily="@font/inknut_antiqua_light" />
         </LinearLayout>
 
-        <!-- Team Members -->
-        <!-- Repeat this CardView block for each member -->
-
-        <!-- Abd -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

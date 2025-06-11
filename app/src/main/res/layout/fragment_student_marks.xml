@@ -8,14 +8,6 @@
     android:background="#E8ECEF"
     tools:context=".Student.StudentMarksFragment">
 
-    <!-- Title -->
-
-    <!-- Filter Buttons Container -->
-
-    <!-- Background Bar (Optional) -->
-
-    <!-- ListView -->
-
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"

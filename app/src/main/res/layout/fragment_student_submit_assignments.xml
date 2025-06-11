@@ -8,9 +8,6 @@
     android:background="#E8ECEF"
     tools:context=".Student.StudentAssignmentsFragment">
 
-    <!-- Title -->
-
-    <!-- Filter Buttons Container -->
 
     <TextView
         android:id="@+id/txtTitle"
@@ -38,9 +35,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/filterBar" />
 
-    <!-- Background Bar (Optional) -->
-
-    <!-- ListView -->
 
     <LinearLayout
         android:id="@+id/filterBar"

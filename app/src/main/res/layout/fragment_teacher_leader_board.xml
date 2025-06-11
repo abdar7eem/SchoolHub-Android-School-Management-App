@@ -8,7 +8,6 @@
     android:background="#E8ECEF"
     tools:context=".Teacher.TeacherLeaderBoardFragment">
 
-    <!-- Leaderboard Icon and Title -->
     <ImageView
         android:id="@+id/imgLraderboard"
         android:layout_width="41dp"
@@ -36,7 +35,6 @@
         app:layout_constraintTop_toTopOf="@id/imgLraderboard"
         app:layout_constraintVertical_bias="0.466" />
 
-    <!-- Class Label and Spinner -->
     <TextView
         android:id="@+id/tvClassLabel"
         android:layout_width="wrap_content"
@@ -66,7 +64,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Subject Label and Spinner -->
     <TextView
         android:id="@+id/tvSubjectLabel"
         android:layout_width="wrap_content"
@@ -97,7 +94,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Leaderboard Container -->
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
@@ -114,7 +110,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spnSubject">
 
-        <!-- First Place Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -160,7 +155,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Second Place Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -206,7 +200,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Third Place Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

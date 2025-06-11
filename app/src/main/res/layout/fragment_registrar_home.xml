@@ -13,7 +13,6 @@
         android:gravity="center_horizontal"
         android:paddingBottom="80dp">
 
-        <!-- Title -->
         <TextView
             android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
@@ -25,7 +24,6 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <!-- Greeting -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +31,6 @@
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
-            <!-- First Line: Hello Ms. Sara! -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,7 +57,6 @@
                     android:textStyle="bold"/>
             </LinearLayout>
 
-            <!-- Second Line: Today is Monday, May 6, 2025 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,7 +84,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Today's Schedule -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -211,7 +206,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Last Notification -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -247,7 +241,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Class Snapshot -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -282,7 +275,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Recent Submissions -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

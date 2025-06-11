@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:padding="24dp">
 
-        <!-- Title -->
+
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
@@ -26,7 +26,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp" />
 
-        <!-- Label: Select Class -->
         <TextView
             android:id="@+id/labelSelectClass"
             android:layout_width="wrap_content"
@@ -39,7 +38,6 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="24dp" />
 
-        <!-- Spinner: Class -->
         <Spinner
             android:id="@+id/spinnerClass"
             android:layout_width="0dp"
@@ -51,7 +49,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Label: Select Subject -->
         <TextView
             android:id="@+id/labelSelectSubject"
             android:layout_width="wrap_content"
@@ -64,7 +61,6 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="24dp" />
 
-        <!-- Spinner: Subject -->
         <Spinner
             android:id="@+id/spinnerSubject"
             android:layout_width="0dp"
@@ -76,7 +72,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardExamDetails"
             android:layout_width="0dp"

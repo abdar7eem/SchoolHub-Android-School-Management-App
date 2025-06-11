@@ -8,7 +8,7 @@
     android:background="#F0F0F0"
     android:padding="16dp">
 
-    <!-- Title -->
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -22,7 +22,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Spinner -->
     <Spinner
         android:id="@+id/spnTeacherTakeAttendance"
         android:layout_width="0dp"
@@ -33,7 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Class and Room -->
     <LinearLayout
         android:id="@+id/layoutClassRoom"
         android:layout_width="0dp"
@@ -79,7 +77,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Subject and Date -->
     <LinearLayout
         android:id="@+id/layoutSubjectDate"
         android:layout_width="0dp"
@@ -109,7 +106,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Day and Date Header -->
     <LinearLayout
         android:id="@+id/layoutDayHeader"
         android:layout_width="0dp"

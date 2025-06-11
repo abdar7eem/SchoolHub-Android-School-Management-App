@@ -9,10 +9,6 @@
     tools:context="Registrar.RegistrarAddSubjectFregment">
 
 
-    <!-- Title -->
-
-    <!-- Form Container -->
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +30,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Subject Name -->
 
         <Spinner
             android:id="@+id/spnTeacher"
@@ -45,7 +40,6 @@
             android:hint="Teacher" />
 
 
-        <!-- Grade Level -->
         <TextView
             android:id="@+id/txtSelectSubjects"
             android:layout_width="match_parent"
@@ -66,7 +60,6 @@
             android:text="Asssign Subject"
             android:textColor="#FFFFFF" />
 
-        <!-- Schedule Exam Button -->
     </LinearLayout>
 
 
