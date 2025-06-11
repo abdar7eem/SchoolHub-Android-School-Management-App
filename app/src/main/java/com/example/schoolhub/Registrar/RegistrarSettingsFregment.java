@@ -1,5 +1,8 @@
 package com.example.schoolhub.Registrar;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,8 +56,13 @@ public class RegistrarSettingsFregment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
+
         btnLogout.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Logged out", Toast.LENGTH_SHORT).show();
+            requireActivity().getSharedPreferences("userData", MODE_PRIVATE).edit().clear().apply();
+            Intent intent = new Intent(requireContext(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            requireActivity().finish();
 
 
         });

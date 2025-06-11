@@ -113,7 +113,7 @@ public class RegistrarAddEventFregment extends Fragment {
                 error -> {
                     Log.e("EVENT_ADD_ERROR", error.toString());
                     error.printStackTrace();
-                    Toast.makeText(getContext(), "ERRORR"+error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Couldnt Add Event", Toast.LENGTH_SHORT).show();
 
                 }) {
 

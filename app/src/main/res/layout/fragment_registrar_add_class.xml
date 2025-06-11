@@ -60,6 +60,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Section"/>
+        <EditText
+            android:id="@+id/edtRoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Room"/>
 
 
 

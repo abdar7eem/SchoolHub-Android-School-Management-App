@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class RegistrarAddClassFregment extends Fragment {
 
-    EditText edtGrade,edtSection;
+    EditText edtGrade,edtSection,edtRoom;
     Spinner spnAcademicStage,spnHomeromTeacher;
     Button btnAddClass;
     String[] stages = {"Primary", "Middle", "Secondary", "High School"};
@@ -45,13 +45,15 @@ public class RegistrarAddClassFregment extends Fragment {
 
         edtGrade=view.findViewById(R.id.edtGrade);
         edtSection=view.findViewById(R.id.edtSection);
+        edtRoom=view.findViewById(R.id.edtRoom);
         spnAcademicStage=view.findViewById(R.id.spnAcademicStage);
         btnAddClass=view.findViewById(R.id.btnAddClass);
 
 
         btnAddClass.setOnClickListener(e->{
             if(edtGrade.getText().toString().trim().isEmpty()||
-            edtSection.getText().toString().trim().isEmpty()){
+            edtSection.getText().toString().trim().isEmpty()||
+                    edtRoom.getText().toString().trim().isEmpty()){
                 Toast.makeText(requireContext(), "Fill All fields", Toast.LENGTH_SHORT).show();
             }
             else{
@@ -81,7 +83,7 @@ public class RegistrarAddClassFregment extends Fragment {
 
                 },
                 error -> {
-                    Toast.makeText(getContext(), "Error in volley request : " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Coudlnt add class", Toast.LENGTH_LONG).show();
                 }) {
             @Override
             protected Map<String, String> getParams() {
@@ -89,6 +91,7 @@ public class RegistrarAddClassFregment extends Fragment {
                 params.put("academic_stage", spnAcademicStage.getSelectedItem().toString().trim());
                 params.put("grade", edtGrade.getText().toString().trim());
                 params.put("section", edtSection.getText().toString().trim());
+                params.put("room",edtRoom.getText().toString().trim());
                 return params;
             }
         };
