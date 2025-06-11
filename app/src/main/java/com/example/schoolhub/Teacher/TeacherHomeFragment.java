@@ -102,13 +102,12 @@ public class TeacherHomeFragment extends Fragment {
     }
 
     private void fetchDashboardData() {
-        String currentDay = new SimpleDateFormat("EEEE", Locale.getDefault()).format(new Date()); // e.g., Monday
+        String currentDay = new SimpleDateFormat("EEEE", Locale.getDefault()).format(new Date());
         String url = baseUrl + "get_teacher_dashboard.php?teacher_id=" + teacherId + "&day=" + currentDay;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
-                        // Schedule
                         JSONArray schedule = response.getJSONArray("schedule");
                         StringBuilder sbSchedule = new StringBuilder();
                         for (int i = 0; i < schedule.length(); i++) {
@@ -119,7 +118,6 @@ public class TeacherHomeFragment extends Fragment {
                         }
                         tvSchedule.setText(sbSchedule.toString().trim());
 
-                        // Notifications
                         JSONArray systemNotifs = response.getJSONArray("system_notifications");
                         StringBuilder sbSystemNotifs = new StringBuilder();
                         for (int i = 0; i < systemNotifs.length(); i++) {
@@ -129,7 +127,6 @@ public class TeacherHomeFragment extends Fragment {
                         }
                         tvNotification.setText(sbSystemNotifs.toString().trim());
 
-                        // Submissions
                         JSONArray subs = response.getJSONArray("submissions");
                         StringBuilder sbSub = new StringBuilder();
                         for (int i = 0; i < subs.length(); i++) {

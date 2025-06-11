@@ -257,7 +257,6 @@ public class TeacherTakeAttendanceFragment extends Fragment {
 
         String url = BASE_URL + "teacher_create_attendance_session.php";
 
-        // Prepare JSON parameters
         JSONObject params = new JSONObject();
         try {
             params.put("teacher_id", teacherId);
@@ -270,7 +269,6 @@ public class TeacherTakeAttendanceFragment extends Fragment {
             return;
         }
 
-        // Send POST request to server
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.POST,
                 url,
@@ -303,7 +301,6 @@ public class TeacherTakeAttendanceFragment extends Fragment {
             }
         };
 
-        // Add request to queue
         Volley.newRequestQueue(requireContext()).add(request);
     }
 

@@ -40,7 +40,7 @@ public class TeacherNotificationFragment extends Fragment {
     private ListView lstBooks;
     private NotificationAdapter adapter;
     private List<NotificationItem> notificationList;
-    private int teacherId; // Replace with actual logged-in teacher ID
+    private int teacherId;
     private final String baseUrl = LoginActivity.baseUrl;
     private final String CHANNEL_ID = "schoolhub_notifications";
     private int userId;

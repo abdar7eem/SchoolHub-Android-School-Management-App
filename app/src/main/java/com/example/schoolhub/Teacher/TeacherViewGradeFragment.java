@@ -131,7 +131,7 @@ public class TeacherViewGradeFragment extends Fragment {
                         tvTopStudentValue.setText(response.optString("top_student", "N/A"));
 
                         JSONArray students = response.getJSONArray("students");
-                        tableGrades.removeViews(1, tableGrades.getChildCount() - 1); // clear previous
+                        tableGrades.removeViews(1, tableGrades.getChildCount() - 1);
 
                         for (int i = 0; i < students.length(); i++) {
                             JSONObject s = students.getJSONObject(i);

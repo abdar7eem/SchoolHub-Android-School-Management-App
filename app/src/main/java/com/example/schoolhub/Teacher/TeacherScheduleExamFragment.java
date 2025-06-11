@@ -239,7 +239,6 @@ public class TeacherScheduleExamFragment extends Fragment {
                         Toast.makeText(getContext(), "Error: " + response.optString("error"), Toast.LENGTH_SHORT).show();
                     }
 
-                    // Send notification
                     NotificationHelper.sendNotification(
                             getContext(),
                             examTitle,
