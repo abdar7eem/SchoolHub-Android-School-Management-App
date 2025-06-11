@@ -277,6 +277,7 @@ public class RegistrarScheduleFregment extends Fragment {
                 Map<String, String> params = new HashMap<>();
                 params.put("class_id", String.valueOf(selectedClass.getId()));
                 params.put("day_of_week", day);
+                params.put("subject_id", String.valueOf(selectedSubject.getId()));
                 params.put("start_time", startTime);
                 return params;
             }
