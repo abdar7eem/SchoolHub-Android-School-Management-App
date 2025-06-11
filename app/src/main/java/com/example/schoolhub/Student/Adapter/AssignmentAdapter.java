@@ -29,8 +29,9 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
     };
 
     public interface FileSelectCallback {
-        void onSubmitClick(int assignmentId, Button button);
+        void onSubmitClick(Assignment assignment, Button button);
     }
+
 
     public AssignmentAdapter(Context context, List<Assignment> assignmentList, FileSelectCallback callback) {
         super(context, 0, assignmentList);
@@ -95,8 +96,9 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
 //
         btnSubmit.setOnClickListener(v -> {
             Log.d("AssignmentAdapter", "Submitting assignment ID = " + assignment.getId());
+
             if (callback != null) {
-                callback.onSubmitClick(assignment.getId(), btnSubmit);
+                callback.onSubmitClick(assignment, btnSubmit);
             }
         });
 
@@ -109,4 +111,6 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
 
         return view;
     }
+
+
 }

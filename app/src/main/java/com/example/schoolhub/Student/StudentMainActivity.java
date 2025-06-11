@@ -70,27 +70,55 @@ public class StudentMainActivity extends AppCompatActivity {
             if (f != null) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("student_id", studentId);
-                bundle.putInt("student_id", studentId);
                 bundle.putInt("class_id", classId);
                 bundle.putInt("user_id", userId);
-
                 f.setArguments(bundle);
-                return loadFragment(f);
+
+                boolean loaded = loadFragment(f);
+                if (loaded) {
+                    // Uncheck all drawer items
+                    for (int i = 0; i < navigationView.getMenu().size(); i++) {
+                        navigationView.getMenu().getItem(i).setChecked(false);
+                    }
+                }
+
+                return true;
             }
             return false;
         });
+
+
 
         navigationView.setNavigationItemSelectedListener(item -> {
             Fragment f = getFragmentForMenu(item.getItemId());
             drawerLayout.closeDrawer(GravityCompat.START);
+
             if (f != null) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("student_id", studentId);
+                bundle.putInt("class_id", classId);
+                bundle.putInt("user_id", userId);
                 f.setArguments(bundle);
-                return loadFragment(f);
+
+                boolean loaded = loadFragment(f);
+                if (loaded) {
+                    // Highlight the selected drawer item
+                    item.setChecked(true);
+                    navigationView.setCheckedItem(item.getItemId());
+
+                    // Uncheck all bottom nav items
+                    studentBottomNav.getMenu().setGroupCheckable(0, true, false);
+                    for (int i = 0; i < studentBottomNav.getMenu().size(); i++) {
+                        studentBottomNav.getMenu().getItem(i).setChecked(false);
+                    }
+                    studentBottomNav.getMenu().setGroupCheckable(0, true, true);
+                }
+
+                return true;
             }
             return false;
         });
+
     }
 
     private Fragment getFragmentForMenu(int id) {

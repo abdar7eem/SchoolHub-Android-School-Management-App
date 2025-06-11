@@ -49,7 +49,7 @@ public class ScheduleAdapter extends BaseAdapter {
         TextView instructor = convertView.findViewById(R.id.txtInstructorName);
 
         subject.setText(schedule.getSubjectName());
-        time.setText(schedule.getStartTime() + " - " + schedule.getEndTime());
+        time.setText(schedule.getStartTime()) ;
 
         instructor.setText(schedule.getInstructorName());
 

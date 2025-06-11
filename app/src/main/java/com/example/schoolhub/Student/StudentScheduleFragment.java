@@ -2,6 +2,7 @@ package com.example.schoolhub.Student;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,9 +107,14 @@ public class StudentScheduleFragment extends Fragment {
                             schedule.setDayOfWeek(obj.getString("day_of_week"));
                             schedule.setStartTime(obj.getString("start_time"));
                             schedule.setEndTime(obj.getString("end_time"));
-                            schedule.setRoom(obj.getString("room"));
+                            if (!obj.isNull("room")) {
+                                schedule.setRoom(obj.getString("room"));
+                            } else {
+                                schedule.setRoom("201");
+                            }
                             schedule.setSubjectName(obj.getString("subject_name"));
                             schedule.setInstructorName(obj.getString("instructor_name"));
+                            Log.d("ScheduleJSON", obj.toString());
 
                             scheduleList.add(schedule);
                         } catch (JSONException e) {

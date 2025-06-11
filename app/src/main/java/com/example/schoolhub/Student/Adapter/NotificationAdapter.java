@@ -49,7 +49,7 @@ public class NotificationAdapter extends ArrayAdapter<NotificationItem> {
         txtTitle.setText(notification.title);
         txtSender.setText(notification.sender);
         txtMessage.setText(notification.message);
-        txtTime.setText("Time: " + notification.time);
+        txtTime.setText( notification.time);
 
         // Initial visibility
         expandableContent.setVisibility(View.GONE);

@@ -91,5 +91,13 @@
                 android:elevation="2dp" />
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/move"
+            android:layout_width="612dp"
+            android:layout_height="280dp"
+            android:layout_marginTop="48dp"
+            android:contentDescription="Logo"
+            android:src="@drawable/lo" />
     </LinearLayout>
+
 </ScrollView>
