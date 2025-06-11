@@ -15,7 +15,9 @@ public class User {
     private String profileImage;
     private LocalDateTime createdAt;
 
+    public User() {
 
+    }
 
     public User(int id, String name, String email, String password, String role, LocalDate dob, String profileImage, LocalDateTime createdAt) {
         this.id = id;
@@ -28,6 +30,7 @@ public class User {
         this.createdAt = createdAt;
     }
 
+    // Getters and Setters
 
     public int getId() {
         return id;
