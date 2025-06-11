@@ -15,7 +15,7 @@ public class TeacherInfo {
 
     @Override
     public String toString() {
-        return name; // Spinner will display this
+        return name;
     }
 }
 

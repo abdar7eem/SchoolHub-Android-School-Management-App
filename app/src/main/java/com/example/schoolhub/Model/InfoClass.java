@@ -12,6 +12,6 @@ public class InfoClass {
     public int getId() { return id; }
     public String getName() { return name; }
     public String toString() {
-        return name; // This tells the spinner what to display
+        return name;
     }
 }

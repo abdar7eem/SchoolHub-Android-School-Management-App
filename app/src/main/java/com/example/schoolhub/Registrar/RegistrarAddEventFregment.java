@@ -27,7 +27,6 @@ import java.util.Locale;
 import java.util.Map;
 
 
-
 public class RegistrarAddEventFregment extends Fragment {
     String[] eventTypes = {
             "Parent-Teacher Meeting",
@@ -48,7 +47,6 @@ public class RegistrarAddEventFregment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_registrar_add_event, container, false);
         edtEventDescription = view.findViewById(R.id.edtEventDescription);
         edtEventLocation = view.findViewById(R.id.edtEventLocation);
