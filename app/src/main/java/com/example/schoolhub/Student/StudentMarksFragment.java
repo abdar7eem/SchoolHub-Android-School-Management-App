@@ -77,7 +77,7 @@ public class StudentMarksFragment extends Fragment {
                         Toast.makeText(requireContext(), "Network error", Toast.LENGTH_LONG).show();
                     }
                 }   );
-        request.setTag("SCHEDULE_REQUEST"); // Unique tag
+        request.setTag("SCHEDULE_REQUEST");
 
         queue.add(request);
     }

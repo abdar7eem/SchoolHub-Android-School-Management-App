@@ -51,16 +51,13 @@ public class NotificationAdapter extends ArrayAdapter<NotificationItem> {
         txtMessage.setText(notification.message);
         txtTime.setText( notification.time);
 
-        // Initial visibility
         expandableContent.setVisibility(View.GONE);
         viewStatusDot.setBackgroundResource(notification.isRead ? R.drawable.dot_green : R.drawable.dot_red);
 
         convertView.setOnClickListener(v -> {
-            // Expand/collapse content
             boolean expanded = expandableContent.getVisibility() == View.VISIBLE;
             expandableContent.setVisibility(expanded ? View.GONE : View.VISIBLE);
 
-            // Mark as read if not already
             if (!notification.isRead) {
                 markAsRead(notification.id, viewStatusDot);
                 notification.isRead = true;

@@ -43,7 +43,7 @@ public class StudentEventFragment extends Fragment {
         if (getArguments() != null) {
             studentId = getArguments().getInt("student_id", -1);
         } else {
-            studentId = -1; // fallback
+            studentId = -1;
         }
         lstBooks = view.findViewById(R.id.lstBooks);
         eventList = new ArrayList<>();

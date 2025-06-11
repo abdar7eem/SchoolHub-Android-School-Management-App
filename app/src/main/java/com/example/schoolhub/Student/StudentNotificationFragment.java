@@ -164,7 +164,7 @@ public class StudentNotificationFragment extends Fragment {
                 return params;
             }
         };
-        request.setTag("SCHEDULE_REQUEST"); // Unique tag
+        request.setTag("SCHEDULE_REQUEST");
 
         Volley.newRequestQueue(requireContext()).add(request);
     }

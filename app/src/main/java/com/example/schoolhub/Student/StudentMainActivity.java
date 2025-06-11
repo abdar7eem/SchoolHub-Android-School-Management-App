@@ -144,13 +144,13 @@ public class StudentMainActivity extends AppCompatActivity {
             return new StudentSettingsFragment();
         }
         else if (id == R.id.nav_logout) {
-            // Clear saved user session
+
             getSharedPreferences("userData", MODE_PRIVATE)
                     .edit()
                     .clear()
                     .apply();
 
-            // Redirect to login screen
+
             Intent intent = new Intent(StudentMainActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // clear back stack
             startActivity(intent);

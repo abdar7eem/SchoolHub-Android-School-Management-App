@@ -34,7 +34,7 @@
         android:background="@drawable/search_background"
         android:fontFamily="@font/inknut_antiqua_light"
         android:includeFontPadding="false"
-        android:text="Your Room is 304"
+        android:text="@string/your_room_is_304"
         android:textAlignment="center"
 
         app:layout_constraintBottom_toBottomOf="parent"

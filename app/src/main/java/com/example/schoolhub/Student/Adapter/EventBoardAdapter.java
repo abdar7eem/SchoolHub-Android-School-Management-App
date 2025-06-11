@@ -60,7 +60,7 @@ public class EventBoardAdapter extends ArrayAdapter<EventBoardItem> {
                 enableAddButton(btn, event);
             }
         } else {
-            // Check from server if this student already added this event
+
             String checkUrl = LoginActivity.baseUrl+"check_event_confirmation.php?event_id=" + event.id + "&student_id=" + studentId;
 
             JsonArrayRequest checkRequest = new JsonArrayRequest(Request.Method.GET, checkUrl, null,
@@ -104,10 +104,10 @@ public class EventBoardAdapter extends ArrayAdapter<EventBoardItem> {
                                 getContext(),
                                 "Event Added",
                                 "You have successfully added " + event.title + " to your calendar.",
-                                "student",        // mode
-                                studentId,        // sender_id
-                                -1,               // subject_id (optional, use -1 if not used)
-                                studentId         // recipient_id
+                                "student",
+                                studentId,
+                                -1,
+                                studentId
                         );
 
 
