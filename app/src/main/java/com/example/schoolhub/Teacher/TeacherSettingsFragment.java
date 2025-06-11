@@ -1,5 +1,8 @@
 package com.example.schoolhub.Teacher;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
@@ -53,7 +56,11 @@ public class TeacherSettingsFragment extends Fragment {
 
         btnLogout.setOnClickListener(v -> {
             Toast.makeText(getContext(), "Logged out", Toast.LENGTH_SHORT).show();
-            // Optional: clear session, navigate to login
+            requireActivity().getSharedPreferences("userData", MODE_PRIVATE).edit().clear().apply();
+            Intent intent = new Intent(requireContext(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            requireActivity().finish();
         });
 
         return view;

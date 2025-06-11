@@ -55,26 +55,24 @@ public class TeacherSchedualAdapter extends BaseAdapter {
         TextView tvRoom = convertView.findViewById(R.id.tvRoom);
         TextView tvTime = convertView.findViewById(R.id.tvTime);
         TextView tvDay = convertView.findViewById(R.id.tvDay);
-        TextView tvClass= convertView.findViewById(R.id.tvClass);
+        TextView tvClass = convertView.findViewById(R.id.tvClass);
 
         tvSubject.setText(schedule.getSubjectName());
         tvRoom.setText("Room: " + schedule.getRoom());
         tvDay.setText(schedule.getDayOfWeek());
         tvClass.setText(schedule.getClassName());
 
-        if (schedule.getStartTime() != null && schedule.getEndTime() != null) {
+        if (schedule.getStartTime() != null && !schedule.getStartTime().isEmpty()) {
             try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                LocalTime startTime = LocalTime.parse(schedule.getStartTime(), inputFormatter);
 
-                // Parse the start and end times
-                LocalTime startTime = LocalTime.parse(schedule.getStartTime(), formatter);
-                LocalTime endTime = LocalTime.parse(schedule.getEndTime(), formatter);
-
-                String time = startTime.format(formatter) + " - " + endTime.format(formatter);
-                tvTime.setText(time);
+                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+                String formattedStart = startTime.format(outputFormatter);
+                tvTime.setText(formattedStart);
 
             } catch (Exception e) {
-                tvTime.setText("Invalid Time Format");
+                tvTime.setText("Invalid Time");
                 e.printStackTrace();
             }
         } else {

@@ -85,7 +85,7 @@ public class RegistrarAssignSubjectTeacherFregment extends Fragment {
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> Toast.makeText(requireContext(), "Subject Assigned!!", Toast.LENGTH_SHORT).show(),
-                error -> Toast.makeText(requireContext(), "Error in volley : " + error.getMessage(), Toast.LENGTH_SHORT).show()
+                error -> Toast.makeText(requireContext(), "Couldnt Assign Subject!!", Toast.LENGTH_SHORT).show()
         ) {
             @Override
             protected Map<String, String> getParams() {

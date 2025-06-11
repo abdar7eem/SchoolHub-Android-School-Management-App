@@ -12,13 +12,13 @@ public class Schedule {
     private int id;
     private int classId;
     private int subjectId;
-    private String dayOfWeek;  // e.g., "Monday", "Tuesday"
+    private String dayOfWeek;
     private String startTime;
     private String endTime;
     private String room;
-    private String subjectName;       // Show subject
-    private String instructorName;    // Show teacher
-    private String className;         // Show class
+    private String subjectName;
+    private String instructorName;
+    private String className;
 
     public Schedule() {
         // Default constructor

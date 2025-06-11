@@ -80,7 +80,7 @@ public class RegistrarAddTeacherFregment extends Fragment {
                 Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
             }
             else if (checkPasword()==false){
-                Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Password does not match", Toast.LENGTH_SHORT).show();
 
             }
             else{
@@ -102,7 +102,7 @@ public class RegistrarAddTeacherFregment extends Fragment {
                 },
                 error -> {
                     error.printStackTrace();
-                    Toast.makeText(requireContext(), "Couldn't Add Teacher"+error.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Couldn't Add Teacher", Toast.LENGTH_SHORT).show();
                     Log.e("error ",error.getMessage().toString());
 
                 }) {

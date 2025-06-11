@@ -60,7 +60,7 @@ public class TeacherPublishMarksFragment extends Fragment {
         if (getArguments() != null) {
             teacherId = getArguments().getInt("teacher_id", -1);
         } else {
-            teacherId = -1; // fallback
+            teacherId = -1;
         }
 
         setupMarkTypeSpinner();
@@ -101,7 +101,7 @@ public class TeacherPublishMarksFragment extends Fragment {
         String[] types = {"Quiz", "Assignment", "Mid", "Final"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, types);
         spnMarkType.setAdapter(adapter);
-        selectedMarkType = types[0]; // default
+        selectedMarkType = types[0];
     }
 
     void loadClasses() {

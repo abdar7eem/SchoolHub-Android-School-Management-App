@@ -41,6 +41,7 @@ public class TeacherSendAssignmentFragment extends Fragment {
     String fileName;
     String baseUrl = LoginActivity.baseUrl;
     int teacherId ;
+    int userId;
 
     List<ClassInfo> classList = new ArrayList<>();
 
@@ -59,6 +60,7 @@ public class TeacherSendAssignmentFragment extends Fragment {
 
         if (getArguments() != null) {
             teacherId = getArguments().getInt("teacher_id", -1);
+            userId = getArguments().getInt("user_id", -1);
         } else {
             teacherId = -1;
         }
@@ -94,7 +96,7 @@ public class TeacherSendAssignmentFragment extends Fragment {
                         try {
                             JSONObject obj = response.getJSONObject(i);
                             int id = obj.getInt("id");
-                            String name = obj.getString("class_name"); // or "name" depending on your PHP output
+                            String name = obj.getString("class_name");
                             classList.add(new ClassInfo(id, name));
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -204,14 +206,13 @@ public class TeacherSendAssignmentFragment extends Fragment {
             return;
         }
 
-        // Parse due date and time
         Calendar dueCalendar = Calendar.getInstance();
         try {
             String[] dateParts = dueDateStr.split("-");
             String[] timeParts = dueTimeStr.split(":");
 
             int year = Integer.parseInt(dateParts[0]);
-            int month = Integer.parseInt(dateParts[1]) - 1; // Calendar months are 0-based
+            int month = Integer.parseInt(dateParts[1]) - 1;
             int day = Integer.parseInt(dateParts[2]);
             int hour = Integer.parseInt(timeParts[0]);
             int minute = Integer.parseInt(timeParts[1]);
@@ -222,7 +223,6 @@ public class TeacherSendAssignmentFragment extends Fragment {
             return;
         }
 
-        // Compare with current time
         Calendar now = Calendar.getInstance();
         if (dueCalendar.before(now)) {
             Toast.makeText(getContext(), "Due date/time cannot be in the past", Toast.LENGTH_SHORT).show();
@@ -241,10 +241,10 @@ public class TeacherSendAssignmentFragment extends Fragment {
 
                         NotificationHelper.sendNotification(
                                 getContext(),
-                                "New Assignment",
-                                "Assignment: " + titleInput.getText().toString(),
-                                "class", // or "student"
-                                teacherId,
+                                titleInput.getText().toString(),
+                                descInput.getText().toString(),
+                                "class",
+                                userId,
                                 -1,
                                 ((ClassInfo) spnClasses.getSelectedItem()).id
                         );
@@ -277,8 +277,6 @@ public class TeacherSendAssignmentFragment extends Fragment {
         }
     }
 
-
-    // ClassInfo model
     public static class ClassInfo {
         public int id;
         public String name;

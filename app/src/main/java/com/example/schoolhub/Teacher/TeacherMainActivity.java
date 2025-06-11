@@ -79,10 +79,18 @@ public class TeacherMainActivity extends AppCompatActivity {
                 bundle.putInt("teacher_id", teacherId);
                 bundle.putInt("user_id", userId);
                 f.setArguments(bundle);
-                return loadFragment(f);
+                boolean loaded = loadFragment(f);
+
+                if (loaded) {
+                    for (int i = 0; i < navigationView.getMenu().size(); i++) {
+                        navigationView.getMenu().getItem(i).setChecked(false);
+                    }
+                }
+                return loaded;
             }
             return false;
         });
+
 
         navigationView.setNavigationItemSelectedListener(item -> {
             if (teacherId == 0) return false;
@@ -90,13 +98,26 @@ public class TeacherMainActivity extends AppCompatActivity {
             Fragment f = getTeacherFragment(item.getItemId());
             if (f != null) {
                 Bundle bundle = new Bundle();
-                f.setArguments(bundle);
                 bundle.putInt("teacher_id", teacherId);
-                loadFragment(f);
+                bundle.putInt("user_id", userId);
+                f.setArguments(bundle);
+                boolean loaded = loadFragment(f);
+
+                if (loaded) {
+                    item.setChecked(true);
+                    navigationView.setCheckedItem(item.getItemId());
+
+                    teacherBottomNav.getMenu().setGroupCheckable(0, true, false);
+                    for (int i = 0; i < teacherBottomNav.getMenu().size(); i++) {
+                        teacherBottomNav.getMenu().getItem(i).setChecked(false);
+                    }
+                    teacherBottomNav.getMenu().setGroupCheckable(0, true, true);
+                }
             }
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
+
     }
 
     private void fetchTeacherId(int userId) {

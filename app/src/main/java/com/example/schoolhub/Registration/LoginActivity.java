@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String username, String password) {
-        StringRequest request = new StringRequest(Request.Method.POST, baseUrl+"login.php",
+        StringRequest request = new StringRequest(Request.Method.POST, baseUrl + "login.php",
                 response -> {
                     try {
                         JSONObject obj = new JSONObject(response);
@@ -77,23 +77,24 @@ public class LoginActivity extends AppCompatActivity {
                             int userId = obj.getInt("user_id");
                             String role = obj.getString("role");
 
-                            // Save login state
                             SharedPreferences.Editor editor = sharedPrefs.edit();
                             editor.putBoolean("isLoggedIn", true);
                             editor.putInt("user_id", userId);
                             editor.putString("role", role);
+
                             if (checkRemember.isChecked()) {
                                 editor.putBoolean("isRemembered", true);
                                 editor.putString("username", username);
                                 editor.putString("password", password);
                             } else {
+                                // Remove previously saved login info
+                                editor.putBoolean("isRemembered", false);
                                 editor.remove("username");
                                 editor.remove("password");
-                                editor.putBoolean("isRemembered", false);
                             }
+
                             editor.apply();
 
-                            // Redirect based on role
                             Intent intent;
                             switch (role) {
                                 case "student":

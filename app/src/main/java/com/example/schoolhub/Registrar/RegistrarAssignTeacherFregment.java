@@ -116,7 +116,7 @@ public class RegistrarAssignTeacherFregment extends Fragment {
                 },
                 error -> {
                     Log.e("AddClassError", "Volley Error: " + error.getMessage());
-                    Toast.makeText(getContext(), "Error in request: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Coudlnt Assign Class!!", Toast.LENGTH_LONG).show();
                 }
         ) {
             @Override

@@ -10,14 +10,12 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String role; // "student", "teacher", or "registrar"
+    private String role;
     private LocalDate dob;
     private String profileImage;
     private LocalDateTime createdAt;
 
-    public User() {
-        // Default constructor
-    }
+
 
     public User(int id, String name, String email, String password, String role, LocalDate dob, String profileImage, LocalDateTime createdAt) {
         this.id = id;
@@ -30,7 +28,6 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    // Getters and Setters
 
     public int getId() {
         return id;
