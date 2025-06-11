@@ -6,11 +6,9 @@
     android:layout_height="match_parent"
     android:background="#EAF0F5"
     android:padding="16dp"
-    android:layout_marginBottom="20dp">
+    android:layout_marginBottom="40dp">
 
-    <!-- Title -->
 
-    <!-- Container Card -->
     <TextView
         android:id="@+id/sendAssignmentTitle"
         android:layout_width="wrap_content"
@@ -27,7 +25,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardContainer"
         android:layout_width="0dp"
-        android:layout_height="539dp"
+        android:layout_height="500dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="#F5F6F8"
         android:padding="16dp"
@@ -197,12 +195,13 @@
                 android:id="@+id/chooseFileButton"
                 android:layout_width="150dp"
                 android:layout_height="53dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="12dp"
                 android:backgroundTint="#767676"
                 android:fontFamily="@font/alatsi"
                 android:text="Choose File"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fileLabel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
