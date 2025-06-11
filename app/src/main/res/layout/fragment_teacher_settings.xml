@@ -133,19 +133,20 @@
                             android:text="0599..." />
                     </LinearLayout>
 
-                    <Button
-                        android:id="@+id/btnAboutUs"
-                        android:layout_width="147dp"
-                        android:layout_height="37dp"
-                        android:backgroundTint="#A9ADB0"
-                        android:text="About Us"
-                        android:layout_gravity="center_horizontal"
-                        app:icon="@drawable/aboutus" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <!-- Empty Cards -->
+        <Button
+            android:id="@+id/btnAboutUs"
+            android:layout_width="149dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="#A9ADB0"
+            android:text="About Us"
+            app:icon="@drawable/aboutus" />
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EBEFF2"
+    android:paddingBottom="80dp"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="24dp">
 
         <!-- Title -->
         <TextView
@@ -36,15 +37,15 @@
             android:textColor="#000000"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="24dp" />
 
         <!-- Spinner: Class -->
         <Spinner
             android:id="@+id/spinnerClass"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_marginTop="4dp"
-            android:background="@android:drawable/btn_dropdown"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/search_background"
             android:padding="8dp"
             app:layout_constraintTop_toBottomOf="@id/labelSelectClass"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,15 +62,15 @@
             android:textColor="#000000"
             app:layout_constraintTop_toBottomOf="@id/spinnerClass"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="24dp" />
 
         <!-- Spinner: Subject -->
         <Spinner
             android:id="@+id/spinnerSubject"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_marginTop="4dp"
-            android:background="@android:drawable/btn_dropdown"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/search_background"
             android:padding="8dp"
             app:layout_constraintTop_toBottomOf="@id/labelSelectSubject"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +81,7 @@
             android:id="@+id/cardExamDetails"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             app:cardElevation="4dp"
             app:cardCornerRadius="12dp"
             app:cardBackgroundColor="#D3D3D3"
@@ -92,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <EditText
                     android:id="@+id/etExamTitle"
@@ -100,8 +101,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Exam Title"
                     android:background="@android:drawable/edit_text"
-                    android:layout_marginBottom="8dp" />
-
+                    android:layout_marginBottom="12dp" />
 
                 <EditText
                     android:id="@+id/etDate"
@@ -111,35 +111,35 @@
                     android:focusable="false"
                     android:clickable="true"
                     android:background="@android:drawable/edit_text"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="16dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Start Time:"
                     android:textStyle="bold"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginBottom="4dp" />
 
                 <Spinner
                     android:id="@+id/spnStartTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:drawable/btn_dropdown"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="16dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="End Time:"
                     android:textStyle="bold"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginBottom="4dp" />
 
                 <Spinner
                     android:id="@+id/spnEndTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:drawable/btn_dropdown"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="16dp" />
 
                 <EditText
                     android:id="@+id/etLocation"
@@ -147,17 +147,17 @@
                     android:layout_height="wrap_content"
                     android:hint="Location"
                     android:background="@android:drawable/edit_text"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="24dp" />
 
                 <Button
                     android:id="@+id/btnConflictStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
                     android:backgroundTint="#2DA72D"
                     android:text="Check Conflict ▼"
                     android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
+                    android:textSize="18sp"
+                    android:layout_marginBottom="12dp" />
 
                 <Button
                     android:id="@+id/btnScheduleExam"
@@ -166,7 +166,7 @@
                     android:backgroundTint="#990100"
                     android:text="Schedule Exam"
                     android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

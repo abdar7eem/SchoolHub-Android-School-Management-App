@@ -43,6 +43,7 @@ public class TeacherNotificationFragment extends Fragment {
     private int teacherId; // Replace with actual logged-in teacher ID
     private final String baseUrl = LoginActivity.baseUrl;
     private final String CHANNEL_ID = "schoolhub_notifications";
+    private int userId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +52,7 @@ public class TeacherNotificationFragment extends Fragment {
 
         if (getArguments() != null) {
             teacherId = getArguments().getInt("teacher_id", -1);
+            userId = getArguments().getInt("user_id", -1);
         } else {
             teacherId = -1;
         }
@@ -78,7 +80,7 @@ public class TeacherNotificationFragment extends Fragment {
     }
 
     private void fetchNotifications(String filter) {
-        String url = baseUrl + "get_notifications.php?user_id=" + teacherId + "&filter=" + filter;
+        String url = baseUrl + "get_notifications.php?user_id=" + userId + "&filter=" + filter;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {

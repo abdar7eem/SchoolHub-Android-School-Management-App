@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.android.volley.Request;
 import com.android.volley.toolbox.*;
 import com.example.schoolhub.Model.ClassInfo;
+import com.example.schoolhub.Model.NotificationHelper;
 import com.example.schoolhub.Model.SubjectInfo;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Registration.LoginActivity;
@@ -31,6 +32,7 @@ public class TeacherScheduleExamFragment extends Fragment {
     int selectedClassId, selectedSubjectId;
     private final String baseUrl = LoginActivity.baseUrl;
     int teacherId;
+    int userId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class TeacherScheduleExamFragment extends Fragment {
 
         if (getArguments() != null) {
             teacherId = getArguments().getInt("teacher_id", -1);
+            userId = getArguments().getInt("user_id", -1);
         } else {
             teacherId = -1;
         }
@@ -71,7 +74,7 @@ public class TeacherScheduleExamFragment extends Fragment {
         spinnerSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 SubjectInfo selected = (SubjectInfo) spinnerSubject.getSelectedItem();
-                selectedSubjectId = selected.id;
+                selectedSubjectId = selected.getId();
             }
 
             public void onNothingSelected(AdapterView<?> parent) {}
@@ -161,7 +164,7 @@ public class TeacherScheduleExamFragment extends Fragment {
             String[] timeParts = timeStr.split(":");
 
             int year = Integer.parseInt(dateParts[0]);
-            int month = Integer.parseInt(dateParts[1]) - 1; // Month is 0-based
+            int month = Integer.parseInt(dateParts[1]) - 1;
             int day = Integer.parseInt(dateParts[2]);
             int hour = Integer.parseInt(timeParts[0]);
             int minute = Integer.parseInt(timeParts[1]);
@@ -232,9 +235,20 @@ public class TeacherScheduleExamFragment extends Fragment {
                     if (response.optString("status").equals("success")) {
                         Toast.makeText(getContext(), "Exam scheduled successfully", Toast.LENGTH_SHORT).show();
                     } else {
-                        Log.e("BTN error", response.toString());
+                        Log.e("ScheduleError", response.toString());
                         Toast.makeText(getContext(), "Error: " + response.optString("error"), Toast.LENGTH_SHORT).show();
                     }
+
+                    // Send notification
+                    NotificationHelper.sendNotification(
+                            getContext(),
+                            examTitle,
+                            "You have an exam in " + date,
+                            "class",
+                            userId,
+                            -1,
+                            classId
+                    );
                 },
                 error -> {
                     error.printStackTrace();
@@ -253,7 +267,7 @@ public class TeacherScheduleExamFragment extends Fragment {
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONObject obj = response.getJSONObject(i);
-                            classList.add(new ClassInfo(obj.getInt("id"), obj.getString("class_name"), "", ""));
+                            classList.add(new ClassInfo(obj.getInt("id"), obj.getString("class_name")));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

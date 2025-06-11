@@ -41,6 +41,7 @@ public class TeacherSendAssignmentFragment extends Fragment {
     String fileName;
     String baseUrl = LoginActivity.baseUrl;
     int teacherId ;
+    int userId;
 
     List<ClassInfo> classList = new ArrayList<>();
 
@@ -59,6 +60,7 @@ public class TeacherSendAssignmentFragment extends Fragment {
 
         if (getArguments() != null) {
             teacherId = getArguments().getInt("teacher_id", -1);
+            userId = getArguments().getInt("user_id", -1);
         } else {
             teacherId = -1;
         }
@@ -241,10 +243,10 @@ public class TeacherSendAssignmentFragment extends Fragment {
 
                         NotificationHelper.sendNotification(
                                 getContext(),
-                                "New Assignment",
-                                "Assignment: " + titleInput.getText().toString(),
-                                "class", // or "student"
-                                teacherId,
+                                titleInput.getText().toString(),
+                                descInput.getText().toString(),
+                                "class",
+                                userId,
                                 -1,
                                 ((ClassInfo) spnClasses.getSelectedItem()).id
                         );
@@ -277,8 +279,6 @@ public class TeacherSendAssignmentFragment extends Fragment {
         }
     }
 
-
-    // ClassInfo model
     public static class ClassInfo {
         public int id;
         public String name;
