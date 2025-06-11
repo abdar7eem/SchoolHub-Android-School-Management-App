@@ -9,10 +9,6 @@
 
 
 
-    <!-- Title -->
-
-    <!-- Form Container -->
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -42,7 +38,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title">
 
-        <!-- Input Fields -->
         <Spinner
             android:id="@+id/spnAcademicStage"
             android:layout_width="match_parent"

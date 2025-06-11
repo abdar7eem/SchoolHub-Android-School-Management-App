@@ -8,8 +8,6 @@
     android:background="#E8ECEF">
 
 
-    <!-- Title -->
-    <!-- Form Container -->
 
     <TextView
         android:id="@+id/title"
@@ -39,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title">
 
-        <!-- Input Fields -->
+
         <EditText
             android:id="@+id/edtTeacherName"
             android:layout_width="match_parent"

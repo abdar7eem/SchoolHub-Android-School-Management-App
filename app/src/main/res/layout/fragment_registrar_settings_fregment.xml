@@ -8,10 +8,6 @@
     android:background="#E8ECEF"
     tools:context=".Registrar.RegistrarSettingsFregment">
 
-    <!-- Settings Icon -->
-
-    <!-- Title -->
-
     <ImageView
         android:id="@+id/imgSetting"
         android:layout_width="35dp"
@@ -38,7 +34,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0" />
 
-    <!-- Profile + Actions Container -->
     <LinearLayout
         android:id="@+id/llBackground"
         android:layout_width="0dp"
@@ -54,9 +49,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtTitle"
         app:layout_constraintVertical_bias="0.158">
-
-        <!-- Card with Profile Info -->
-        <!-- You can keep the original layout inside this card. Just fix image height -->
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -150,7 +142,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Empty Cards -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

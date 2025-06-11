@@ -4,5 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
+    <string name="your_room_is_304">Your Room is 304</string>
+    <string name="ascending">Ascending</string>
+    <string name="descending">Descending</string>
 
 </resources>

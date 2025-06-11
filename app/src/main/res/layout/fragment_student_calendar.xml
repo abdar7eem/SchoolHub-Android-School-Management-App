@@ -8,14 +8,6 @@
     android:background="#E8ECEF"
     tools:context=".Student.StudentCalendarFragment">
 
-    <!-- Title -->
-
-    <!-- Filter Buttons Container -->
-
-    <!-- Background Bar (Optional) -->
-
-    <!-- ListView -->
-
     <ListView
         android:id="@+id/lstBooks"
         android:layout_width="376dp"

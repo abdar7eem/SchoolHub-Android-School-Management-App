@@ -9,8 +9,6 @@
     tools:context=".Student.StudentLeaderboardFragment">
 
 
-    <!-- Title -->
-
 
     <TextView
         android:id="@+id/txtTitle"
@@ -87,7 +85,6 @@
         app:layout_constraintTop_toBottomOf="@+id/spnSubject"
         app:layout_constraintVertical_bias="0.0">
 
-        <!-- First Place Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -111,7 +108,6 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <!-- First Place Card -->
                     <TextView
                         android:id="@+id/card1_name"
                         android:layout_width="wrap_content"
@@ -136,7 +132,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Second Place Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -159,7 +154,6 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <!-- Second Place Card -->
                     <TextView
                         android:id="@+id/card2_name"
                         android:layout_width="wrap_content"
@@ -184,7 +178,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Third Place Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -206,7 +199,6 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <!-- Third Place Card -->
                     <TextView
                         android:id="@+id/card3_name"
                         android:layout_width="wrap_content"

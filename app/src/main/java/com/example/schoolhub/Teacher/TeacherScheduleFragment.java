@@ -25,7 +25,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.schoolhub.Model.Schedule;
 import com.example.schoolhub.R;
 import com.example.schoolhub.Registration.LoginActivity;
-import com.example.schoolhub.Student.Adapter.ScheduleAdapter;
 import com.example.schoolhub.Teacher.Adapter.TeacherSchedualAdapter;
 
 import org.json.JSONException;
@@ -62,12 +61,20 @@ public class TeacherScheduleFragment extends Fragment {
         }
 
         initViews();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            fetchSchedule();
-        } else {
-            Toast.makeText(getContext(), "Android O or higher is required.", Toast.LENGTH_SHORT).show();
-        }
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (isAdded()) {
+                fetchSchedule();
+            }
+        } else {
+            Toast.makeText(requireContext(), "Android O or higher is required.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void initViews() {
@@ -78,6 +85,8 @@ public class TeacherScheduleFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchSchedule() {
+        if (!isAdded() || getContext() == null) return;
+
         String url = baseUrl + "get_teacher_schedule.php?id=" + userId;
         Log.d("User ID", String.valueOf(userId));
 
@@ -118,13 +127,15 @@ public class TeacherScheduleFragment extends Fragment {
                 },
                 error -> {
                     Log.e("schedule Error", error.toString());
-                    Toast.makeText(getContext(), "Error: " + error.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), "Error: " + error.toString(), Toast.LENGTH_LONG).show();
                 });
 
         queue.add(request);
     }
 
     private void setupDaySpinner(List<String> days) {
+        if (!isAdded() || getContext() == null) return;
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_spinner_item,

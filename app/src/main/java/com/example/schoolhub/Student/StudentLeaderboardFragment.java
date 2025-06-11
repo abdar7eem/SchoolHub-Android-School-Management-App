@@ -102,14 +102,14 @@ public class StudentLeaderboardFragment extends Fragment {
                             String name = obj != null ? obj.getString("name") : "N/A";
                             String grade = obj != null ? "Grade: " + obj.getInt("obtained") + "/" + obj.getInt("total") : "Grade: -";
 
-                            updateCard(i + 1, name, grade);  // 1: gold, 2: silver, 3: bronze
+                            updateCard(i + 1, name, grade);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },
                 error -> {
-                    // Show error message
+
                 });
 
         Volley.newRequestQueue(requireContext()).add(request);

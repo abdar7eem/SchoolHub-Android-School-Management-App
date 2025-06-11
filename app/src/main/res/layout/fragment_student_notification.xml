@@ -9,7 +9,7 @@
     android:background="#E8ECEF"
     tools:context=".Student.StudentNotificationFragment">
 
-    <!-- Title -->
+
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
@@ -24,7 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Background Bar -->
     <ImageView
         android:id="@+id/imgBack"
         android:layout_width="0dp"
@@ -38,7 +37,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Filter Section -->
     <LinearLayout
         android:id="@+id/filterBar"
         android:layout_width="0dp"
@@ -81,14 +79,14 @@
                     android:id="@+id/rbAscending"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ascending"
+                    android:text="@string/ascending"
                     />
 
                 <RadioButton
                     android:id="@+id/rbDescending"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Descending"
+                    android:text="@string/descending"
                      />
 
                 <RadioButton
@@ -102,7 +100,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Notification List -->
     <ListView
         android:id="@+id/lstBooks"
         android:layout_width="0dp"
