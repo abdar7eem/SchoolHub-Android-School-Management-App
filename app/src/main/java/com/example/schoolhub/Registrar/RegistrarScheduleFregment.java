@@ -233,17 +233,13 @@ public class RegistrarScheduleFregment extends Fragment {
 
     private void checkScheduleConflict() {
         InfoClass selectedClass = (InfoClass) spnClasses.getSelectedItem();
-        Log.e("class name ", selectedClass.getName()+selectedClass.getId());
 
         SubjectInfo selectedSubject = (SubjectInfo) spnSubject.getSelectedItem();
 
-        Log.e("Subject name ", selectedSubject.getName()+selectedClass.getId());
 
         String startTime = convertTime(spnStartTime.getSelectedItem().toString());
-        Log.e("start time", startTime);
 
         String day = txtSelectDays.getText().toString().trim();
-        Log.e("days", day);
 
         if (selectedClass == null || selectedSubject == null || day.isEmpty()) {
             Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
